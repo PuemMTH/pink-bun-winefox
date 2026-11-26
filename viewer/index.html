@@ -39,12 +39,13 @@
           <div>
             <p class="eyebrow">CHARACTER VIEWPORT</p>
             <h1 id="model-name">Pink Bun</h1>
-            <p class="subtitle">ตั้งตัวละครและมุมกล้องแยกแต่ละช่องได้</p>
+            <p class="subtitle">เทียบทุกรูปแบบการขยับ จากมุมเริ่มต้นเดียวกัน</p>
           </div>
           <div class="stage-actions">
             <label class="layout-label" for="layout"
               >ช่องมอง
               <select id="layout" aria-label="จำนวนช่องมอง">
+                <option value="poses" selected>ทุกท่าทาง</option>
                 <option value="1">1 View</option>
                 <option value="2">2 Views</option>
                 <option value="4">4 Views</option>
@@ -77,7 +78,8 @@
           ><button id="reset-camera">รีเซ็ตมุม</button>
         </div>
         <div class="stage-caption">
-          <span>ลากเพื่อหมุน · เลื่อนเพื่อซูม · คลิกขวาเพื่อเลื่อนมุม</span
+          <span id="navigation-hint"
+            >เลื่อนในตารางเพื่อดูทุกท่า · ลากตัวละครเพื่อหมุน</span
           ><span id="fps">WebGL</span>
         </div>
       </section>
@@ -105,7 +107,7 @@
             </button>
           </div>
           <p class="hint">
-            เลือกชื่อเพื่อปรับท่า · ติ๊กเพื่อซ่อน/แสดง · × เพื่อนำออกจากฉาก
+            เลือกชื่อเพื่อดูทุกท่าของตัวนั้น · ติ๊กเพื่อซ่อน/แสดง
           </p>
         </section>
         <section class="panel">
@@ -208,6 +210,8 @@
             อาจต่างจากในเกม
           </p>
           <p>
+            โหมดทุกท่าทางแสดงท่าของตัวละครที่เลือกในตาราง เลื่อนเพื่อดูท่าอื่น
+            ทุกช่องเริ่มจากมุมด้านหน้า เลือกท่าด้านขวาเพื่อดูท่าเดียวเต็มช่อง
             เพิ่มโฟลเดอร์โมเดลที่มี <code>ysm.json</code>
             หรือเลือกโฟลเดอร์รวมเพื่อเปิดหลายตัวละครพร้อมกัน เลือก 1/2/4 Views
             แล้วตั้งตัวละครและมุมในหัวแต่ละช่องได้ ไฟล์จะถูกอ่านในเบราว์เซอร์

@@ -3,6 +3,7 @@ import { OrbitControls } from "./lib/OrbitControls.js";
 import { createCharacter, loadTexture } from "./model.mjs";
 import {
   mainClips,
+  poseClips,
   playback,
   durationOf,
   advance,
@@ -31,6 +32,12 @@ const labels = {
   boat: "นั่งเรือ",
   death: "ล้ม",
   attacked: "ถูกโจมตี",
+  hover_fadeout: "เริ่มลอยตัว",
+  hover: "ลอยตัว",
+  focus: "มองตามเป้า",
+  use_mainhand: "ใช้มือหลัก",
+  use_offhand: "ใช้มือรอง",
+  swing_hand: "แกว่งแขน",
 };
 const angles = {
   front: "ด้านหน้า",
@@ -41,7 +48,11 @@ const angles = {
   free: "อิสระ",
 };
 const models = [],
-  views = [];
+  views = [],
+  poseViews = [];
+const allViews = () => [...views, ...poseViews];
+const gallery = () => $("layout").value === "poses";
+const currentViews = () => (gallery() ? poseViews : views);
 let activeId = null,
   activeView = null,
   nextId = 1,
@@ -50,6 +61,19 @@ let last = performance.now(),
   frames = 0,
   fpsStart = last;
 const selected = () => models.find((model) => model.id === activeId);
+const transportDuration = () => {
+  const model = selected();
+  return !model
+    ? 1
+    : gallery()
+      ? Math.max(
+          ...poseClips(model.character.animations).map((clip) =>
+            durationOf(model, clip),
+          ),
+          1,
+        )
+      : durationOf(model);
+};
 const modelLabel = (model) => `${model.name} #${model.id}`;
 const viewport = $("viewport"),
   scene = new THREE.Scene();
@@ -119,15 +143,18 @@ async function operation(action) {
 }
 
 function activateView(view) {
+  if (!view) return;
   activeView = view;
-  for (const item of views)
+  for (const item of allViews())
     item.pane.classList.toggle("active-pane", item === view);
   document
     .querySelectorAll("[data-view]")
     .forEach((button) =>
       button.classList.toggle("active", button.dataset.view === view.angle),
     );
-  $("active-view-name").textContent = `ช่อง ${views.indexOf(view) + 1}`;
+  $("active-view-name").textContent = view.clip
+    ? labels[view.clip] || view.clip
+    : `ช่อง ${views.indexOf(view) + 1}`;
 }
 function setAngle(view, angle) {
   view.angle = angle;
@@ -165,8 +192,19 @@ function updateProjection(view) {
 function fit(view) {
   const box = new THREE.Box3();
   for (const model of models)
-    if (shownIn(model, view.selection))
-      box.expandByObject(model.character.root);
+    if (shownIn(model, view.selection)) {
+      if (view.clip) {
+        // Include the pose's motion range so low and airborne poses stay in frame.
+        const duration = durationOf(model, view.clip);
+        for (const fraction of [0, 0.25, 0.5, 0.75, 0.999]) {
+          model.character.update(view.clip, duration * fraction, {
+            blink: false,
+          });
+          box.expandByObject(model.character.root);
+        }
+        updatePose(model);
+      } else box.expandByObject(model.character.root);
+    }
   if (box.isEmpty()) {
     box.min.set(-0.5, 0, -0.5);
     box.max.set(0.5, 2, 0.5);
@@ -181,7 +219,7 @@ function fit(view) {
 function resize() {
   const rect = viewport.getBoundingClientRect();
   renderer.setSize(rect.width, rect.height);
-  views.forEach(updateProjection);
+  allViews().forEach(updateProjection);
 }
 new ResizeObserver(resize).observe(viewport);
 function updateViewChoices() {
@@ -198,13 +236,22 @@ function updateViewChoices() {
   }
 }
 function setLayout(count) {
+  const poses = count === "poses";
+  $("layout").value = String(count);
+  const list = poses ? poseViews : views;
+  const model = selected();
+  const clips = poses && model ? poseClips(model.character.animations) : [];
+  if (poses) count = clips.length;
   // Preserve cameras and model assignments when reducing/re-expanding the layout.
-  const previousCount = views.length;
-  while (views.length < count) {
-    const index = views.length,
+  const previousCount = list.length;
+  while (list.length < count) {
+    const index = list.length,
       pane = document.createElement("section");
     pane.className = "view-pane";
-    pane.setAttribute("aria-label", `ช่องมอง ${index + 1}`);
+    pane.setAttribute(
+      "aria-label",
+      poses ? `ท่า ${clips[index]}` : `ช่องมอง ${index + 1}`,
+    );
     const header = document.createElement("div");
     header.className = "pane-header";
     const number = document.createElement("span");
@@ -221,10 +268,15 @@ function setLayout(count) {
     surface.className = "pane-surface";
     surface.tabIndex = 0;
     surface.setAttribute("aria-label", `หมุนและซูมช่อง ${index + 1}`);
+    if (poses) surface.setAttribute("aria-label", `หมุนท่า ${clips[index]}`);
     pane.append(header, surface);
     $("view-panes").append(pane);
     const camera = new THREE.OrthographicCamera(-2, 2, 2, -2, 0.01, 200);
     const controls = new OrbitControls(camera, surface);
+    if (poses) {
+      controls.enableZoom = false; // Wheel scrolls the gallery instead of zooming one card.
+      surface.style.touchAction = "pan-y";
+    }
     Object.assign(controls, {
       enableDamping: true,
       dampingFactor: 0.08,
@@ -242,11 +294,13 @@ function setLayout(count) {
       modelSelect,
       angleSelect,
       selection: "all",
-      angle: ["front", "side", "back", "three"][index],
+      angle: poses ? "front" : ["front", "side", "back", "three"][index],
+      title: number,
+      elapsed: 0,
       height: 2,
       width: 1,
     };
-    views.push(view);
+    list.push(view);
     pane.onpointerdown = () => activateView(view);
     pane.onfocusin = () => activateView(view);
     modelSelect.onchange = () => {
@@ -259,18 +313,36 @@ function setLayout(count) {
       setAngle(view, "free");
     });
   }
-  views.forEach((view, index) => {
-    view.pane.hidden = index >= count;
-    view.controls.enabled = index < count;
+  allViews().forEach((view) => {
+    const index = list.indexOf(view);
+    view.pane.hidden = index < 0 || index >= count;
+    view.controls.enabled = !view.pane.hidden;
   });
-  $("view-panes").dataset.layout = count;
-  document.querySelector(".stage").dataset.layout = count;
+  if (poses)
+    list.slice(0, count).forEach((view, index) => {
+      view.clip = clips[index];
+      view.selection = String(model.id);
+      view.modelSelect.hidden = true;
+      view.title.textContent = labels[view.clip] || view.clip;
+      view.pane.setAttribute("aria-label", `ท่า ${view.title.textContent}`);
+    });
+  $("view-panes").dataset.layout = poses ? "poses" : count;
+  $("navigation-hint").textContent = poses
+    ? "เลื่อนในตารางเพื่อดูทุกท่า · ลากตัวละครเพื่อหมุน"
+    : "ลากเพื่อหมุน · เลื่อนเพื่อซูม · คลิกขวาเพื่อเลื่อนมุม";
+  document.querySelector(".stage").dataset.layout = poses ? "poses" : count;
+  document
+    .querySelectorAll("[data-view], #reset-camera")
+    .forEach((button) => (button.disabled = count === 0));
+  if (!count) activeView = null;
   updateViewChoices();
   activateView(
-    activeView && views.indexOf(activeView) < count ? activeView : views[0],
+    activeView && list.includes(activeView) && !activeView.pane.hidden
+      ? activeView
+      : list[0],
   );
   resize();
-  views.slice(previousCount).forEach(fit);
+  (poses ? list.slice(0, count) : list.slice(previousCount)).forEach(fit);
 }
 async function characterFrom(data) {
   const local = typeof data.texture !== "string",
@@ -400,6 +472,7 @@ function refreshModels() {
     row.append(show, choose, remove);
     $("model-list").append(row);
   }
+  if (gallery()) setLayout("poses");
   refreshInspector();
 }
 function refreshInspector() {
@@ -419,7 +492,7 @@ function refreshInspector() {
     $("more-clips").add(new Option(labels[name] || name, name));
   document.querySelectorAll("[data-clip]").forEach((button) => {
     button.disabled = !animations[button.dataset.clip];
-    const isSelected = button.dataset.clip === model?.clip;
+    const isSelected = !gallery() && button.dataset.clip === model?.clip;
     button.classList.toggle("selected", isSelected);
     button.setAttribute("aria-pressed", String(isSelected));
   });
@@ -428,18 +501,22 @@ function refreshInspector() {
   for (const id of ["play", "timeline", "more-clips"])
     $(id).disabled = !model?.clip;
   $("clip-tag").textContent =
-    model?.clip?.replaceAll("_", " ").toUpperCase() || "—";
-  $("clip-name").textContent =
-    labels[model?.clip] || model?.clip || "ไม่มีแอนิเมชัน";
-  $("more-clips").value = model?.clip || "";
-  $("duration").textContent = model ? durationOf(model).toFixed(2) : "0.00";
-  $("timeline").max = model ? durationOf(model) : 1;
+    gallery() && model
+      ? `${poseClips(animations).length} ท่า`
+      : model?.clip?.replaceAll("_", " ").toUpperCase() || "—";
+  $("clip-name").textContent = gallery()
+    ? "ทุกท่าทาง"
+    : labels[model?.clip] || model?.clip || "ไม่มีแอนิเมชัน";
+  $("more-clips").value = gallery() ? "" : model?.clip || "";
+  $("duration").textContent = model ? transportDuration().toFixed(2) : "0.00";
+  $("timeline").max = transportDuration();
   $("speed").value = model?.rate || 1;
   $("speed-value").textContent = `${model?.rate || 1}×`;
   $("loop").checked = model?.loop ?? true;
   $("blink").checked = model?.blink ?? true;
-  $("expression-note").textContent =
-    model?.clip === "run"
+  $("expression-note").textContent = gallery()
+    ? "เลือกท่าเพื่อดูเต็มช่อง · ปุ่มเล่นและความเร็วใช้กับทุกท่า"
+    : model?.clip === "run"
       ? "สีหน้าตอนวิ่งตามแอนิเมชันของตัวละครที่เลือก"
       : "แอนิเมชันและความเร็วปรับแยกแต่ละตัวละคร";
   updateTransport();
@@ -458,6 +535,7 @@ function selectClip(name) {
   const model = selected();
   if (!model?.character.animations[name]) return;
   Object.assign(model, { clip: name, elapsed: 0, playing: true });
+  if (gallery()) setLayout(1);
   refreshInspector();
 }
 async function bundledData() {
@@ -478,7 +556,12 @@ async function bundledData() {
     texture: "assets/texture.png?v=" + Date.now(),
   };
 }
-$("layout").onchange = (event) => setLayout(Number(event.target.value));
+$("layout").onchange = (event) => {
+  setLayout(
+    event.target.value === "poses" ? "poses" : Number(event.target.value),
+  );
+  refreshInspector();
+};
 document.querySelectorAll("[data-view]").forEach((button) => {
   button.onclick = () => setAngle(activeView, button.dataset.view);
 });
@@ -499,6 +582,10 @@ $("timeline").oninput = (event) => {
   if (model) {
     model.elapsed = Number(event.target.value);
     model.playing = false;
+    if (gallery())
+      for (const view of poseViews)
+        view.elapsed =
+          (model.elapsed / transportDuration()) * durationOf(model, view.clip);
     updateTransport();
   }
 };
@@ -539,7 +626,8 @@ $("grid").onchange = (event) => {
   grid.visible = ground.visible = event.target.checked;
 };
 $("auto-rotate").onchange = (event) => {
-  for (const view of views) view.controls.autoRotate = event.target.checked;
+  for (const view of allViews())
+    view.controls.autoRotate = event.target.checked;
 };
 $("background").onchange = (event) => {
   const light = event.target.value === "light",
@@ -561,7 +649,7 @@ $("capture").onclick = () => {
   link.href = renderer.domElement.toDataURL("image/png");
   link.click();
   render();
-  toast("บันทึกภาพทุกช่องเป็น PNG แล้ว");
+  toast("บันทึกภาพช่องที่มองเห็นเป็น PNG แล้ว");
 };
 $("add-bundled").onclick = () =>
   operation(async () => addModels([await bundledData()]));
@@ -610,7 +698,8 @@ $("model-files").onchange = (event) => {
 };
 function render(capture = false) {
   const rect = viewport.getBoundingClientRect(),
-    background = $("background").value;
+    background = $("background").value,
+    bounds = $("view-panes").getBoundingClientRect();
   renderer.setScissorTest(false);
   renderer.setClearColor(
     background === "light" ? 0xe6e0ed : 0x1b1923,
@@ -618,10 +707,15 @@ function render(capture = false) {
   );
   renderer.clear();
   renderer.setScissorTest(true);
-  for (const view of views)
+  for (const view of currentViews())
     if (!view.pane.hidden) {
       const area = view.surface.getBoundingClientRect();
       if (!area.width || !area.height) continue;
+      const left = Math.max(area.left, bounds.left),
+        right = Math.min(area.right, bounds.right),
+        top = Math.max(area.top, bounds.top),
+        bottom = Math.min(area.bottom, bounds.bottom);
+      if (right <= left || bottom <= top) continue;
       renderer.setViewport(
         area.left - rect.left,
         rect.bottom - area.bottom,
@@ -629,27 +723,47 @@ function render(capture = false) {
         area.height,
       );
       renderer.setScissor(
-        area.left - rect.left,
-        rect.bottom - area.bottom,
-        area.width,
-        area.height,
+        left - rect.left,
+        rect.bottom - bottom,
+        right - left,
+        bottom - top,
       );
       for (const model of models)
         model.character.root.visible = shownIn(model, view.selection);
+      if (view.clip)
+        selected()?.character.update(view.clip, view.elapsed, {
+          blink: selected().blink,
+        });
       renderer.render(scene, view.camera);
     }
-  for (const model of models) model.character.root.visible = model.visible;
+  for (const model of models) {
+    model.character.root.visible = model.visible;
+    if (gallery()) updatePose(model);
+  }
   renderer.setScissorTest(false);
 }
 function frame(now) {
   const dt = Math.min(0.1, (now - last) / 1000);
   last = now;
+  if (gallery() && selected())
+    for (const view of poseViews) {
+      const clock = { ...selected(), clip: view.clip, elapsed: view.elapsed };
+      advance(clock, dt);
+      view.elapsed = clock.elapsed;
+    }
   for (const model of models) {
-    advance(model, dt);
+    advance(
+      model,
+      dt,
+      gallery() && model === selected()
+        ? transportDuration()
+        : durationOf(model),
+    );
     updatePose(model);
   }
   updateTransport();
-  for (const view of views) if (!view.pane.hidden) view.controls.update();
+  for (const view of currentViews())
+    if (!view.pane.hidden) view.controls.update();
   render();
   frames++;
   if (now - fpsStart > 1000) {
@@ -662,10 +776,10 @@ function frame(now) {
 }
 window.addEventListener("beforeunload", () => {
   models.forEach(dispose);
-  views.forEach((v) => v.controls.dispose());
+  allViews().forEach((v) => v.controls.dispose());
   renderer.dispose();
 });
-setLayout(1);
+setLayout("poses");
 refreshModels();
 requestAnimationFrame(frame);
 operation(async () => addModels([await bundledData()]));

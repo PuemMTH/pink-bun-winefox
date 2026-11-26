@@ -6,6 +6,7 @@ import * as THREE from "../viewer/lib/three.module.min.js";
 import { evaluate, sample, poseFor } from "../viewer/animation.mjs";
 import { cubeGeometry, createCharacter } from "../viewer/model.mjs";
 import {
+  poseClips,
   playback,
   advance,
   shownIn,
@@ -73,6 +74,21 @@ const animations = JSON.parse(
   ),
 );
 const character = createCharacter(data, new THREE.Texture(), animations);
+const galleryClips = poseClips(animations.animations);
+assert.deepEqual(galleryClips.slice(0, 6), [
+  "idle",
+  "walk",
+  "run",
+  "jump",
+  "sneak",
+  "sit",
+]);
+assert.equal(galleryClips.length, new Set(galleryClips).size);
+assert(galleryClips.every((name) => !name.includes("parallel")));
+assert.deepEqual(poseClips({ run: {}, custom_pose: {}, parallel: {} }), [
+  "run",
+  "custom_pose",
+]);
 assert.equal(character.stats.cubes, 292);
 assert.equal(character.stats.triangles, 3504);
 character.update("run", 0.2);
@@ -157,6 +173,14 @@ assert.equal(
 );
 close(actors[1].elapsed, 0);
 actors[0].loop = false;
+const galleryClock = { ...actors[0], elapsed: 0 };
+advance(galleryClock, 1, 30);
+assert.equal(
+  galleryClock.playing,
+  true,
+  "Gallery must continue after a short pose ends",
+);
+close(galleryClock.elapsed, 1);
 advance(actors[0], 100);
 assert.equal(actors[0].playing, false);
 assert.equal(shownIn(actors[0], "all"), true);

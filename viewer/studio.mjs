@@ -3,6 +3,18 @@ export const mainClips = (animations) =>
   Object.keys(animations).filter(
     (name) => !/parallel|^gui$|——|^empty$|\$/.test(name),
   );
+export const poseClips = (animations) =>
+  [
+    ...new Set([
+      "idle",
+      "walk",
+      "run",
+      "jump",
+      "sneak",
+      "sit",
+      ...mainClips(animations),
+    ]),
+  ].filter((name) => animations[name]);
 export function playback(animations) {
   return {
     clip: animations.idle ? "idle" : mainClips(animations)[0] || null,
@@ -13,11 +25,10 @@ export function playback(animations) {
     blink: true,
   };
 }
-export const durationOf = (model) =>
-  Number(model.character.animations[model.clip]?.animation_length) || 1;
-export function advance(model, dt) {
+export const durationOf = (model, clip = model.clip) =>
+  Number(model.character.animations[clip]?.animation_length) || 1;
+export function advance(model, dt, duration = durationOf(model)) {
   if (!model.playing || !model.clip) return;
-  const duration = durationOf(model);
   model.elapsed += dt * model.rate;
   if (model.elapsed >= duration) {
     if (model.loop) model.elapsed %= duration;
