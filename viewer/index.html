@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Pink Bun · Model Studio</title>
+    <meta
+      name="description"
+      content="หมุนดูตัวละคร YSM และทดลองแอนิเมชันจากไฟล์โมเดลจริงในเบราว์เซอร์"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23f5a7ca'/%3E%3Cpath d='M10 13h20v16H10zM5 8h8v8H5zm22 0h8v8h-8z' fill='%235b385d'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="importmap">
+      { "imports": { "three": "./lib/three.module.min.js" } }
+    </script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./"
+        ><span class="brand-icon" aria-hidden="true">▦</span
+        ><span>MODEL <b>STUDIO</b></span></a
+      ><span class="project-pill">Pink Bun / Wine Fox</span>
+      <div class="header-actions">
+        <a
+          href="https://github.com/PuemMTH/pink-bun-winefox"
+          target="_blank"
+          rel="noopener"
+          >GitHub</a
+        ><button id="open-model" class="button quiet">เปิดโมเดล</button
+        ><button id="capture" class="button primary">บันทึก PNG</button>
+      </div>
+    </header>
+    <main class="workspace">
+      <section class="stage" aria-label="พรีวิวตัวละครสามมิติ">
+        <div class="stage-heading">
+          <div>
+            <p class="eyebrow">CHARACTER VIEWPORT</p>
+            <h1 id="model-name">Pink Bun</h1>
+            <p class="subtitle">หมุนดูทุกมุม ลองขยับ แล้วเก็บรายละเอียด</p>
+          </div>
+          <button
+            id="reload"
+            class="icon-button"
+            aria-label="โหลดไฟล์โมเดลใหม่"
+            title="โหลดไฟล์โมเดลใหม่"
+          >
+            ↻
+          </button>
+        </div>
+        <div id="viewport">
+          <div id="loading" role="status">
+            <span class="loader"></span>กำลังเตรียมตัวละคร…
+          </div>
+        </div>
+        <div class="view-toolbar" aria-label="มุมกล้อง">
+          <button data-view="front" class="active">ด้านหน้า</button
+          ><button data-view="side">ด้านข้าง</button
+          ><button data-view="back">ด้านหลัง</button><span></span
+          ><button id="reset-camera">รีเซ็ตมุม</button>
+        </div>
+        <div class="stage-caption">
+          <span>ลากเพื่อหมุน · เลื่อนเพื่อซูม · คลิกขวาเพื่อเลื่อนมุม</span
+          ><span id="fps">WebGL</span>
+        </div>
+      </section>
+      <aside class="inspector">
+        <section class="model-card">
+          <div class="avatar">
+            <img src="assets/preview.png" alt="ตัวละคร Pink Bun" />
+          </div>
+          <div>
+            <p class="eyebrow">CURRENT MODEL</p>
+            <h2 id="model-title">Pink Bun</h2>
+            <p id="model-detail">Wine Fox JK · Custom</p>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="section-title">
+            <h2>แอนิเมชัน</h2>
+            <span class="tag" id="clip-tag">IDLE</span>
+          </div>
+          <div class="animation-grid" id="clip-buttons">
+            <button data-clip="idle" class="selected">ยืน</button
+            ><button data-clip="walk">เดิน</button
+            ><button data-clip="run">วิ่ง</button
+            ><button data-clip="jump">กระโดด</button
+            ><button data-clip="sneak">ย่อ</button
+            ><button data-clip="sit">นั่ง</button>
+          </div>
+          <label class="field-label" for="more-clips">ท่าอื่น ๆ</label
+          ><select id="more-clips">
+            <option value="">เลือกแอนิเมชัน</option>
+          </select>
+          <p id="expression-note" class="hint">
+            กะพริบตาและขยับผมตามแอนิเมชันเดิม
+          </p>
+        </section>
+        <section class="panel playback">
+          <div class="transport">
+            <button id="play" class="play-button" aria-label="หยุดแอนิเมชัน">
+              Ⅱ
+            </button>
+            <div>
+              <strong id="clip-name">ยืน</strong>
+              <p>
+                <span id="time">0.00</span> / <span id="duration">0.00</span> s
+              </p>
+            </div>
+            <label class="switch-label"
+              ><input type="checkbox" id="loop" checked /> เล่นวน</label
+            >
+          </div>
+          <input
+            type="range"
+            id="timeline"
+            min="0"
+            max="1"
+            step="0.001"
+            value="0"
+            aria-label="ตำแหน่งแอนิเมชัน"
+          />
+          <div class="range-title">
+            <label for="speed">ความเร็ว</label
+            ><output id="speed-value">1×</output>
+          </div>
+          <input
+            type="range"
+            id="speed"
+            min="0.1"
+            max="2"
+            step="0.1"
+            value="1"
+          />
+        </section>
+        <section class="panel">
+          <h2>การแสดงผล</h2>
+          <div class="field-row">
+            <label for="material">แสงและพื้นผิว</label
+            ><select id="material">
+              <option value="lit">แสงแบบเกม</option>
+              <option value="flat">สีพื้นผิว</option>
+              <option value="wire">เส้นโครงโมเดล</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <label for="background">ฉากหลัง</label
+            ><select id="background">
+              <option value="dark">Dark studio</option>
+              <option value="light">Light studio</option>
+              <option value="transparent">โปร่งใส</option>
+            </select>
+          </div>
+          <div class="toggles">
+            <label><input type="checkbox" id="grid" checked /> พื้นกริด</label
+            ><label><input type="checkbox" id="blink" checked /> กะพริบตา</label
+            ><label
+              ><input type="checkbox" id="auto-rotate" />หมุนอัตโนมัติ</label
+            >
+          </div>
+        </section>
+        <section class="stats" aria-label="ข้อมูลโมเดล">
+          <div><strong id="bones">—</strong><span>BONES</span></div>
+          <div><strong id="cubes">—</strong><span>CUBES</span></div>
+          <div><strong id="triangles">—</strong><span>TRIANGLES</span></div>
+        </section>
+        <details class="about">
+          <summary>เกี่ยวกับพรีวิวนี้</summary>
+          <p>
+            ใช้ geometry, UV, พื้นผิว และคีย์เฟรมจริงของโมเดล รองรับท่าหลัก
+            กะพริบตา และการขยับผมบางส่วน แสง ฟิสิกส์ผม และการผสมท่าของ YSM
+            อาจต่างจากในเกม
+          </p>
+          <p>
+            เปิดโฟลเดอร์โมเดลที่มี
+            <code>ysm.json</code> เพื่อพรีวิวไฟล์ของคุณได้
+            ไฟล์จะถูกอ่านในเบราว์เซอร์ ไม่ถูกอัปโหลด และยังไม่รองรับไฟล์
+            <code>.ysm</code> ที่เข้ารหัส
+          </p>
+          <p>
+            ฐานโมเดล Wine Fox JK · CC BY-NC-SA 4.0 · Three.js MIT
+            <a
+              href="https://github.com/PuemMTH/pink-bun-winefox/blob/master/ATTRIBUTION.md"
+              target="_blank"
+              rel="noopener"
+              >เครดิตผู้สร้าง</a
+            >
+          </p>
+        </details>
+      </aside>
+    </main>
+    <input id="model-files" type="file" webkitdirectory multiple hidden />
+    <div id="toast" class="toast" role="status" hidden></div>
+    <script type="module" src="app.mjs"></script>
+  </body>
+</html>

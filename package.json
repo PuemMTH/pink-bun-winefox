@@ -13,6 +13,9 @@
     "test": "npm run build && npm run check",
     "dev": "node scripts/dev.cjs",
     "install:model": "npm run build && node scripts/install.cjs",
-    "pack": "npm test && node scripts/pack.cjs"
+    "pack": "npm test && node scripts/pack.cjs",
+    "build:viewer": "npm run build && node scripts/build-viewer.cjs",
+    "viewer": "npm run build:viewer && node scripts/serve-viewer.cjs",
+    "check:viewer": "node scripts/check-viewer.mjs"
   }
 }
