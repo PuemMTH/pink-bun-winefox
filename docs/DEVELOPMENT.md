@@ -29,7 +29,7 @@ Keep the Wine Fox bone names and parent relationships used by the original anima
 
 The skirt follows `DownBody`, with a lining made from three stepped rectangular frames (12 unrotated cubes) and tapered concealed upper thighs. Each lining face uses one texel for flat pixel shading; there are no dense curved panels underneath the skirt. The visible lower thighs, knees, shins, and feet retain their original geometry. The tests sample 83 actual walk/run thigh keyframes against the inner bounds of the generated lining walls. They check geometry numerically; they do not simulate cloth collision or every animation blend.
 
-During sprinting, the outer skirt and its pleat bones retain their assembled pose relative to the hips. This replaces the original clip's independent front lift, side stretch, and back shortening, which separated the panels. The character's running gait and sprint face are unchanged. A geometry regression compares skirt vertices at three exact sprint keyframes against the rest pose and reproduces the original opening before checking the fix.
+During sprinting, the assembled skirt sways gently at the waist: up to 1.2° pitch, 1.8° yaw and 0.8° roll. All pleats and the lining inherit that same motion, replacing the original clip's independent front lift, side stretch and back shortening. The character's running gait and sprint face are unchanged. Geometry checks verify visible but small movement across the sway cycle, no panel separation relative to the common skirt motion, and thigh coverage in the moving lining's coordinate frame.
 
 The bow's geometry and every pivot in its subtree are translated together. This keeps rotation coherent and clears the waistcoat in sampled standing, jumping, sneaking, swimming-idle, and sleeping poses.
 

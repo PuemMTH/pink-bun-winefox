@@ -11,7 +11,7 @@ const original = JSON.parse(
 )["minecraft:geometry"][0].bones;
 const old = Object.fromEntries(original.map((b) => [b.name, b]));
 assert.equal(by.cloth.parent, "DownBody");
-assert.equal(by.CustomSkirtLining.parent, "DownBody");
+assert.equal(by.CustomSkirtLining.parent, "cloth");
 assert.equal(by.CustomSkirtLining.cubes.length, 12);
 for (const q of by.CustomSkirtLining.cubes) {
   assert(!q.rotation, "Lining should use unrotated pixel-style solids");
@@ -67,13 +67,25 @@ function rotate(v, r, p) {
   }
   return [x + p[0], y + p[1], z + p[2]];
 }
-function leaks(b, r) {
+function inverseRotate(v, r, p) {
+  let [x, y, z] = v.map((q, i) => q - p[i]);
+  for (const a of [2, 1, 0]) {
+    const t = (r[a] * Math.PI) / 180,
+      c = Math.cos(t),
+      s = Math.sin(t);
+    if (a === 0) [y, z] = [y * c - z * s, y * s + z * c];
+    if (a === 1) [x, z] = [x * c + z * s, -x * s + z * c];
+    if (a === 2) [x, y] = [x * c - y * s, x * s + y * c];
+  }
+  return [x + p[0], y + p[1], z + p[2]];
+}
+function leaks(b, r, clip, time) {
   let hits = 0;
   for (const q of b.cubes.filter((q) => !q.rotation))
     for (let ix = 0; ix <= 4; ix++)
       for (let iy = 0; iy <= 8; iy++)
         for (let iz = 0; iz <= 4; iz++) {
-          const v = rotate(
+          let v = rotate(
             [
               q.origin[0] + (q.size[0] * ix) / 4,
               q.origin[1] + (q.size[1] * iy) / 8,
@@ -81,6 +93,11 @@ function leaks(b, r) {
             ],
             r,
             b.pivot,
+          );
+          v = inverseRotate(
+            v,
+            keyframeValue(clip.bones.cloth?.rotation, time, [0, 0, 0]),
+            by.cloth.pivot,
           );
           if (v[1] < 16.5 || v[1] > 21) continue;
           const frames = new Map();
@@ -114,11 +131,13 @@ let sampled = 0,
   after = 0;
 for (const anim of ["walk", "run"])
   for (const n of ["LeftLeg", "RightLeg"])
-    for (const entry of Object.values(animations[anim].bones[n].rotation)) {
+    for (const [time, entry] of Object.entries(
+      animations[anim].bones[n].rotation,
+    )) {
       const r = Array.isArray(entry) ? entry : entry.post;
       if (!r || !r.every(Number.isFinite)) continue;
-      before += leaks(old[n], r);
-      after += leaks(by[n], r);
+      before += leaks(old[n], r, animations[anim], Number(time));
+      after += leaks(by[n], r, animations[anim], Number(time));
       sampled++;
     }
 assert(before > 0, "Regression example must reproduce waist clipping");
@@ -133,11 +152,20 @@ const originalRun = JSON.parse(
 function keyframeValue(channel, time, fallback) {
   if (channel === undefined) return fallback;
   if (typeof channel === "number" || Array.isArray(channel)) return channel;
-  const entry = Object.entries(channel).find(
-    ([key]) => Math.abs(Number(key) - time) < 1e-6,
-  );
-  assert(entry, "Expected exact skirt animation keyframe at " + time);
-  return entry[1].post || entry[1];
+  const keys = Object.entries(channel)
+    .map(([key, value]) => [Number(key), value.post || value])
+    .sort((a, b) => a[0] - b[0]);
+  if (time <= keys[0][0]) return keys[0][1];
+  for (let i = 1; i < keys.length; i++)
+    if (time <= keys[i][0]) {
+      const [start, a] = keys[i - 1],
+        [end, b] = keys[i],
+        t = (time - start) / (end - start);
+      return typeof a === "number"
+        ? a + (b - a) * t
+        : a.map((n, axis) => n + (b[axis] - n) * t);
+    }
+  return keys.at(-1)[1];
 }
 const skirtBones = bones.filter((b) => {
   for (let p = b; p; p = by[p.parent]) if (p.name === "cloth") return true;
@@ -159,8 +187,9 @@ function skirtVertex(v, bone, pose, time) {
   return v;
 }
 let runSkirtBefore = 0,
-  runSkirtAfter = 0;
-for (const time of [0, 0.3333, 0.6667])
+  runSkirtAfter = 0,
+  runPanelSeparation = 0;
+for (const time of Object.keys(animations.run.bones.cloth.rotation).map(Number))
   for (const bone of skirtBones)
     for (const q of bone.cubes || []) {
       for (const x of [0, 1])
@@ -170,6 +199,15 @@ for (const time of [0, 0.3333, 0.6667])
             if (q.rotation) rest = rotate(rest, q.rotation, q.pivot);
             const oldPose = skirtVertex(rest, bone, originalRun, time);
             const newPose = skirtVertex(rest, bone, animations.run.bones, time);
+            const relativePose = inverseRotate(
+              newPose,
+              keyframeValue(
+                animations.run.bones.cloth.rotation,
+                time,
+                [0, 0, 0],
+              ),
+              by.cloth.pivot,
+            );
             runSkirtBefore = Math.max(
               runSkirtBefore,
               Math.hypot(...oldPose.map((n, i) => n - rest[i])),
@@ -178,6 +216,10 @@ for (const time of [0, 0.3333, 0.6667])
               runSkirtAfter,
               Math.hypot(...newPose.map((n, i) => n - rest[i])),
             );
+            runPanelSeparation = Math.max(
+              runPanelSeparation,
+              Math.hypot(...relativePose.map((n, i) => n - rest[i])),
+            );
           }
     }
 assert(
@@ -185,16 +227,27 @@ assert(
   "Original sprint must reproduce independent skirt opening",
 );
 assert(
-  runSkirtAfter < 1e-8,
-  "Sprint must keep pleats assembled relative to the hips",
+  runSkirtAfter > 0.05 && runSkirtAfter < 0.5,
+  "Sprint skirt needs a gentle, visible sway",
 );
+assert(
+  runPanelSeparation < 1e-8,
+  "Skirt panels and lining must share the same movement",
+);
+for (const value of Object.values(animations.run.bones.cloth.rotation))
+  assert(
+    value.every((n) => Math.abs(n) <= 2),
+    "Skirt sway must stay within two degrees",
+  );
 for (const n of ["Root", "Head", "LeftArm", "RightArm", "LeftLeg", "RightLeg"])
   assert.deepEqual(
     animations.run.bones[n],
     originalRun[n],
     n + " sprint motion changed",
   );
-console.log(JSON.stringify({ runSkirtBefore, runSkirtAfter }));
+console.log(
+  JSON.stringify({ runSkirtBefore, runSkirtAfter, runPanelSeparation }),
+);
 // Sprint expression uses siblings of the normal iris under the existing blink bones.
 for (const side of ["Left", "Right"]) {
   const n = "CustomRunIris" + side;

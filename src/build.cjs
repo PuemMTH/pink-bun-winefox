@@ -266,6 +266,10 @@ fs.appendFileSync(
   path.join(out, "ADAPTATION.txt"),
   "Revision: sprint skirt panels keep their assembled hip-relative pose instead of lifting, stretching, shifting and shortening independently. Original running gait and facial expression are preserved.\n",
 );
+fs.appendFileSync(
+  path.join(out, "ADAPTATION.txt"),
+  "Revision: added gentle shared sprint skirt sway (1.2-degree pitch, 1.8-degree yaw, 0.8-degree roll); the lining inherits the same movement as all pleats so seams remain joined.\n",
+);
 // Previews are independent of the game installation; they do not mutate model files.
 png.write(path.join(out, "textures/pink_bun.png"), W, H, atlas);
 const preview = require("../scripts/preview.cjs");

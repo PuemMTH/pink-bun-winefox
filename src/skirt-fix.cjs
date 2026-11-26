@@ -38,7 +38,7 @@ module.exports = function fixSkirt(geo, liningUv, animations) {
     }
   const lining = {
     name: "CustomSkirtLining",
-    parent: "DownBody",
+    parent: "cloth",
     pivot: [0, 19.7, 0],
     cubes: [],
   };
@@ -76,9 +76,8 @@ module.exports = function fixSkirt(geo, liningUv, animations) {
     }
   }
   bones.push(lining);
-  // The imported sprint clip lifts the front, stretches the sides and shortens
-  // the back independently. Hold the assembled skirt in its hip-relative bind
-  // pose during sprinting so the pleats stay joined without changing the gait.
+  // Keep the pleats and lining together, with a small shared sway at the waist.
+  // Individual panels still retain their bind transforms so no seams open.
   const run = animations.animations.run.bones;
   for (const b of bones) {
     let parent = b;
@@ -90,5 +89,20 @@ module.exports = function fixSkirt(geo, liningUv, animations) {
       scale: [1, 1, 1],
     };
   }
+  const duration = animations.animations.run.animation_length;
+  const sway = [1.2, 1.8, 0.8]; // pitch, yaw and roll amplitudes in degrees
+  run.cloth.rotation = Object.fromEntries(
+    Array.from({ length: 9 }, (_, i) => {
+      const phase = (i / 8) * Math.PI * 2;
+      return [
+        ((duration * i) / 8).toFixed(4),
+        [
+          sway[0] * Math.cos(phase),
+          sway[1] * Math.sin(phase),
+          sway[2] * Math.cos(phase),
+        ].map((n) => Math.round(n * 10000) / 10000),
+      ];
+    }),
+  );
   return geo;
 };
