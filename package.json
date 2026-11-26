@@ -1,0 +1,18 @@
+{
+  "name": "pink-bun-winefox",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Editable YSM character based on Wine Fox JK, with pink twin buns and a school uniform.",
+  "license": "CC-BY-NC-SA-4.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node src/build.cjs",
+    "check": "node scripts/check.cjs",
+    "test": "npm run build && npm run check",
+    "dev": "node scripts/dev.cjs",
+    "install:model": "npm run build && node scripts/install.cjs",
+    "pack": "npm test && node scripts/pack.cjs"
+  }
+}

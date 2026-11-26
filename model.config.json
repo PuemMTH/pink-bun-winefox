@@ -1,0 +1,20 @@
+{
+  "name": "Pink Bun - Wine Fox Base",
+  "bunScale": 1.15,
+  "bowForwardOffset": 1.5,
+  "colors": {
+    "pink": ["f8bed0", "e99ab7"],
+    "pinkshadow": ["efa8c2", "cf779d"],
+    "navy": ["5665ae", "404d8c"],
+    "vest": ["b98d8c", "aa7c80"],
+    "green": ["45aa87", "278369"],
+    "red": ["d56876", "b93e56"],
+    "white": ["faf6ed", "e5dfdf"],
+    "gold": ["ead8a1", "c7a86f"],
+    "sock": ["53516f", "43415c"],
+    "shoe": ["a77b72", "865e59"],
+    "dark": ["55435d", "443448"],
+    "iris": ["8d355e", "d6657b"],
+    "skin": ["fff0e4", "efd2c8"]
+  }
+}
