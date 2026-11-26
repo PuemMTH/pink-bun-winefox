@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "./lib/OrbitControls.js";
 import { createCharacter, loadTexture } from "./model.mjs";
+import { photoPoseLabels, photoClips, isPhotoPose } from "./photo-poses.mjs";
 import {
   mainClips,
   poseClips,
@@ -38,6 +39,7 @@ const labels = {
   use_mainhand: "ใช้มือหลัก",
   use_offhand: "ใช้มือรอง",
   swing_hand: "แกว่งแขน",
+  ...photoPoseLabels,
 };
 const angles = {
   front: "ด้านหน้า",
@@ -51,7 +53,13 @@ const models = [],
   views = [],
   poseViews = [];
 const allViews = () => [...views, ...poseViews];
-const gallery = () => $("layout").value === "poses";
+const gallery = () => ["poses", "photos"].includes($("layout").value);
+const galleryClips = (animations) =>
+  $("layout").value === "photos"
+    ? photoClips(animations)
+    : poseClips(animations);
+const galleryTitle = () =>
+  $("layout").value === "photos" ? "โพสถ่ายรูป" : "ทุกท่าทาง";
 const currentViews = () => (gallery() ? poseViews : views);
 let activeId = null,
   activeView = null,
@@ -67,7 +75,7 @@ const transportDuration = () => {
     ? 1
     : gallery()
       ? Math.max(
-          ...poseClips(model.character.animations).map((clip) =>
+          ...galleryClips(model.character.animations).map((clip) =>
             durationOf(model, clip),
           ),
           1,
@@ -236,11 +244,11 @@ function updateViewChoices() {
   }
 }
 function setLayout(count) {
-  const poses = count === "poses";
+  const poses = ["poses", "photos"].includes(count);
   $("layout").value = String(count);
   const list = poses ? poseViews : views;
   const model = selected();
-  const clips = poses && model ? poseClips(model.character.animations) : [];
+  const clips = poses && model ? galleryClips(model.character.animations) : [];
   if (poses) count = clips.length;
   // Preserve cameras and model assignments when reducing/re-expanding the layout.
   const previousCount = list.length;
@@ -472,7 +480,12 @@ function refreshModels() {
     row.append(show, choose, remove);
     $("model-list").append(row);
   }
-  if (gallery()) setLayout("poses");
+  if (
+    $("layout").value === "photos" &&
+    !photoClips(selected()?.character.animations || {}).length
+  )
+    setLayout(1);
+  else if (gallery()) setLayout($("layout").value);
   refreshInspector();
 }
 function refreshInspector() {
@@ -500,12 +513,17 @@ function refreshInspector() {
     $(id).disabled = !model;
   for (const id of ["play", "timeline", "more-clips"])
     $(id).disabled = !model?.clip;
+  $("show-photo-poses").disabled = !photoClips(animations).length;
+  $("layout").querySelector('option[value="photos"]').disabled =
+    !photoClips(animations).length;
   $("clip-tag").textContent =
     gallery() && model
-      ? `${poseClips(animations).length} ท่า`
-      : model?.clip?.replaceAll("_", " ").toUpperCase() || "—";
+      ? `${galleryClips(animations).length} ท่า`
+      : isPhotoPose(model?.clip)
+        ? "PHOTO"
+        : model?.clip?.replaceAll("_", " ").toUpperCase() || "—";
   $("clip-name").textContent = gallery()
-    ? "ทุกท่าทาง"
+    ? galleryTitle()
     : labels[model?.clip] || model?.clip || "ไม่มีแอนิเมชัน";
   $("more-clips").value = gallery() ? "" : model?.clip || "";
   $("duration").textContent = model ? transportDuration().toFixed(2) : "0.00";
@@ -515,10 +533,12 @@ function refreshInspector() {
   $("loop").checked = model?.loop ?? true;
   $("blink").checked = model?.blink ?? true;
   $("expression-note").textContent = gallery()
-    ? "เลือกท่าเพื่อดูเต็มช่อง · ปุ่มเล่นและความเร็วใช้กับทุกท่า"
-    : model?.clip === "run"
-      ? "สีหน้าตอนวิ่งตามแอนิเมชันของตัวละครที่เลือก"
-      : "แอนิเมชันและความเร็วปรับแยกแต่ละตัวละคร";
+    ? "เลือกท่าเพื่อดูเต็มช่อง · โพสถ่ายรูปค้างท่าไว้ให้เก็บภาพ"
+    : isPhotoPose(model?.clip)
+      ? "โพสค้างสำหรับถ่ายรูป · หมุนกล้องแล้วบันทึก PNG ได้เลย"
+      : model?.clip === "run"
+        ? "สีหน้าตอนวิ่งตามแอนิเมชันของตัวละครที่เลือก"
+        : "แอนิเมชันและความเร็วปรับแยกแต่ละตัวละคร";
   updateTransport();
 }
 function updateTransport() {
@@ -534,8 +554,12 @@ function updateTransport() {
 function selectClip(name) {
   const model = selected();
   if (!model?.character.animations[name]) return;
-  Object.assign(model, { clip: name, elapsed: 0, playing: true });
+  Object.assign(model, { clip: name, elapsed: 0, playing: !isPhotoPose(name) });
+  updatePose(model);
   if (gallery()) setLayout(1);
+  currentViews()
+    .filter((view) => !view.pane.hidden)
+    .forEach(fit);
   refreshInspector();
 }
 async function bundledData() {
@@ -558,13 +582,27 @@ async function bundledData() {
 }
 $("layout").onchange = (event) => {
   setLayout(
-    event.target.value === "poses" ? "poses" : Number(event.target.value),
+    ["poses", "photos"].includes(event.target.value)
+      ? event.target.value
+      : Number(event.target.value),
   );
+  $("view-panes").scrollTop = 0;
   refreshInspector();
 };
 document.querySelectorAll("[data-view]").forEach((button) => {
   button.onclick = () => setAngle(activeView, button.dataset.view);
 });
+for (const [id, label] of Object.entries(photoPoseLabels)) {
+  const button = document.createElement("button");
+  button.dataset.clip = id;
+  button.textContent = label;
+  $("photo-pose-buttons").append(button);
+}
+$("show-photo-poses").onclick = () => {
+  setLayout("photos");
+  $("view-panes").scrollTop = 0;
+  refreshInspector();
+};
 document.querySelectorAll("[data-clip]").forEach((button) => {
   button.onclick = () => selectClip(button.dataset.clip);
 });

@@ -14,6 +14,8 @@ Open the printed `http://127.0.0.1:4173/` URL. To refresh model assets after edi
 
 ## Features
 
+- Six static photo poses: wave, hands by cheeks, hand on hip, shy clasped hands, hands at chest, and open arms. Use **โพสถ่ายรูป** in the layout selector (or **ดูโพสถ่ายรูปทั้งหมด**) to compare them as cards; click a pose button for a full view. Selection pauses that character automatically, ready for framing and PNG capture. Photo poses keep the eyes open.
+
 - Opens in **ทุกท่าทาง**: a scrollable gallery of every main animation of the selected character, starting with standing, walking, running, jumping, crouching and sitting. Every card starts at the same front camera angle. Each pose plays on its own timeline using the selected character's pause, speed, loop and blink settings. Only cards inside the gallery viewport are drawn; all cards reuse the character's geometry and texture.
 - Add multiple characters without replacing the current scene. Select the character in the sidebar to edit its own animation, speed, loop and blink state; hide, remove or duplicate it independently.
 - Choose **1 / 2 / 4 Views**. Each pane has its own model selector (one character or all visible characters), orbit/zoom controls, and front/side/back/three-quarter/top camera. Switching layouts preserves the existing camera assignments and orbit positions.
@@ -35,6 +37,8 @@ Open the printed `http://127.0.0.1:4173/` URL. To refresh model assets after edi
 
 ## Rendering references
 
+Photo presets are browser-only additions for models with compatible Wine Fox humanoid bone names. They are generated on load, retain the neutral face/visibility settings, and do not change the original animation JSON or installed Minecraft model. Unsupported rigs have disabled photo buttons. The block hands have no individual finger joints, so the greeting pose uses a raised hand.
+
 The installed YSM 2.6.5 JAR loads `ysm-core.dll`/`.so`. Its native renderer is not open-source in the installed package. This is a compatible browser preview, not a copy of that native renderer.
 
 The adapter follows the publicly available GeckoLib 1.20.1 implementation:
@@ -54,6 +58,7 @@ The adapter follows the publicly available GeckoLib 1.20.1 implementation:
 - `app.mjs`: camera, playback, import and PNG export.
 - `model.mjs`: Bedrock geometry and transform adapter.
 - `animation.mjs`: keyframe sampling and Molang subset.
+- `photo-poses.mjs`: pose labels, rig compatibility and static photo rotations. Edit this file to add or adjust photo presets; no model rebuild is required to edit the browser's pose definitions.
 - `studio.mjs`: multi-folder file parsing, independent playback and pane visibility rules.
 - `lib/`: pinned upstream Three.js/OrbitControls files; see `lib/THREE-LICENSE.txt` (MIT).
 

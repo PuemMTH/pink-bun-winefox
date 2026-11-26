@@ -1,5 +1,6 @@
 import * as THREE from "./lib/three.module.min.js";
 import { poseFor } from "./animation.mjs";
+import { makePhotoAnimations } from "./photo-poses.mjs";
 
 const toWorld = ([x = 0, y = 0, z = 0]) =>
   new THREE.Vector3(-x / 16, y / 16, z / 16);
@@ -147,7 +148,11 @@ export function createCharacter(geometryFile, texture, animationFile) {
       triangles += shape.index.count / 3;
     }
   }
-  const animations = animationFile.animations || {};
+  const sourceAnimations = animationFile.animations || {};
+  const animations = {
+    ...sourceAnimations,
+    ...makePhotoAnimations(sourceAnimations, bones.keys()),
+  };
   return {
     root,
     bones,

@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import * as THREE from "../viewer/lib/three.module.min.js";
 import { evaluate, sample, poseFor } from "../viewer/animation.mjs";
 import { cubeGeometry, createCharacter } from "../viewer/model.mjs";
+import { photoClips, makePhotoAnimations } from "../viewer/photo-poses.mjs";
 import {
   poseClips,
   playback,
@@ -73,7 +74,45 @@ const animations = JSON.parse(
     path.join(root, "dist/pink_bun_winefox/animations/main.animation.json"),
   ),
 );
+const sourceBeforePhotoPoses = JSON.stringify(animations);
 const character = createCharacter(data, new THREE.Texture(), animations);
+assert.equal(
+  JSON.stringify(animations),
+  sourceBeforePhotoPoses,
+  "Photo presets must not modify imported animations",
+);
+assert.equal(photoClips(character.animations).length, 6);
+assert.deepEqual(
+  makePhotoAnimations(animations.animations, []),
+  {},
+  "Unsupported rigs must not receive broken poses",
+);
+const photoHands = [];
+for (const clip of photoClips(character.animations)) {
+  character.update(clip, 0, { blink: true });
+  character.root.updateMatrixWorld(true);
+  const hand = character.bones
+    .get("LeftHand")
+    .group.getWorldPosition(new THREE.Vector3());
+  photoHands.push(hand.toArray());
+  const box = new THREE.Box3().setFromObject(character.root);
+  assert(box.min.y > -0.12, `${clip} must keep the feet above the floor`);
+  assert(box.max.y < 4, `${clip} must retain character scale`);
+  assert.equal(character.bones.get("CustomRunIrisLeft").group.scale.x, 0);
+  assert.equal(character.bones.get("LeftEyelid").group.scale.y, 1);
+  character.update(clip, 0.7, { blink: true });
+  character.root.updateMatrixWorld(true);
+  const later = character.bones
+    .get("LeftHand")
+    .group.getWorldPosition(new THREE.Vector3());
+  assert(later.distanceTo(hand) < 1e-6, `${clip} must hold the photo pose`);
+}
+assert(
+  new THREE.Vector3(...photoHands[0]).distanceTo(
+    new THREE.Vector3(...photoHands[2]),
+  ) > 0.3,
+  "Wave and hip presets must be visibly distinct",
+);
 const galleryClips = poseClips(animations.animations);
 assert.deepEqual(galleryClips.slice(0, 6), [
   "idle",
@@ -193,5 +232,5 @@ actors[1].character.update("walk", 0.5); // Disposing one actor cannot invalidat
 assert.equal(actors[1].character.stats.cubes, 292);
 actors[1].character.dispose();
 console.log(
-  "Viewer checks passed: Molang, keyframes, geometry/UVs, multi-folder import, independent actors/playback, per-view visibility and sprint face reset.",
+  "Viewer checks passed: Molang, keyframes, geometry/UVs, multi-folder import, independent actors, six static photo poses, rig compatibility and sprint face reset.",
 );

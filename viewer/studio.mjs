@@ -1,4 +1,5 @@
 // Pure file parsing and playback state, also exercised by check:viewer.
+import { photoClips } from "./photo-poses.mjs";
 export const mainClips = (animations) =>
   Object.keys(animations).filter(
     (name) => !/parallel|^gui$|——|^empty$|\$/.test(name),
@@ -6,6 +7,7 @@ export const mainClips = (animations) =>
 export const poseClips = (animations) =>
   [
     ...new Set([
+      ...photoClips(animations),
       "idle",
       "walk",
       "run",
