@@ -123,6 +123,78 @@ for (const anim of ["walk", "run"])
     }
 assert(before > 0, "Regression example must reproduce waist clipping");
 assert.equal(after, 0, "Upper thighs escape the skirt lining during walk/run");
+// Reproduce sprint opening using the original clip, then compare the assembled
+// skirt's vertices to their hip-relative rest positions across its keyframes.
+const originalRun = JSON.parse(
+  fs.readFileSync(
+    path.join(repo, "vendor/winefox-jk/animations/main.animation.json"),
+  ),
+).animations.run.bones;
+function keyframeValue(channel, time, fallback) {
+  if (channel === undefined) return fallback;
+  if (typeof channel === "number" || Array.isArray(channel)) return channel;
+  const entry = Object.entries(channel).find(
+    ([key]) => Math.abs(Number(key) - time) < 1e-6,
+  );
+  assert(entry, "Expected exact skirt animation keyframe at " + time);
+  return entry[1].post || entry[1];
+}
+const skirtBones = bones.filter((b) => {
+  for (let p = b; p; p = by[p.parent]) if (p.name === "cloth") return true;
+  return false;
+});
+function skirtVertex(v, bone, pose, time) {
+  for (let b = bone; b.name !== "DownBody"; b = by[b.parent]) {
+    const channels = pose[b.name] || {};
+    const scale = keyframeValue(channels.scale, time, [1, 1, 1]);
+    const rotation = keyframeValue(channels.rotation, time, [0, 0, 0]);
+    const position = keyframeValue(channels.position, time, [0, 0, 0]);
+    v = v.map(
+      (n, i) =>
+        b.pivot[i] +
+        (n - b.pivot[i]) * (typeof scale === "number" ? scale : scale[i]),
+    );
+    v = rotate(v, rotation, b.pivot).map((n, i) => n + position[i]);
+  }
+  return v;
+}
+let runSkirtBefore = 0,
+  runSkirtAfter = 0;
+for (const time of [0, 0.3333, 0.6667])
+  for (const bone of skirtBones)
+    for (const q of bone.cubes || []) {
+      for (const x of [0, 1])
+        for (const y of [0, 1])
+          for (const z of [0, 1]) {
+            let rest = q.origin.map((n, i) => n + q.size[i] * [x, y, z][i]);
+            if (q.rotation) rest = rotate(rest, q.rotation, q.pivot);
+            const oldPose = skirtVertex(rest, bone, originalRun, time);
+            const newPose = skirtVertex(rest, bone, animations.run.bones, time);
+            runSkirtBefore = Math.max(
+              runSkirtBefore,
+              Math.hypot(...oldPose.map((n, i) => n - rest[i])),
+            );
+            runSkirtAfter = Math.max(
+              runSkirtAfter,
+              Math.hypot(...newPose.map((n, i) => n - rest[i])),
+            );
+          }
+    }
+assert(
+  runSkirtBefore > 1,
+  "Original sprint must reproduce independent skirt opening",
+);
+assert(
+  runSkirtAfter < 1e-8,
+  "Sprint must keep pleats assembled relative to the hips",
+);
+for (const n of ["Root", "Head", "LeftArm", "RightArm", "LeftLeg", "RightLeg"])
+  assert.deepEqual(
+    animations.run.bones[n],
+    originalRun[n],
+    n + " sprint motion changed",
+  );
+console.log(JSON.stringify({ runSkirtBefore, runSkirtAfter }));
 // Sprint expression uses siblings of the normal iris under the existing blink bones.
 for (const side of ["Left", "Right"]) {
   const n = "CustomRunIris" + side;

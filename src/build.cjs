@@ -167,6 +167,7 @@ for (const b of bones)
   }
 add("Hair", [-0.2, 41.3, 0], [0.35, 1.7, 0.4], "pink", [0, 0, 18]);
 add("Hair", [-0.2, 42.7, 0], [1, 0.3, 0.4], "pink", [0, 0, -15]);
+const animations = read("animations/main.animation.json");
 require("./skirt-fix.cjs")(
   geo,
   Object.fromEntries(
@@ -175,14 +176,10 @@ require("./skirt-fix.cjs")(
       mat("green"),
     ]),
   ),
+  animations,
 );
 by.CustomSkirtLining = bones.find((b) => b.name === "CustomSkirtLining");
-const runFace = require("./run-face.cjs")(
-  geo,
-  read("animations/main.animation.json"),
-  add,
-  mat,
-);
+const runFace = require("./run-face.cjs")(geo, animations, add, mat);
 by.CustomRunFace = runFace.face;
 for (const b of runFace.irises) by[b.name] = b;
 const write = (p, v) =>
@@ -264,6 +261,10 @@ fs.appendFileSync(
 fs.appendFileSync(
   path.join(out, "ADAPTATION.txt"),
   "Revision: replaced the dense curved skirt lining with three stepped rectangular frames (12 unrotated cubes) using flat one-texel face shading.\n",
+);
+fs.appendFileSync(
+  path.join(out, "ADAPTATION.txt"),
+  "Revision: sprint skirt panels keep their assembled hip-relative pose instead of lifting, stretching, shifting and shortening independently. Original running gait and facial expression are preserved.\n",
 );
 // Previews are independent of the game installation; they do not mutate model files.
 png.write(path.join(out, "textures/pink_bun.png"), W, H, atlas);

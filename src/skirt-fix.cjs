@@ -1,5 +1,5 @@
 // Keep skirt motion in the hip frame; the jacket may lean independently while running.
-module.exports = function fixSkirt(geo, liningUv) {
+module.exports = function fixSkirt(geo, liningUv, animations) {
   const bones = geo["minecraft:geometry"][0].bones,
     by = Object.fromEntries(bones.map((b) => [b.name, b]));
   by.cloth.parent = "DownBody";
@@ -76,5 +76,19 @@ module.exports = function fixSkirt(geo, liningUv) {
     }
   }
   bones.push(lining);
+  // The imported sprint clip lifts the front, stretches the sides and shortens
+  // the back independently. Hold the assembled skirt in its hip-relative bind
+  // pose during sprinting so the pleats stay joined without changing the gait.
+  const run = animations.animations.run.bones;
+  for (const b of bones) {
+    let parent = b;
+    while (parent && parent.name !== "cloth") parent = by[parent.parent];
+    if (!parent) continue;
+    run[b.name] = {
+      rotation: [0, 0, 0],
+      position: [0, 0, 0],
+      scale: [1, 1, 1],
+    };
+  }
   return geo;
 };
