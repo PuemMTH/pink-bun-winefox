@@ -2,7 +2,8 @@
   "name": "pink-bun-winefox",
   "version": "0.1.0",
   "private": true,
-  "description": "Editable YSM character based on Wine Fox JK, with pink twin buns and a school uniform.",
+  "description": "Satou Matsuzaka YSM adaptation by puemmth, based on Wine Fox JK.",
+  "author": "puemmth",
   "license": "CC-BY-NC-SA-4.0",
   "engines": {
     "node": ">=22"

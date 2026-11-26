@@ -1,4 +1,6 @@
-# Pink Bun · Wine Fox Base
+# Satou Matsuzaka
+
+เครดิตงานดัดแปลงโมเดล: [puemmth](https://github.com/PuemMTH) · ฐานโมเดล Wine Fox JK
 
 โมเดลตัวละครสำหรับ **Yes Steve Model (YSM)** ดัดแปลงจาก **Wine Fox รุ่นชุดนักเรียน `07_jk`**: ผมชมพูมวยคู่ เสื้อคลุมสีน้ำเงิน เสื้อกั๊กน้ำตาล กระโปรงเขียว และโบแดง พร้อมสีหน้าตาแดงลายก้นหอยตอนวิ่ง
 
@@ -12,7 +14,7 @@
 
 1. ดาวน์โหลด [pink-bun-winefox.zip](downloads/pink-bun-winefox.zip?raw=true)
 2. วาง ZIP ในโฟลเดอร์ `<เกม>/config/yes_steve_model/custom/` โดยไม่ต้องแตกไฟล์
-3. ในเกมใช้ `/ysm model reload` แล้วกด **Y** บน Fabric เพื่อเลือก **Pink Bun - Wine Fox Base**
+3. ในเกมใช้ `/ysm model reload` แล้วกด **Y** บน Fabric เพื่อเลือก **Satou Matsuzaka**
 
 ถ้าเคยติดตั้งแบบโฟลเดอร์อยู่แล้ว ให้ใช้เพียง ZIP หรือโฟลเดอร์อย่างใดอย่างหนึ่ง เพื่อไม่ให้มีโมเดลซ้ำ
 
@@ -70,7 +72,7 @@ npm run install:model -- "C:/path/to/Minecraft/config/yes_steve_model/custom"
 
 ## แก้ตรงไหน
 
-- **สี / ขนาดมวยผม / ระยะโบ:** `model.config.json`
+- **ชื่อ / เครดิต / สี / ขนาดมวยผม / ระยะโบ:** `model.config.json`
 - **รูปร่าง เสื้อผ้า และการประกอบโมเดล:** `src/build.cjs`
 - **แสงเงาของผ้าและการจับคู่ UV:** `src/material-atlas.cjs`
 - **ตาก้นหอยและการสลับสีหน้าตอนวิ่ง:** `src/run-face.cjs`

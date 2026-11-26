@@ -15,6 +15,8 @@ Mod and documentation: [Yes Steve Model](https://modrinth.com/mod/yes-steve-mode
 
 ## Adaptation
 
+**Character:** Satou Matsuzaka. **Adaptation credit:** [puemmth](https://github.com/PuemMTH).
+
 This project changes the hair and outfit palette; removes fox ears, tail, flower and hat geometry; adds pink stepped twin buns and a side ribbon; adds a shaded waistcoat, lapels and buttons; moves the bow forward; adjusts skirt parenting and concealed thighs; adds a skirt lining; and adds a sprint-only spiral-eye expression. Original skin/face texels, core rig, base assets and animation author credits are preserved.
 
 The bun construction follows the stepped crown style found in Wine Fox's JK, New Year, and Hanfu variants; the actual reused geometry is from the bundled JK source. Full modification notes are emitted in the model's `ADAPTATION.txt`.

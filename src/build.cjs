@@ -204,13 +204,13 @@ for (const g of arm["minecraft:geometry"]) {
 write("models/arm.json", arm);
 const meta = read("ysm.json");
 meta.metadata.name = config.name;
-meta.metadata.tips =
-  "School-uniform character adapted from Wine Fox 07_jk. Pink twin buns, red ribbon, navy blazer, green skirt. Original Wine Fox face, rig and animations.";
+meta.metadata.tips = `${config.name}. Adaptation by ${config.author}, based on Wine Fox 07_jk. Pink twin buns, red ribbon, navy blazer, green skirt. Original Wine Fox face, rig and animations.`;
 meta.metadata.authors.push({
-  name: "Custom reference adaptation",
+  name: config.author,
   role: "Geometry and UV material changes",
   comment:
     "Modified Wine Fox 07_jk for the supplied character references. Original authors and license retained.",
+  contact: { GitHub: "https://github.com/PuemMTH" },
 });
 meta.properties.default_texture = "pink_bun";
 meta.files.player.texture = ["textures/pink_bun.png"];
@@ -240,7 +240,8 @@ fs.writeFileSync(
 );
 fs.writeFileSync(
   path.join(out, "ADAPTATION.txt"),
-  "Base: YSM builtin Wine Fox / 07_jk.\nOriginal authors, author links and CC BY-NC-SA 4.0 license preserved in ysm.json.\nLicense: https://creativecommons.org/licenses/by-nc-sa/4.0/\nChanges: removed fox ears, tail, flower and hat geometry; added twin buns and side ribbon; remapped hair, eyes, school uniform, socks and shoes to new procedural material tiles; added waistcoat and lapel details.\nOriginal face and skin texture pixels are packed unchanged beside the new material tiles. Original skeleton, expressions and animations are retained.\nCharacter likeness follows user-supplied references; character rights remain with their respective owners.\n",
+  `Character: ${config.name}\nAdaptation credit: ${config.author}\n` +
+    "Base: YSM builtin Wine Fox / 07_jk.\nOriginal authors, author links and CC BY-NC-SA 4.0 license preserved in ysm.json.\nLicense: https://creativecommons.org/licenses/by-nc-sa/4.0/\nChanges: removed fox ears, tail, flower and hat geometry; added twin buns and side ribbon; remapped hair, eyes, school uniform, socks and shoes to new procedural material tiles; added waistcoat and lapel details.\nOriginal face and skin texture pixels are packed unchanged beside the new material tiles. Original skeleton, expressions and animations are retained.\nCharacter likeness follows user-supplied references; character rights remain with their respective owners.\n",
 );
 fs.appendFileSync(
   path.join(out, "ADAPTATION.txt"),

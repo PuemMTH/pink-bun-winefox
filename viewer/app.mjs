@@ -437,7 +437,7 @@ function refreshModels() {
   $("model-name").textContent =
     models.length > 1
       ? `${models.length} ตัวละคร`
-      : models[0]?.name.replace(" - Wine Fox Base", "") || "Model Studio";
+      : models[0]?.name || "Model Studio";
   for (const model of models) {
     const row = document.createElement("div");
     row.className = "model-row";
@@ -482,7 +482,7 @@ function refreshInspector() {
   $("model-detail").textContent = model?.data.source
     ? "Local model · Browser only"
     : model
-      ? "Wine Fox JK · Custom"
+      ? `ดัดแปลงโดย ${model.data.info?.metadata?.authors?.at(-1)?.name || "puemmth"} · ฐาน Wine Fox JK`
       : "เพิ่มโมเดลเพื่อเริ่มดู";
   $("model-avatar").hidden = !!model?.data.source || !model;
   for (const id of ["bones", "cubes", "triangles"])

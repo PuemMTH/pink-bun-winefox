@@ -28,7 +28,7 @@ Open the printed `http://127.0.0.1:4173/` URL. To refresh model assets after edi
 ## Open and compare characters
 
 1. The default **ทุกท่าทาง** gallery shows all poses of the selected character. Scroll inside the gallery to see the rest. Pick an animation in the sidebar to inspect it in one full pane; choose **ทุกท่าทาง** in the layout selector to return. Scrubbing in gallery mode pauses all cards at the same fraction of their respective clips. PNG export captures the currently visible cards.
-2. Click **เพิ่มโมเดล** and select a model folder, or the parent folder containing several model directories. You can add more folders later. **เพิ่ม Pink Bun** and **ทำสำเนาตัวที่เลือก** also add separate instances for comparing poses.
+2. Click **เพิ่มโมเดล** and select a model folder, or the parent folder containing several model directories. You can add more folders later. **เพิ่ม Satou Matsuzaka** and **ทำสำเนาตัวที่เลือก** also add separate instances for comparing poses.
 3. Pick **2 Views** or **4 Views** near the scene title. At the top of each pane, select the character(s) and camera angle. Drag/zoom inside that pane to adjust its camera independently. On narrow screens, panes stack vertically.
 4. Select a character's name in **ตัวละครในฉาก** to change its animation or playback. Other characters keep playing with their own settings. The bottom camera toolbar applies to the last pane you clicked or focused.
 5. Use the checkbox to hide a character or **×** to remove it from this browser scene. Removal also releases that character's GPU resources. If a pane was assigned to a removed character, it falls back to all remaining visible characters.
