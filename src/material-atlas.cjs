@@ -62,7 +62,10 @@ module.exports = function materials(source, colors) {
           const si = (y * 256 + x) * 4,
             di = ((y + oy) * W + x + ox) * 4,
             l = luminance(si),
-            brightness = Math.max(0.18, Math.min(1.3, Math.pow(l / ref, 0.65)));
+            brightness = Math.max(
+              n === "sleeve" ? 0.42 : 0.18,
+              Math.min(1.3, Math.pow(l / ref, n === "sleeve" ? 2 : 0.65)),
+            );
           for (let k = 0; k < 3; k++) {
             const shade = target[k] * Math.min(1, brightness),
               highlight = Math.max(0, brightness - 1) * 1.8;
@@ -79,6 +82,15 @@ module.exports = function materials(source, colors) {
             t = y / 79;
           for (let k = 0; k < 3; k++)
             pixels[di + k] = Math.round(light[k] * (1 - t) + dark[k] * t);
+          if (n === "green") {
+            const pleat = x % 6 < 2 ? 0.76 : x % 6 < 4 ? 0.96 : 1.05;
+            const tier = Math.floor(y / 8) / 9;
+            for (let k = 0; k < 3; k++)
+              pixels[di + k] = Math.min(
+                255,
+                Math.round((light[k] * (1 - tier) + dark[k] * tier) * pleat),
+              );
+          }
           if (n === "vest") {
             // Broad, stepped light/shadow shapes match the JK fabric treatment, with
             // a fitted waist, shadow below the bow and restrained diagonal folds.

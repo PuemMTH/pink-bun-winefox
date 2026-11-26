@@ -64,13 +64,15 @@ module.exports = function fixSkirt(geo, liningUv, animations) {
     ];
     for (const wall of walls) {
       wall.uv = structuredClone(green);
-      for (const face of Object.values(wall.uv)) {
-        // One texel per face gives the lining the same flat pixel shading as JK solids.
-        face.uv[0] += Math.floor(face.uv_size[0] / 2);
-        face.uv[1] += Math.floor(
-          (1 - (j + 0.5) / bands) * (face.uv_size[1] - 1),
-        );
-        face.uv_size = [1, 1];
+      for (const [name, face] of Object.entries(wall.uv)) {
+        // Carry the same broad pixel pleats through all three lining tiers.
+        const fullHeight = face.uv_size[1];
+        face.uv[1] += ((bands - j - 1) / bands) * fullHeight;
+        face.uv_size[1] = fullHeight / bands;
+        if (name === "up" || name === "down") {
+          face.uv[0] += 1;
+          face.uv_size = [1, 1];
+        }
       }
       lining.cubes.push(wall);
     }
@@ -78,17 +80,19 @@ module.exports = function fixSkirt(geo, liningUv, animations) {
   bones.push(lining);
   // Keep the pleats and lining together, with a small shared sway at the waist.
   // Individual panels still retain their bind transforms so no seams open.
-  const run = animations.animations.run.bones;
-  for (const b of bones) {
+  const skirtBones = bones.filter((b) => {
     let parent = b;
     while (parent && parent.name !== "cloth") parent = by[parent.parent];
-    if (!parent) continue;
-    run[b.name] = {
-      rotation: [0, 0, 0],
-      position: [0, 0, 0],
-      scale: [1, 1, 1],
-    };
-  }
+    return Boolean(parent);
+  });
+  for (const clip of ["run", "jump", "sneak", "sneaking"])
+    for (const b of skirtBones)
+      animations.animations[clip].bones[b.name] = {
+        rotation: [0, 0, 0],
+        position: [0, 0, 0],
+        scale: [1, 1, 1],
+      };
+  const run = animations.animations.run.bones;
   const duration = animations.animations.run.animation_length;
   const sway = [1.2, 1.8, 0.8]; // pitch, yaw and roll amplitudes in degrees
   run.cloth.rotation = Object.fromEntries(
@@ -104,5 +108,16 @@ module.exports = function fixSkirt(geo, liningUv, animations) {
       ];
     }),
   );
+  // The imported crouch rotates the front pleat by -112 degrees. Keep that
+  // panel down and move the whole skirt gently, with the lining following it.
+  const sneak = animations.animations.sneak;
+  sneak.bones.cloth.rotation = Object.fromEntries(
+    Object.entries(run.cloth.rotation).map(([time, rotation]) => [
+      ((Number(time) / duration) * sneak.animation_length).toFixed(4),
+      rotation.map((n) => Math.round(n * 0.4 * 10000) / 10000),
+    ]),
+  );
+  animations.animations.sneaking.bones.cloth.rotation = [2, 0, 0];
+  animations.animations.jump.bones.cloth.rotation = [1.5, 0, 0];
   return geo;
 };

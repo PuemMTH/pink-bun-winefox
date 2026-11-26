@@ -144,11 +144,12 @@ assert(before > 0, "Regression example must reproduce waist clipping");
 assert.equal(after, 0, "Upper thighs escape the skirt lining during walk/run");
 // Reproduce sprint opening using the original clip, then compare the assembled
 // skirt's vertices to their hip-relative rest positions across its keyframes.
-const originalRun = JSON.parse(
+const originalAnimations = JSON.parse(
   fs.readFileSync(
     path.join(repo, "vendor/winefox-jk/animations/main.animation.json"),
   ),
-).animations.run.bones;
+).animations;
+const originalRun = originalAnimations.run.bones;
 function keyframeValue(channel, time, fallback) {
   if (channel === undefined) return fallback;
   if (typeof channel === "number" || Array.isArray(channel)) return channel;
@@ -248,6 +249,104 @@ for (const n of ["Root", "Head", "LeftArm", "RightArm", "LeftLeg", "RightLeg"])
 console.log(
   JSON.stringify({ runSkirtBefore, runSkirtAfter, runPanelSeparation }),
 );
+// Reproduce the imported crouch flap and reject any independently moving pleat.
+const poseChecks = {};
+for (const clip of ["jump", "sneak", "sneaking"]) {
+  const pose = animations[clip].bones;
+  const channel = pose.cloth.rotation;
+  const times = Array.isArray(channel) ? [0] : Object.keys(channel).map(Number);
+  let maxY = -Infinity,
+    originalMaxY = -Infinity,
+    separation = 0;
+  for (const time of times)
+    for (const bone of skirtBones)
+      for (const q of bone.cubes || [])
+        for (const x of [0, 1])
+          for (const y of [0, 1])
+            for (const z of [0, 1]) {
+              let rest = q.origin.map((n, i) => n + q.size[i] * [x, y, z][i]);
+              if (q.rotation) rest = rotate(rest, q.rotation, q.pivot);
+              const moved = skirtVertex(rest, bone, pose, time);
+              const relative = inverseRotate(
+                moved,
+                keyframeValue(channel, time, [0, 0, 0]),
+                by.cloth.pivot,
+              );
+              maxY = Math.max(maxY, moved[1]);
+              originalMaxY = Math.max(
+                originalMaxY,
+                skirtVertex(
+                  rest,
+                  bone,
+                  originalAnimations[clip].bones,
+                  time,
+                )[1],
+              );
+              separation = Math.max(
+                separation,
+                Math.hypot(...relative.map((n, i) => n - rest[i])),
+              );
+            }
+  assert(separation < 1e-8, clip + " separates pleats from their lining");
+  assert(maxY < 22, clip + " flips a skirt panel above the waist");
+  if (clip === "sneaking")
+    assert(originalMaxY > 23, "Original crouch must reproduce the upward flap");
+  for (const n of [
+    "Root",
+    "Head",
+    "UpBody",
+    "DownBody",
+    "LeftArm",
+    "RightArm",
+    "LeftLeg",
+    "RightLeg",
+  ])
+    assert.deepEqual(
+      pose[n],
+      originalAnimations[clip].bones[n],
+      clip + " changed " + n,
+    );
+  poseChecks[clip] = { maxY, originalMaxY, separation };
+}
+console.log(JSON.stringify({ skirtPoses: poseChecks }));
+// Sample the rendered UV regions: sleeves retain navy hue with deeper folds;
+// lining walls carry multiple broad pixel shades rather than one flat texel.
+const atlas = require("./png.cjs").read(
+  path.join(root, "textures/pink_bun.png"),
+);
+function faceColors(face) {
+  const colors = [];
+  for (let y = Math.floor(face.uv[1]); y < face.uv[1] + face.uv_size[1]; y++)
+    for (
+      let x = Math.floor(face.uv[0]);
+      x < face.uv[0] + face.uv_size[0];
+      x++
+    ) {
+      const i = (y * atlas.width + x) * 4;
+      if (atlas.pixels[i + 3] > 128)
+        colors.push([...atlas.pixels.subarray(i, i + 3)]);
+    }
+  return colors;
+}
+const sleeveColors = faceColors(by.LeftArm.cubes[0].uv.north);
+const sleeveLight = sleeveColors.map(
+  ([r, g, b]) => 0.2126 * r + 0.7152 * g + 0.0722 * b,
+);
+assert(
+  sleeveColors.every(([r, g, b]) => b > r && b > g),
+  "Sleeves must keep their navy hue",
+);
+assert(
+  Math.min(...sleeveLight) < Math.max(...sleeveLight) * 0.8,
+  "Sleeve folds lost their contrast",
+);
+for (const q of by.CustomSkirtLining.cubes) {
+  const colors = faceColors(q.uv.north);
+  assert(
+    new Set(colors.map((c) => c.join(","))).size >= 3,
+    "Lining lost its pixel pleat shades",
+  );
+}
 // Sprint expression uses siblings of the normal iris under the existing blink bones.
 for (const side of ["Left", "Right"]) {
   const n = "CustomRunIris" + side;

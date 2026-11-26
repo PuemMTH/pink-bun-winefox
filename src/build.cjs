@@ -17,7 +17,7 @@ const geo = read("models/main.json"),
   by = Object.fromEntries(bones.map((b) => [b.name, b]));
 const png = require("../scripts/png.cjs");
 const source = png.read(path.join(base, "textures/skin.png")).pixels;
-const materials = config.colors;
+const materials = { ...config.colors, sleeve: config.colors.navy };
 const nativeMaterials = require("./material-atlas.cjs")(source, materials),
   { W, H } = nativeMaterials;
 let atlas;
@@ -57,9 +57,9 @@ for (const b of bones) {
     if (/^bow/.test(b.name)) recolor(q, "red");
     if (b.name === "jk" || b.name === "jk2") recolor(q, "navy");
     if (ancestor(b, "cloth")) recolor(q, "green");
-    if (/^(Left|Right)Arm$/.test(b.name)) recolor(q, "navy");
+    if (/^(Left|Right)Arm$/.test(b.name)) recolor(q, "sleeve");
     if (/^(Left|Right)ForeArm$/.test(b.name) && q.origin) {
-      if (q.origin[1] > 18.8) recolor(q, "navy");
+      if (q.origin[1] > 18.8) recolor(q, "sleeve");
       else if (q.origin[1] > 16.8) recolor(q, "white");
     }
     if (/LowerLeg$/.test(b.name)) recolor(q, "sock");
@@ -199,7 +199,7 @@ for (const g of arm["minecraft:geometry"]) {
   for (const b of g.bones)
     for (const q of b.cubes || [])
       if (q.origin && q.origin[1] > 17)
-        recolor(q, q.origin[1] < 19 ? "white" : "navy");
+        recolor(q, q.origin[1] < 19 ? "white" : "sleeve");
 }
 write("models/arm.json", arm);
 const meta = read("ysm.json");
@@ -269,6 +269,10 @@ fs.appendFileSync(
 fs.appendFileSync(
   path.join(out, "ADAPTATION.txt"),
   "Revision: added gentle shared sprint skirt sway (1.2-degree pitch, 1.8-degree yaw, 0.8-degree roll); the lining inherits the same movement as all pleats so seams remain joined.\n",
+);
+fs.appendFileSync(
+  path.join(out, "ADAPTATION.txt"),
+  "Revision: jump and crouch pleats stay assembled with their lining; removed the extreme upward crouch flap; added pixel pleat shadows to the lining and stronger original-pattern navy sleeve shading.\n",
 );
 // Previews are independent of the game installation; they do not mutate model files.
 png.write(path.join(out, "textures/pink_bun.png"), W, H, atlas);
