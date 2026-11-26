@@ -12,7 +12,14 @@ const original = JSON.parse(
 const old = Object.fromEntries(original.map((b) => [b.name, b]));
 assert.equal(by.cloth.parent, "DownBody");
 assert.equal(by.CustomSkirtLining.parent, "DownBody");
-assert.equal(by.CustomSkirtLining.cubes.length, 256);
+assert.equal(by.CustomSkirtLining.cubes.length, 12);
+for (const q of by.CustomSkirtLining.cubes) {
+  assert(!q.rotation, "Lining should use unrotated pixel-style solids");
+  assert(
+    q.size.every((n) => n > 0),
+    "Lining wall must have positive dimensions",
+  );
+}
 for (const n of ["LeftLeg", "RightLeg"]) {
   assert.deepEqual(by[n].pivot, old[n].pivot);
   assert.equal(by[n].cubes[0].origin[1], old[n].cubes[0].origin[1]);
@@ -76,10 +83,29 @@ function leaks(b, r) {
             b.pivot,
           );
           if (v[1] < 16.5 || v[1] > 21) continue;
-          const t = (v[1] - 14.8) / 6.2,
-            rx = 4.8 - t * 0.95,
-            rz = 3.25 - t * 1.05;
-          if ((v[0] / rx) ** 4 + (v[2] / rz) ** 4 > 1.02) hits++;
+          const frames = new Map();
+          for (const wall of by.CustomSkirtLining.cubes) {
+            if (
+              v[1] < wall.origin[1] - 1e-6 ||
+              v[1] > wall.origin[1] + wall.size[1] + 1e-6
+            )
+              continue;
+            const key = wall.origin[1];
+            if (!frames.has(key)) frames.set(key, []);
+            frames.get(key).push(wall);
+          }
+          const covered = [...frames.values()].some((walls) => {
+            const left = Math.min(...walls.map((q) => q.origin[0])) + 0.18;
+            const right =
+              Math.max(...walls.map((q) => q.origin[0] + q.size[0])) - 0.18;
+            const front = Math.min(...walls.map((q) => q.origin[2])) + 0.18;
+            const back =
+              Math.max(...walls.map((q) => q.origin[2] + q.size[2])) - 0.18;
+            return (
+              v[0] >= left && v[0] <= right && v[2] >= front && v[2] <= back
+            );
+          });
+          if (!covered) hits++;
         }
   return hits;
 }

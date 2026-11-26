@@ -261,6 +261,10 @@ fs.appendFileSync(
   path.join(out, "ADAPTATION.txt"),
   "Revision: bow geometry and every bow pivot moved 1.5 model units forward to clear the added vest during animation.\n",
 );
+fs.appendFileSync(
+  path.join(out, "ADAPTATION.txt"),
+  "Revision: replaced the dense curved skirt lining with three stepped rectangular frames (12 unrotated cubes) using flat one-texel face shading.\n",
+);
 // Previews are independent of the game installation; they do not mutate model files.
 png.write(path.join(out, "textures/pink_bun.png"), W, H, atlas);
 const preview = require("../scripts/preview.cjs");

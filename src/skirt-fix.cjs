@@ -43,52 +43,38 @@ module.exports = function fixSkirt(geo, liningUv) {
     cubes: [],
   };
   const green = liningUv || by.FrontClothe.cubes[0].uv;
-  const n = 32,
-    bands = 8,
+  // Three stepped rectangular frames match the block construction of the JK pleats.
+  // The walls overlap at corners, keeping a closed lining with only twelve cubes.
+  const bands = 3,
     bottom = 14.8,
-    top = 21;
-  for (let j = 0; j < bands; j++)
-    for (let i = 0; i < n; i++) {
-      const y = bottom + ((j + 0.5) * (top - bottom)) / bands,
-        t = (y - bottom) / (top - bottom),
-        rx = 4.8 - t * 0.95,
-        rz = 3.25 - t * 1.05;
-      // The original pleats enclose a rounded rectangle, rather than a narrow ellipse.
-      const section = (a) => [
-        Math.sign(Math.sin(a)) * Math.sqrt(Math.abs(Math.sin(a))),
-        Math.sign(Math.cos(a)) * Math.sqrt(Math.abs(Math.cos(a))),
-      ];
-      const a = (2 * Math.PI * (i + 0.5)) / n,
-        [s, c] = section(a),
-        center = [rx * s, y, rz * c];
-      const yaw =
-        (Math.atan2((s * s * s) / rx, (c * c * c) / rz) * 180) / Math.PI;
-      const slope = (-0.95 * s * s - 1.05 * c * c) / (top - bottom);
-      const first = section((2 * Math.PI * i) / n),
-        last = section((2 * Math.PI * (i + 1)) / n);
-      const width =
-          Math.hypot(rx * (last[0] - first[0]), rz * (last[1] - first[1])) *
-          1.12,
-        height = ((top - bottom) / bands) * Math.sqrt(1 + slope * slope) * 1.12;
-      const panelUv = structuredClone(green);
-      for (const face of ["north", "east", "south", "west"]) {
-        const u = panelUv[face],
-          full = u.uv_size[1];
-        u.uv[1] += ((bands - j - 1) / bands) * full;
-        u.uv_size[1] = full / bands;
+    top = 21,
+    thickness = 0.18;
+  for (let j = 0; j < bands; j++) {
+    const t = j / bands,
+      y = bottom + t * (top - bottom);
+    const height = (top - bottom) / bands;
+    const profile = (j + 0.5) / bands;
+    const rx = 4.8 - profile * 0.95,
+      rz = 3.25 - profile * 1.05;
+    const walls = [
+      { origin: [-rx, y, -rz], size: [2 * rx, height, thickness] },
+      { origin: [-rx, y, rz - thickness], size: [2 * rx, height, thickness] },
+      { origin: [-rx, y, -rz], size: [thickness, height, 2 * rz] },
+      { origin: [rx - thickness, y, -rz], size: [thickness, height, 2 * rz] },
+    ];
+    for (const wall of walls) {
+      wall.uv = structuredClone(green);
+      for (const face of Object.values(wall.uv)) {
+        // One texel per face gives the lining the same flat pixel shading as JK solids.
+        face.uv[0] += Math.floor(face.uv_size[0] / 2);
+        face.uv[1] += Math.floor(
+          (1 - (j + 0.5) / bands) * (face.uv_size[1] - 1),
+        );
+        face.uv_size = [1, 1];
       }
-      lining.cubes.push({
-        origin: [
-          center[0] - width / 2,
-          center[1] - height / 2,
-          center[2] - 0.07,
-        ],
-        size: [width, height, 0.14],
-        pivot: center,
-        rotation: [(-Math.atan(slope) * 180) / Math.PI, -yaw, 0],
-        uv: panelUv,
-      });
+      lining.cubes.push(wall);
     }
+  }
   bones.push(lining);
   return geo;
 };

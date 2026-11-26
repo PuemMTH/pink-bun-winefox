@@ -27,7 +27,7 @@ For automatic game copies, configure `local.config.json` and run `npm run dev --
 
 Keep the Wine Fox bone names and parent relationships used by the original animations. Custom sprint irises are siblings of the normal iris bones under the original eyelids, preserving blinking. Main animation clips control visibility: `run` shows the spiral pupils and neutral mouth; other main states restore the normal face. Parallel blink animations do not own this visibility.
 
-The skirt follows `DownBody`, with a continuous lining and tapered concealed upper thighs. The visible lower thighs, knees, shins, and feet retain their original geometry. The tests sample 83 actual walk/run thigh keyframes against the lining envelope. They check geometry numerically; they do not simulate cloth collision or every animation blend.
+The skirt follows `DownBody`, with a lining made from three stepped rectangular frames (12 unrotated cubes) and tapered concealed upper thighs. Each lining face uses one texel for flat pixel shading; there are no dense curved panels underneath the skirt. The visible lower thighs, knees, shins, and feet retain their original geometry. The tests sample 83 actual walk/run thigh keyframes against the inner bounds of the generated lining walls. They check geometry numerically; they do not simulate cloth collision or every animation blend.
 
 The bow's geometry and every pivot in its subtree are translated together. This keeps rotation coherent and clears the waistcoat in sampled standing, jumping, sneaking, swimming-idle, and sleeping poses.
 
