@@ -29,7 +29,7 @@
           target="_blank"
           rel="noopener"
           >GitHub</a
-        ><button id="open-model" class="button quiet">เปิดโมเดล</button
+        ><button id="open-model" class="button quiet">เพิ่มโมเดล</button
         ><button id="capture" class="button primary">บันทึก PNG</button>
       </div>
     </header>
@@ -39,23 +39,38 @@
           <div>
             <p class="eyebrow">CHARACTER VIEWPORT</p>
             <h1 id="model-name">Pink Bun</h1>
-            <p class="subtitle">หมุนดูทุกมุม ลองขยับ แล้วเก็บรายละเอียด</p>
+            <p class="subtitle">ตั้งตัวละครและมุมกล้องแยกแต่ละช่องได้</p>
           </div>
-          <button
-            id="reload"
-            class="icon-button"
-            aria-label="โหลดไฟล์โมเดลใหม่"
-            title="โหลดไฟล์โมเดลใหม่"
-          >
-            ↻
-          </button>
+          <div class="stage-actions">
+            <label class="layout-label" for="layout"
+              >ช่องมอง
+              <select id="layout" aria-label="จำนวนช่องมอง">
+                <option value="1">1 View</option>
+                <option value="2">2 Views</option>
+                <option value="4">4 Views</option>
+              </select>
+            </label>
+            <button
+              id="reload"
+              class="icon-button"
+              aria-label="โหลดตัวละครที่เลือกใหม่"
+              title="โหลดตัวละครที่เลือกใหม่"
+            >
+              ↻
+            </button>
+          </div>
         </div>
         <div id="viewport">
           <div id="loading" role="status">
             <span class="loader"></span>กำลังเตรียมตัวละคร…
           </div>
+          <div id="view-panes"></div>
+          <p id="empty" hidden>
+            เพิ่มโมเดล หรือเลือก “เพิ่ม Pink Bun” เพื่อเริ่มดู
+          </p>
         </div>
         <div class="view-toolbar" aria-label="มุมกล้อง">
+          <strong id="active-view-name">ช่อง 1</strong>
           <button data-view="front" class="active">ด้านหน้า</button
           ><button data-view="side">ด้านข้าง</button
           ><button data-view="back">ด้านหลัง</button><span></span
@@ -68,7 +83,7 @@
       </section>
       <aside class="inspector">
         <section class="model-card">
-          <div class="avatar">
+          <div class="avatar" id="model-avatar">
             <img src="assets/preview.png" alt="ตัวละคร Pink Bun" />
           </div>
           <div>
@@ -76,6 +91,22 @@
             <h2 id="model-title">Pink Bun</h2>
             <p id="model-detail">Wine Fox JK · Custom</p>
           </div>
+        </section>
+        <section class="panel characters-panel">
+          <div class="section-title">
+            <h2>ตัวละครในฉาก</h2>
+            <span class="tag" id="model-count">0</span>
+          </div>
+          <div id="model-list" aria-label="รายการตัวละคร"></div>
+          <div class="model-actions">
+            <button id="add-bundled" class="button">เพิ่ม Pink Bun</button>
+            <button id="duplicate-model" class="button">
+              ทำสำเนาตัวที่เลือก
+            </button>
+          </div>
+          <p class="hint">
+            เลือกชื่อเพื่อปรับท่า · ติ๊กเพื่อซ่อน/แสดง · × เพื่อนำออกจากฉาก
+          </p>
         </section>
         <section class="panel">
           <div class="section-title">
@@ -97,6 +128,9 @@
           <p id="expression-note" class="hint">
             กะพริบตาและขยับผมตามแอนิเมชันเดิม
           </p>
+          <button id="sync-motion" class="button sync-motion">
+            ใช้ท่านี้กับทุกตัว
+          </button>
         </section>
         <section class="panel playback">
           <div class="transport">
@@ -174,9 +208,10 @@
             อาจต่างจากในเกม
           </p>
           <p>
-            เปิดโฟลเดอร์โมเดลที่มี
-            <code>ysm.json</code> เพื่อพรีวิวไฟล์ของคุณได้
-            ไฟล์จะถูกอ่านในเบราว์เซอร์ ไม่ถูกอัปโหลด และยังไม่รองรับไฟล์
+            เพิ่มโฟลเดอร์โมเดลที่มี <code>ysm.json</code>
+            หรือเลือกโฟลเดอร์รวมเพื่อเปิดหลายตัวละครพร้อมกัน เลือก 1/2/4 Views
+            แล้วตั้งตัวละครและมุมในหัวแต่ละช่องได้ ไฟล์จะถูกอ่านในเบราว์เซอร์
+            ไม่ถูกอัปโหลด และยังไม่รองรับไฟล์
             <code>.ysm</code> ที่เข้ารหัส
           </p>
           <p>

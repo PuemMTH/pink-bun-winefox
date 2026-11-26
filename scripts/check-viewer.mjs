@@ -5,6 +5,12 @@ import { fileURLToPath } from "node:url";
 import * as THREE from "../viewer/lib/three.module.min.js";
 import { evaluate, sample, poseFor } from "../viewer/animation.mjs";
 import { cubeGeometry, createCharacter } from "../viewer/model.mjs";
+import {
+  playback,
+  advance,
+  shownIn,
+  readModelFolders,
+} from "../viewer/studio.mjs";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const close = (actual, expected) =>
   assert(Math.abs(actual - expected) < 1e-6, `${actual} != ${expected}`);
@@ -83,6 +89,85 @@ const mid = poseFor(animations.animations, "walk", 0.5, { blink: false }).get(
 ).rotation;
 assert.notDeepEqual(start, mid, "Walking must change the actual leg pose");
 character.dispose();
+// Two folders may have identical relative file names: never mix their assets.
+const manifest = {
+  files: {
+    player: {
+      model: { main: "model.json" },
+      animation: { main: "motion.json" },
+      texture: [{ uv: "skin.png" }],
+    },
+  },
+};
+const importedFiles = [];
+for (const name of ["Alice", "Bob"]) {
+  for (const [fileName, content] of Object.entries({
+    "ysm.json": JSON.stringify({ ...manifest, metadata: { name } }),
+    "model.json": JSON.stringify(data),
+    "motion.json": JSON.stringify(animations),
+    "skin.png": name,
+  })) {
+    const file = new File([content], fileName);
+    Object.defineProperty(file, "webkitRelativePath", {
+      value: `models/${name}/${fileName}`,
+    });
+    importedFiles.push(file);
+  }
+}
+const imported = await readModelFolders(importedFiles);
+assert.deepEqual(
+  imported.map((m) => m.info.metadata.name),
+  ["Alice", "Bob"],
+);
+assert.equal(await imported[0].texture.text(), "Alice");
+assert.equal(await imported[1].texture.text(), "Bob");
+const reloaded = await readModelFolders(
+  importedFiles,
+  imported[1].source.manifest,
+);
+assert.equal(reloaded.length, 1);
+assert.equal(reloaded[0].info.metadata.name, "Bob");
+await assert.rejects(
+  () =>
+    readModelFolders(
+      importedFiles.filter(
+        (f) => !f.webkitRelativePath.endsWith("Bob/skin.png"),
+      ),
+    ),
+  /skin.png/,
+);
+await assert.rejects(() => readModelFolders([]), /ysm.json/);
+const actors = imported.map((m, id) => ({
+  id,
+  visible: true,
+  character: createCharacter(m.geometry, new THREE.Texture(), m.animations),
+  ...playback(m.animations.animations),
+}));
+actors[0].clip = "run";
+advance(actors[0], 0.2);
+actors[0].character.update(actors[0].clip, actors[0].elapsed);
+actors[1].character.update(actors[1].clip, actors[1].elapsed);
+assert.equal(
+  actors[0].character.bones.get("CustomRunIrisLeft").group.scale.x,
+  1,
+);
+assert.equal(
+  actors[1].character.bones.get("CustomRunIrisLeft").group.scale.x,
+  0,
+);
+close(actors[1].elapsed, 0);
+actors[0].loop = false;
+advance(actors[0], 100);
+assert.equal(actors[0].playing, false);
+assert.equal(shownIn(actors[0], "all"), true);
+assert.equal(shownIn(actors[0], "0"), true);
+assert.equal(shownIn(actors[1], "0"), false);
+actors[0].visible = false;
+assert.equal(shownIn(actors[0], "0"), false);
+actors[0].character.dispose();
+actors[1].character.update("walk", 0.5); // Disposing one actor cannot invalidate another.
+assert.equal(actors[1].character.stats.cubes, 292);
+actors[1].character.dispose();
 console.log(
-  "Viewer checks passed: Molang subset, keyframe pre/post, Catmull-Rom, reflected geometry, signed UVs, inflate, walk motion and sprint face reset.",
+  "Viewer checks passed: Molang, keyframes, geometry/UVs, multi-folder import, independent actors/playback, per-view visibility and sprint face reset.",
 );

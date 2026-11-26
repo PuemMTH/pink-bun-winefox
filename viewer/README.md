@@ -14,13 +14,22 @@ Open the printed `http://127.0.0.1:4173/` URL. To refresh model assets after edi
 
 ## Features
 
-- Orbit, zoom, front/side/back camera views.
+- Add multiple characters without replacing the current scene. Select the character in the sidebar to edit its own animation, speed, loop and blink state; hide, remove or duplicate it independently.
+- Choose **1 / 2 / 4 Views**. Each pane has its own model selector (one character or all visible characters), orbit/zoom controls, and front/side/back/three-quarter/top camera. Switching layouts preserves the existing camera assignments and orbit positions.
 - Real YSM/Bedrock bone hierarchy, cube pivots, per-face UVs, nearest-neighbor pixels and inflate.
 - Standing, walking, sprinting, jumping, crouching, sitting and other main clips from the actual animation file.
 - Pre-parallel sway and blink layers; sprint expression and return to normal face.
-- Pause, timeline scrub, speed control, repeated playback.
+- Pause, timeline scrub, speed control, repeated playback per character. **ใช้ท่านี้กับทุกตัว** copies the selected character's playback settings to characters that contain that clip; unsupported clips are skipped.
 - Texture-only, lit and wireframe views; light/dark/transparent backgrounds.
-- PNG export and local folder import (`ysm.json`, JSON models/animations, PNG textures). Imported files stay in the browser.
+- PNG export of all visible panes in one image (canvas content, without UI controls).
+- Local folder import (`ysm.json`, JSON models/animations, PNG textures). Select one model folder, or a parent folder containing several models to add them together. Namespaced file paths keep models with identical file names separate. Imported files stay in the browser; closing the page clears the scene.
+
+## Open and compare characters
+
+1. Click **เพิ่มโมเดล** and select a model folder, or the parent folder containing several model directories. You can add more folders later. **เพิ่ม Pink Bun** and **ทำสำเนาตัวที่เลือก** also add separate instances for comparing poses.
+2. Pick **2 Views** or **4 Views** near the scene title. At the top of each pane, select the character(s) and camera angle. Drag/zoom inside that pane to adjust its camera independently. On narrow screens, panes stack vertically.
+3. Select a character's name in **ตัวละครในฉาก** to change its animation or playback. Other characters keep playing with their own settings. The bottom camera toolbar applies to the last pane you clicked or focused.
+4. Use the checkbox to hide a character or **×** to remove it from this browser scene. Removal also releases that character's GPU resources. If a pane was assigned to a removed character, it falls back to all remaining visible characters.
 
 ## Rendering references
 
@@ -43,6 +52,7 @@ The adapter follows the publicly available GeckoLib 1.20.1 implementation:
 - `app.mjs`: camera, playback, import and PNG export.
 - `model.mjs`: Bedrock geometry and transform adapter.
 - `animation.mjs`: keyframe sampling and Molang subset.
+- `studio.mjs`: multi-folder file parsing, independent playback and pane visibility rules.
 - `lib/`: pinned upstream Three.js/OrbitControls files; see `lib/THREE-LICENSE.txt` (MIT).
 
 The model's Wine Fox credits and CC BY-NC-SA license continue to apply to the character assets. Three.js and OrbitControls retain their separate MIT license.
