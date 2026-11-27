@@ -22,6 +22,10 @@
 
 ## เริ่มพัฒนา
 
+### JavaScript rendering core
+
+มี ES module แยกจาก UI สำหรับเรนเดอร์ใน browser บน static hosting/GitHub Pages: `loadModel()`, `createRenderer()`, `render()`, `toBlob()` และการโหลดโฟลเดอร์จากเครื่อง ใช้ `node renderer/javascript/build.cjs` เพื่อสร้าง package พร้อม core/Three.js ใน `dist/javascript/` ดู [JavaScript API](renderer/javascript/README.md)
+
 ### Python rendering core
 
 แยกตัวเรนเดอร์เป็น Python package ที่ import โมเดลแล้วสร้างภาพด้วยพารามิเตอร์ได้ ไม่ต้องเปิดเว็บหรือเกม รองรับโฟลเดอร์/ZIP ของ YSM, ท่าและคีย์เฟรมจริง, มุมกล้อง, ฉากโปร่งใส และการปรับกระดูก อ่าน [API และตัวอย่าง](renderer/python/README.md)

@@ -15,6 +15,9 @@ jobs:
       - run: npm run pack
       - run: node scripts/build-viewer.cjs
       - run: npm run check:viewer
+      - run: node renderer/javascript/build.cjs
+      - run: node renderer/javascript/check.mjs
+      - run: npm pack ./dist/javascript --pack-destination dist
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -36,3 +39,7 @@ jobs:
         with:
           name: ysm-render-python
           path: dist/python/*.whl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ysm-render-javascript
+          path: dist/ysm-render-js-*.tgz

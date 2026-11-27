@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="th">
+  <meta charset="utf-8" /><title>JS renderer core example</title>
+  <style>
+    body {
+      background: #eee7f2;
+      font: 16px system-ui;
+      text-align: center;
+    }
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
+    output {
+      display: block;
+    }
+  </style>
+  <h1>JavaScript renderer · standalone API</h1>
+  <canvas id="character"></canvas
+  ><output id="status">Loading…</output>
+  <script type="module">
+    import { loadModel, createRenderer } from "./index.mjs";
+    try {
+      const model = await loadModel({
+        geometry: "../viewer/assets/model.json",
+        texture: "../viewer/assets/texture.png",
+        animations: "../viewer/assets/animations.json",
+        info: "../viewer/assets/info.json",
+      });
+      const renderer = createRenderer({
+        canvas: document.querySelector("canvas"),
+      });
+      renderer.render(model, {
+        animation: "studio_photo_cheeks",
+        width: 512,
+        height: 768,
+        yaw: 15,
+        background: null,
+      });
+      const png = await renderer.toBlob();
+      if (png.type !== "image/png" || png.size < 1000)
+        throw Error("Invalid PNG output");
+      document.querySelector("output").textContent =
+        `PASS · ${model.stats.cubes} cubes · PNG ${png.size} bytes · no UI dependency`;
+    } catch (error) {
+      document.querySelector("output").textContent = "FAIL · " + error.message;
+      throw error;
+    }
+  </script>
+</html>
