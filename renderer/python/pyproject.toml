@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ysm-render"
+version = "0.1.0"
+description = "Standalone CPU renderer for YSM / Bedrock character models"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24,<3", "Pillow>=10,<14"]
+license = {file = "LICENSE"}
+
+[project.scripts]
+ysm-render = "ysm_render.__main__:main"
+
+[tool.setuptools.package-data]
+ysm_render = ["photo_poses.json"]
+
+[tool.setuptools.packages.find]
+include = ["ysm_render*"]

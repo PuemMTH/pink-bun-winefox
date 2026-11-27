@@ -1,0 +1,473 @@
+{
+  "studio_photo_wave": {
+    "label": "ยกมือทักทาย",
+    "bones": {
+      "UpperBody": {
+        "rotation": [
+          0,
+          -10,
+          2
+        ]
+      },
+      "Head": {
+        "rotation": [
+          0,
+          10,
+          -6
+        ]
+      },
+      "LeftArm": {
+        "rotation": [
+          15,
+          -50,
+          -97
+        ]
+      },
+      "LeftForeArm": {
+        "rotation": [
+          -85,
+          0,
+          0
+        ]
+      },
+      "RightArm": {
+        "rotation": [
+          15,
+          -60,
+          27
+        ]
+      },
+      "RightForeArm": {
+        "rotation": [
+          -100,
+          0,
+          0
+        ]
+      },
+      "LeftLeg": {
+        "rotation": [
+          0,
+          0,
+          -2
+        ]
+      },
+      "RightLeg": {
+        "rotation": [
+          6,
+          0,
+          3
+        ]
+      },
+      "RightLowerLeg": {
+        "rotation": [
+          18,
+          0,
+          0
+        ]
+      },
+      "LeftEyelid": {
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "RightEyelid": {
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "studio_photo_cheeks": {
+    "label": "มือแนบแก้ม",
+    "bones": {
+      "UpperBody": {
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "Head": {
+        "rotation": [
+          0,
+          0,
+          5
+        ]
+      },
+      "LeftArm": {
+        "rotation": [
+          -20,
+          -40,
+          -42
+        ]
+      },
+      "LeftForeArm": {
+        "rotation": [
+          -125,
+          0,
+          0
+        ]
+      },
+      "RightArm": {
+        "rotation": [
+          -20,
+          40,
+          42
+        ]
+      },
+      "RightForeArm": {
+        "rotation": [
+          -125,
+          0,
+          0
+        ]
+      },
+      "LeftLeg": {
+        "rotation": [
+          0,
+          0,
+          1
+        ]
+      },
+      "RightLeg": {
+        "rotation": [
+          0,
+          0,
+          -1
+        ]
+      },
+      "LeftEyelid": {
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "RightEyelid": {
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "studio_photo_hip": {
+    "label": "เท้าเอวเอียงตัว",
+    "bones": {
+      "UpperBody": {
+        "rotation": [
+          0,
+          12,
+          -4
+        ]
+      },
+      "Head": {
+        "rotation": [
+          0,
+          -12,
+          7
+        ]
+      },
+      "LeftArm": {
+        "rotation": [
+          15,
+          60,
+          -27
+        ]
+      },
+      "LeftForeArm": {
+        "rotation": [
+          -100,
+          0,
+          0
+        ]
+      },
+      "RightArm": {
+        "rotation": [
+          -5,
+          0,
+          -3
+        ]
+      },
+      "RightForeArm": {
+        "rotation": [
+          -12,
+          0,
+          0
+        ]
+      },
+      "LeftLeg": {
+        "rotation": [
+          0,
+          0,
+          -2
+        ]
+      },
+      "RightLeg": {
+        "rotation": [
+          4,
+          -5,
+          4
+        ]
+      },
+      "RightLowerLeg": {
+        "rotation": [
+          8,
+          0,
+          0
+        ]
+      },
+      "LeftEyelid": {
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "RightEyelid": {
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "studio_photo_shy": {
+    "label": "ประสานมือเขิน",
+    "bones": {
+      "UpperBody": {
+        "rotation": [
+          3,
+          0,
+          2
+        ]
+      },
+      "Head": {
+        "rotation": [
+          7,
+          -8,
+          -7
+        ]
+      },
+      "LeftArm": {
+        "rotation": [
+          -20,
+          60,
+          -12
+        ]
+      },
+      "LeftForeArm": {
+        "rotation": [
+          -45,
+          0,
+          0
+        ]
+      },
+      "RightArm": {
+        "rotation": [
+          -20,
+          -60,
+          12
+        ]
+      },
+      "RightForeArm": {
+        "rotation": [
+          -45,
+          0,
+          0
+        ]
+      },
+      "LeftLeg": {
+        "rotation": [
+          0,
+          -3,
+          1
+        ]
+      },
+      "RightLeg": {
+        "rotation": [
+          0,
+          3,
+          -1
+        ]
+      },
+      "LeftEyelid": {
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "RightEyelid": {
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "studio_photo_chest": {
+    "label": "มือแนบอก",
+    "bones": {
+      "UpperBody": {
+        "rotation": [
+          -2,
+          -5,
+          0
+        ]
+      },
+      "Head": {
+        "rotation": [
+          -3,
+          5,
+          7
+        ]
+      },
+      "LeftArm": {
+        "rotation": [
+          -10,
+          30,
+          -27
+        ]
+      },
+      "LeftForeArm": {
+        "rotation": [
+          -130,
+          0,
+          0
+        ]
+      },
+      "RightArm": {
+        "rotation": [
+          -10,
+          -30,
+          27
+        ]
+      },
+      "RightForeArm": {
+        "rotation": [
+          -130,
+          0,
+          0
+        ]
+      },
+      "LeftLeg": {
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "RightLeg": {
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "LeftEyelid": {
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "RightEyelid": {
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "studio_photo_open": {
+    "label": "กางแขนสดใส",
+    "bones": {
+      "UpperBody": {
+        "rotation": [
+          0,
+          -8,
+          -5
+        ]
+      },
+      "Head": {
+        "rotation": [
+          -3,
+          8,
+          8
+        ]
+      },
+      "LeftArm": {
+        "rotation": [
+          -12,
+          0,
+          -56
+        ]
+      },
+      "LeftForeArm": {
+        "rotation": [
+          -8,
+          0,
+          0
+        ]
+      },
+      "RightArm": {
+        "rotation": [
+          -12,
+          0,
+          56
+        ]
+      },
+      "RightForeArm": {
+        "rotation": [
+          -8,
+          0,
+          0
+        ]
+      },
+      "LeftLeg": {
+        "rotation": [
+          0,
+          0,
+          -3
+        ]
+      },
+      "RightLeg": {
+        "rotation": [
+          6,
+          -5,
+          6
+        ]
+      },
+      "RightLowerLeg": {
+        "rotation": [
+          30,
+          0,
+          0
+        ]
+      },
+      "LeftEyelid": {
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "RightEyelid": {
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  }
+}

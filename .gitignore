@@ -4,3 +4,9 @@ local-backups/
 node_modules/
 *.log
 .DS_Store
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+renderer/python/build/
+/renders/

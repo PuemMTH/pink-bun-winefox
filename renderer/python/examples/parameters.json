@@ -1,0 +1,15 @@
+{
+  "animation": "studio_photo_hip",
+  "time": 0,
+  "width": 768,
+  "height": 1024,
+  "yaw": 20,
+  "pitch": 5,
+  "background": "#eee7f2",
+  "shading": "lit",
+  "supersample": 2,
+  "blink": false,
+  "bone_overrides": {
+    "Head": {"rotation": [0, -10, 6]}
+  }
+}

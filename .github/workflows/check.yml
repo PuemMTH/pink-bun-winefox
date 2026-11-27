@@ -15,6 +15,12 @@ jobs:
       - run: npm run pack
       - run: node scripts/build-viewer.cjs
       - run: npm run check:viewer
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install ./renderer/python
+      - run: python -m unittest discover -s renderer/python/tests -v
+      - run: python -m pip wheel ./renderer/python --no-deps --wheel-dir dist/python
       - uses: actions/upload-artifact@v4
         with:
           name: pink-bun-winefox
@@ -26,3 +32,7 @@ jobs:
         with:
           name: pink-bun-model-studio
           path: dist/viewer/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ysm-render-python
+          path: dist/python/*.whl
