@@ -1,0 +1,146 @@
+{
+  "status": "passed",
+  "renderer": "Cycles / OptiX",
+  "rigs": 2,
+  "rig_dimensions": {
+    "At desk - Character root": [
+      0.7560000419616699,
+      0.7560000419616699,
+      0.7560000419616699
+    ],
+    "On floor - Character root": [
+      0.6229999661445618,
+      0.6229999661445618,
+      0.6229999661445618
+    ]
+  },
+  "pose_preserves_scale": true,
+  "actions": 96,
+  "floor_contacts": {
+    "left_thigh": 0.013999998569488525,
+    "right_thigh": 0.013999998569488525,
+    "left_foot": 0.014003515243530273,
+    "right_foot": 0.013998687267303467
+  },
+  "rug_height": 0.012000000104308128,
+  "screen_count": 10,
+  "floor_monitors": "matching 16:9 panels, individual stands",
+  "case_clearance_y": 1.0763057544827461,
+  "keyboard_count": 2,
+  "phone_count": 1,
+  "packed_file_images": 22,
+  "cameras": 4,
+  "rug": {
+    "width": 4.06,
+    "depth": 2.82,
+    "top_z": 0.012,
+    "supports_reader": true,
+    "supported_chair_wheels": 10
+  },
+  "station": {
+    "floor_display_delta": [
+      0.08,
+      -0.78
+    ],
+    "case_delta": [
+      -0.34,
+      -0.01
+    ],
+    "case_yaw_degrees": 0,
+    "case_foot_contacts": [
+      {
+        "bottom_z": 0.0,
+        "surface": "hardwood"
+      },
+      {
+        "bottom_z": 0.0,
+        "surface": "hardwood"
+      },
+      {
+        "bottom_z": 0.0,
+        "surface": "hardwood"
+      },
+      {
+        "bottom_z": 0.0,
+        "surface": "hardwood"
+      }
+    ],
+    "monitor_stands": {
+      "left": {
+        "surface": "hardwood",
+        "crosses_rug_edge": false,
+        "bottom_z": 0.0
+      },
+      "right": {
+        "surface": "rug",
+        "crosses_rug_edge": false,
+        "bottom_z": 0.012
+      }
+    },
+    "reader_eye_target": [
+      -0.5631,
+      0.48103,
+      0.6647
+    ],
+    "floor_displays": {
+      "left": {
+        "center": [
+          -1.77,
+          -0.3,
+          0.317
+        ],
+        "yaw_degrees": 122.908
+      },
+      "right": {
+        "center": [
+          -1.18,
+          -0.74,
+          0.317
+        ],
+        "yaw_degrees": 153.196
+      }
+    },
+    "keyboard_center": [
+      -1.19,
+      -0.25,
+      0.015
+    ],
+    "keyboard_yaw_degrees": 138.052,
+    "keyboard_mat_top_z": 0.015,
+    "keyboard_bottom_z": 0.015,
+    "keyboard_mat_underside_z": [
+      0.012
+    ],
+    "case_fill_location": [
+      -2.14875,
+      0.9048,
+      0.775
+    ],
+    "usb_cable": {
+      "keyboard_connector": [
+        -1.25618,
+        -0.32363,
+        0.037
+      ],
+      "case_connector": [
+        -2.67833,
+        1.49636,
+        0.09
+      ],
+      "minimum_surface_gap": 0.0011,
+      "minimum_stand_gaps": {
+        "Floor monitor left": 0.05612,
+        "Floor monitor right": 0.15746
+      }
+    }
+  },
+  "reader_view": {
+    "panels_facing_reader": 2,
+    "gap_degrees_between_bezels": 3.05
+  },
+  "hidden_bench": [
+    "Near right upholstered bench",
+    "Near right upright silhouette"
+  ],
+  "devices": "NVIDIA GeForce RTX 5070"
+}

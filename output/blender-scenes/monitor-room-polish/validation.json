@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "renderer": "Cycles / OptiX",
+  "rigs": 2,
+  "rig_dimensions": {
+    "At desk - Character root": [
+      0.7560000419616699,
+      0.7560000419616699,
+      0.7560000419616699
+    ],
+    "On floor - Character root": [
+      0.6229999661445618,
+      0.6229999661445618,
+      0.6229999661445618
+    ]
+  },
+  "pose_preserves_scale": true,
+  "actions": 96,
+  "floor_contacts": {
+    "left_thigh": 0.013999998569488525,
+    "right_thigh": 0.013999998569488525,
+    "left_foot": 0.014003515243530273,
+    "right_foot": 0.013998687267303467
+  },
+  "rug_height": 0.012000000104308128,
+  "screen_count": 10,
+  "floor_monitors": "matching 16:9 panels, individual stands",
+  "case_clearance_y": 0.039913952350616455,
+  "keyboard_count": 2,
+  "phone_count": 1,
+  "packed_file_images": 22,
+  "cameras": 3,
+  "devices": "NVIDIA GeForce RTX 5070",
+  "pose": {
+    "floor_contact_z": {
+      "LeftFoot": 0.014003,
+      "RightFoot": 0.013999,
+      "LeftLeg": 0.014,
+      "RightLeg": 0.014
+    },
+    "phone_dimensions": [
+      0.108,
+      0.0115,
+      0.1431
+    ],
+    "desk_left_wrist": [
+      0.0863,
+      1.8471,
+      1.0821
+    ]
+  },
+  "props": {
+    "left_monitor_base_bottom_z": 0.0,
+    "right_monitor_base_bottom_z": 0.012,
+    "rug_height": 0.012,
+    "panel_transforms_preserved": true,
+    "keyboard_mat_dimensions": [
+      0.694,
+      0.273
+    ],
+    "keyboard_mat_top_z": 0.015,
+    "keyboard_center": [
+      -1.29,
+      0.121,
+      0.015
+    ],
+    "usb_route": "Grounded sweep around the front-left monitor stand and back to the case"
+  }
+}

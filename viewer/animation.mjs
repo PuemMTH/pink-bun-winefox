@@ -238,7 +238,7 @@ export function poseFor(
   animations,
   clip,
   time,
-  { blink = true, ...state } = {},
+  { blink = true, layerTime = time, ...state } = {},
 ) {
   const result = new Map();
   const layers = [
@@ -246,14 +246,21 @@ export function poseFor(
     "pre_parallel1",
     ...(blink ? ["pre_parallel3"] : []),
     clip,
+    "parallel0",
   ];
   for (const name of layers) {
     const animation = animations[name];
     if (!animation) continue;
-    const duration = Number(animation.animation_length) || 1;
-    const localTime = name === clip ? time : time % duration;
+    const duration = Number(animation.animation_length);
+    const localTime =
+      name === clip ? time : duration > 0 && animation.loop ? layerTime % duration : layerTime;
     const context = animationContext(localTime, { ...state, clip });
+    // Some YSM rigs combine blink tracks and hair motion in pre_parallel1.
+    const skipBlink = !blink && name === "pre_parallel1" &&
+      typeof animation.bones?.LeftEyelid?.scale === "object";
     for (const [bone, channels] of Object.entries(animation.bones || {})) {
+      if (skipBlink && /^(Left|Right)(Eyebrow|Eyelid|EyeDot)$/.test(bone))
+        continue;
       if (!result.has(bone)) result.set(bone, {});
       const pose = result.get(bone);
       for (const kind of ["rotation", "position", "scale"])

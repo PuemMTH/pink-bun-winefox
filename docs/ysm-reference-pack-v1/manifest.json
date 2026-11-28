@@ -1,0 +1,1013 @@
+{
+  "version": 1,
+  "kind": "AI concept references; not exact rig renders",
+  "summary": {
+    "sheets": 26,
+    "ready": 26,
+    "panels": 156,
+    "mainStates": 25,
+    "extraStates": 8,
+    "photoStates": 6,
+    "faceStates": 8,
+    "outfits": 2
+  },
+  "sheets": [
+    {
+      "key": "school-turnaround",
+      "file": "images/school-turnaround.png",
+      "title": "ชุดนักเรียน · 6 มุม",
+      "outfit": "school",
+      "category": "turnaround",
+      "source": "turnaround-web-v2.png",
+      "panels": [
+        {
+          "id": "front",
+          "view": "front"
+        },
+        {
+          "id": "front3q",
+          "view": "front3q"
+        },
+        {
+          "id": "left",
+          "view": "left"
+        },
+        {
+          "id": "back3q",
+          "view": "back3q"
+        },
+        {
+          "id": "back",
+          "view": "back"
+        },
+        {
+          "id": "right",
+          "view": "right"
+        }
+      ],
+      "generated": false,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1613589,
+      "sha256": "2466fbb1e69dc5bf82147fc5c6a5cbf6328a289013b9bbe03a1ef5304ed3602f"
+    },
+    {
+      "key": "white-turnaround",
+      "file": "images/white-turnaround.png",
+      "title": "เชิ้ตขาว · 6 มุม",
+      "outfit": "white",
+      "category": "turnaround",
+      "source": "white-shirt-turnaround-v1.png",
+      "panels": [
+        {
+          "id": "front",
+          "view": "front"
+        },
+        {
+          "id": "front3q",
+          "view": "front3q"
+        },
+        {
+          "id": "left",
+          "view": "left"
+        },
+        {
+          "id": "back3q",
+          "view": "back3q"
+        },
+        {
+          "id": "back",
+          "view": "back"
+        },
+        {
+          "id": "right",
+          "view": "right"
+        }
+      ],
+      "generated": false,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1588122,
+      "sha256": "950d6e1f07ef6db2187f71f42bfc0d79f384eea639a88f3d2ae3a0a72a886321"
+    },
+    {
+      "key": "school-core-idle-walk",
+      "file": "images/school-core-idle-walk.png",
+      "title": "ท่าหลัก 3 มุม · นักเรียน idle-walk",
+      "outfit": "school",
+      "category": "main",
+      "source": "ysm-idle-walk-v1.png",
+      "panels": [
+        {
+          "id": "idle",
+          "view": "front3q"
+        },
+        {
+          "id": "idle",
+          "view": "side"
+        },
+        {
+          "id": "idle",
+          "view": "back3q"
+        },
+        {
+          "id": "walk",
+          "view": "front3q"
+        },
+        {
+          "id": "walk",
+          "view": "side"
+        },
+        {
+          "id": "walk",
+          "view": "back3q"
+        }
+      ],
+      "generated": false,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1745524,
+      "sha256": "9ea71d258b02935ef7e3cf948b16328bf9e1306dc6b3aacc947f27ba9d95c8a8"
+    },
+    {
+      "key": "school-core-run-jump",
+      "file": "images/school-core-run-jump.png",
+      "title": "ท่าหลัก 3 มุม · นักเรียน run-jump",
+      "outfit": "school",
+      "category": "main",
+      "source": "ysm-run-jump-v1.png",
+      "panels": [
+        {
+          "id": "run",
+          "view": "front3q"
+        },
+        {
+          "id": "run",
+          "view": "side"
+        },
+        {
+          "id": "run",
+          "view": "back3q"
+        },
+        {
+          "id": "jump",
+          "view": "front3q"
+        },
+        {
+          "id": "jump",
+          "view": "side"
+        },
+        {
+          "id": "jump",
+          "view": "back3q"
+        }
+      ],
+      "generated": false,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1776661,
+      "sha256": "311f55f98b2c51f2f1475e01904f7c030289ecae33718ca4302022f6bf396e2d"
+    },
+    {
+      "key": "school-core-sneak-sit",
+      "file": "images/school-core-sneak-sit.png",
+      "title": "ท่าหลัก 3 มุม · นักเรียน sneak-sit",
+      "outfit": "school",
+      "category": "main",
+      "source": "ysm-sneak-sit-v1.png",
+      "panels": [
+        {
+          "id": "sneak",
+          "view": "front3q"
+        },
+        {
+          "id": "sneak",
+          "view": "side"
+        },
+        {
+          "id": "sneak",
+          "view": "back3q"
+        },
+        {
+          "id": "sit",
+          "view": "front3q"
+        },
+        {
+          "id": "sit",
+          "view": "side"
+        },
+        {
+          "id": "sit",
+          "view": "back3q"
+        }
+      ],
+      "generated": false,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1788068,
+      "sha256": "b943f6d78cfa7f7288c773adf9ae94b1b12dd064b5a92e1805d547c6ca23744d"
+    },
+    {
+      "key": "school-overview",
+      "file": "images/school-overview.png",
+      "title": "โพสหลายมุม · นักเรียน",
+      "outfit": "school",
+      "category": "overview",
+      "source": "poses-web-v2.png",
+      "panels": [
+        {
+          "id": "hello"
+        },
+        {
+          "id": "cheeks"
+        },
+        {
+          "id": "hip"
+        },
+        {
+          "id": "shy"
+        },
+        {
+          "id": "look_back"
+        },
+        {
+          "id": "open"
+        }
+      ],
+      "generated": false,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1691972,
+      "sha256": "ec944a425cb6013e08edea5d79e8b96244e164c8577e7f92fe5a63df2b2c2b14"
+    },
+    {
+      "key": "school-personality",
+      "file": "images/school-personality.png",
+      "title": "บุคลิก · นักเรียน",
+      "outfit": "school",
+      "category": "overview",
+      "source": "personality-poses-v1.png",
+      "panels": [
+        {
+          "id": "quiet"
+        },
+        {
+          "id": "fixated"
+        },
+        {
+          "id": "composed"
+        },
+        {
+          "id": "unsettling"
+        }
+      ],
+      "generated": false,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1810382,
+      "sha256": "997e4fa8b1fb8c6170edeb2d8f38824212ecce9be8a2e403660a9d10fdb9541f"
+    },
+    {
+      "key": "school-face-overview",
+      "file": "images/school-face-overview.png",
+      "title": "สีหน้าเดิม · นักเรียน",
+      "outfit": "school",
+      "category": "overview",
+      "source": "personality-expressions-v1.png",
+      "panels": [
+        {
+          "id": "blank"
+        },
+        {
+          "id": "cheeks"
+        },
+        {
+          "id": "smile"
+        },
+        {
+          "id": "look_back"
+        }
+      ],
+      "generated": false,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1729571,
+      "sha256": "450b7b7b624a62822562620c30d67724e56d2ea7636f9442c8f77e5a4a15d4fc"
+    },
+    {
+      "key": "white-overview",
+      "file": "images/white-overview.png",
+      "title": "ยืน / นั่ง · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "overview",
+      "source": "white-shirt-poses-v1.png",
+      "panels": [
+        {
+          "id": "standing"
+        },
+        {
+          "id": "back"
+        },
+        {
+          "id": "floor_sit"
+        },
+        {
+          "id": "stool_sit"
+        }
+      ],
+      "generated": false,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1600689,
+      "sha256": "a25504fd829cff6e903c66d14695cb56c2c1d5a9b7905d2edae6beafa0fd3ba6"
+    },
+    {
+      "key": "school-faces",
+      "file": "images/school-faces.png",
+      "title": "สีหน้า 8 แบบ · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "faces",
+      "panels": [
+        {
+          "id": "face_neutral",
+          "view": "bust"
+        },
+        {
+          "id": "face_soft_smile",
+          "view": "bust"
+        },
+        {
+          "id": "face_surprised",
+          "view": "bust"
+        },
+        {
+          "id": "face_concerned",
+          "view": "bust"
+        },
+        {
+          "id": "face_closed",
+          "view": "bust"
+        },
+        {
+          "id": "face_wink",
+          "view": "bust"
+        },
+        {
+          "id": "face_spiral_blank",
+          "view": "bust"
+        },
+        {
+          "id": "face_spiral_smile",
+          "view": "bust"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1774,
+      "height": 887,
+      "bytes": 1740003,
+      "sha256": "dcbea385c2968a5b6a4a0876110a9296c96b5e3c509b49fa0b1890db9ad89b71"
+    },
+    {
+      "key": "school-details",
+      "file": "images/school-details.png",
+      "title": "ผ้าและผม · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "details",
+      "panels": [
+        {
+          "id": "detail_front"
+        },
+        {
+          "id": "detail_cuff"
+        },
+        {
+          "id": "detail_hem"
+        },
+        {
+          "id": "detail_back"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1613658,
+      "sha256": "4e98d960a8252422846ef5c756f549f0230586f23fa987d952e3b61f90950ed5"
+    },
+    {
+      "key": "school-travel",
+      "file": "images/school-travel.png",
+      "title": "MOVEMENT · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "main",
+      "panels": [
+        {
+          "id": "fly",
+          "view": "varied"
+        },
+        {
+          "id": "elytra_fly",
+          "view": "varied"
+        },
+        {
+          "id": "swim",
+          "view": "varied"
+        },
+        {
+          "id": "swim_stand",
+          "view": "varied"
+        },
+        {
+          "id": "climb",
+          "view": "varied"
+        },
+        {
+          "id": "climbing",
+          "view": "varied"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1678905,
+      "sha256": "ca43aba5bb274e3c2f14c7908130c2bb9f842d073aaa25cedff626afad14455d"
+    },
+    {
+      "key": "school-rest-react",
+      "file": "images/school-rest-react.png",
+      "title": "REST / REACTION · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "main",
+      "panels": [
+        {
+          "id": "sleep",
+          "view": "varied"
+        },
+        {
+          "id": "boat",
+          "view": "varied"
+        },
+        {
+          "id": "ride",
+          "view": "varied"
+        },
+        {
+          "id": "ride_pig",
+          "view": "varied"
+        },
+        {
+          "id": "attacked",
+          "view": "varied"
+        },
+        {
+          "id": "death",
+          "view": "varied"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1701558,
+      "sha256": "b5d3c83cc8838805675c21aa8ca15f5943305485c51fefdd8234672546b2123c"
+    },
+    {
+      "key": "school-hands-hover",
+      "file": "images/school-hands-hover.png",
+      "title": "HANDS / HOVER · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "main",
+      "panels": [
+        {
+          "id": "use_mainhand",
+          "view": "varied"
+        },
+        {
+          "id": "use_offhand",
+          "view": "varied"
+        },
+        {
+          "id": "swing_hand",
+          "view": "varied"
+        },
+        {
+          "id": "hover_fadeout",
+          "view": "varied"
+        },
+        {
+          "id": "hover",
+          "view": "varied"
+        },
+        {
+          "id": "focus",
+          "view": "varied"
+        },
+        {
+          "id": "sneaking",
+          "view": "varied"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1676685,
+      "sha256": "ab4f8cf67dc6e1e68cd5d5aadde8f7adf8c202b5c99e4bd1781a6ed6ef07b3d5"
+    },
+    {
+      "key": "school-extras",
+      "file": "images/school-extras.png",
+      "title": "extra0–7 · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "extra",
+      "panels": [
+        {
+          "id": "extra0",
+          "view": "front3q"
+        },
+        {
+          "id": "extra1",
+          "view": "front3q"
+        },
+        {
+          "id": "extra2",
+          "view": "front3q"
+        },
+        {
+          "id": "extra3",
+          "view": "front3q"
+        },
+        {
+          "id": "extra4",
+          "view": "front3q"
+        },
+        {
+          "id": "extra5",
+          "view": "front3q"
+        },
+        {
+          "id": "extra6",
+          "view": "front3q"
+        },
+        {
+          "id": "extra7",
+          "view": "front3q"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1774,
+      "height": 887,
+      "bytes": 1704442,
+      "sha256": "4cd08bdfd59725b69ee6d0cadddeb366a660ea31c031dd7e452f4eacffbe723c"
+    },
+    {
+      "key": "school-photo",
+      "file": "images/school-photo.png",
+      "title": "โพสถ่ายรูป · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "photo",
+      "panels": [
+        {
+          "id": "studio_photo_wave",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_cheeks",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_hip",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_shy",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_chest",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_open",
+          "view": "front3q"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1694970,
+      "sha256": "471a5a22b8b648c648032a467bc337e48d3d614459a4a5b9d6f63e47bb81366a"
+    },
+    {
+      "key": "white-faces",
+      "file": "images/white-faces.png",
+      "title": "สีหน้า 8 แบบ · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "faces",
+      "panels": [
+        {
+          "id": "face_neutral",
+          "view": "bust"
+        },
+        {
+          "id": "face_soft_smile",
+          "view": "bust"
+        },
+        {
+          "id": "face_surprised",
+          "view": "bust"
+        },
+        {
+          "id": "face_concerned",
+          "view": "bust"
+        },
+        {
+          "id": "face_closed",
+          "view": "bust"
+        },
+        {
+          "id": "face_wink",
+          "view": "bust"
+        },
+        {
+          "id": "face_spiral_blank",
+          "view": "bust"
+        },
+        {
+          "id": "face_spiral_smile",
+          "view": "bust"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1774,
+      "height": 887,
+      "bytes": 1718203,
+      "sha256": "0ac9e6655e31eab8d295c546a5c0800216c014f7eee7267af703d9f15cf365f4"
+    },
+    {
+      "key": "white-details",
+      "file": "images/white-details.png",
+      "title": "ผ้าและผม · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "details",
+      "panels": [
+        {
+          "id": "detail_front"
+        },
+        {
+          "id": "detail_cuff"
+        },
+        {
+          "id": "detail_hem"
+        },
+        {
+          "id": "detail_back"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1603672,
+      "sha256": "d53df39b66724a139c9218eb9e10017e3a30e8108d07b84e539bca79ef827b0b"
+    },
+    {
+      "key": "white-travel",
+      "file": "images/white-travel.png",
+      "title": "MOVEMENT · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "main",
+      "panels": [
+        {
+          "id": "fly",
+          "view": "varied"
+        },
+        {
+          "id": "elytra_fly",
+          "view": "varied"
+        },
+        {
+          "id": "swim",
+          "view": "varied"
+        },
+        {
+          "id": "swim_stand",
+          "view": "varied"
+        },
+        {
+          "id": "climb",
+          "view": "varied"
+        },
+        {
+          "id": "climbing",
+          "view": "varied"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1623996,
+      "sha256": "e26148a99fe1baa897829625a7c80b593c2eaaf69ccaf8618ae08473e9c94396"
+    },
+    {
+      "key": "white-rest-react",
+      "file": "images/white-rest-react.png",
+      "title": "REST / REACTION · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "main",
+      "panels": [
+        {
+          "id": "sleep",
+          "view": "varied"
+        },
+        {
+          "id": "boat",
+          "view": "varied"
+        },
+        {
+          "id": "ride",
+          "view": "varied"
+        },
+        {
+          "id": "ride_pig",
+          "view": "varied"
+        },
+        {
+          "id": "attacked",
+          "view": "varied"
+        },
+        {
+          "id": "death",
+          "view": "varied"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1680402,
+      "sha256": "5b907179c9e23eaf74bd506b12f94e29ddd4e7da94622e3004638749f9e9ef57"
+    },
+    {
+      "key": "white-hands-hover",
+      "file": "images/white-hands-hover.png",
+      "title": "HANDS / HOVER · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "main",
+      "panels": [
+        {
+          "id": "use_mainhand",
+          "view": "varied"
+        },
+        {
+          "id": "use_offhand",
+          "view": "varied"
+        },
+        {
+          "id": "swing_hand",
+          "view": "varied"
+        },
+        {
+          "id": "hover_fadeout",
+          "view": "varied"
+        },
+        {
+          "id": "hover",
+          "view": "varied"
+        },
+        {
+          "id": "focus",
+          "view": "varied"
+        },
+        {
+          "id": "sneaking",
+          "view": "varied"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1658795,
+      "sha256": "f6fc3b3825293a615594e6c331b79a3bb4890e64252f5d1f5cac31aa978cd184"
+    },
+    {
+      "key": "white-extras",
+      "file": "images/white-extras.png",
+      "title": "extra0–7 · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "extra",
+      "panels": [
+        {
+          "id": "extra0",
+          "view": "front3q"
+        },
+        {
+          "id": "extra1",
+          "view": "front3q"
+        },
+        {
+          "id": "extra2",
+          "view": "front3q"
+        },
+        {
+          "id": "extra3",
+          "view": "front3q"
+        },
+        {
+          "id": "extra4",
+          "view": "front3q"
+        },
+        {
+          "id": "extra5",
+          "view": "front3q"
+        },
+        {
+          "id": "extra6",
+          "view": "front3q"
+        },
+        {
+          "id": "extra7",
+          "view": "front3q"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1774,
+      "height": 887,
+      "bytes": 1697077,
+      "sha256": "d1f89da6155742c4d8430be04eee806444f6108f2a1855d5df97fc9fa8becc57"
+    },
+    {
+      "key": "white-photo",
+      "file": "images/white-photo.png",
+      "title": "โพสถ่ายรูป · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "photo",
+      "panels": [
+        {
+          "id": "studio_photo_wave",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_cheeks",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_hip",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_shy",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_chest",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_open",
+          "view": "front3q"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1658959,
+      "sha256": "e0484bb0054564d9b31634d3fb672f47dc840120d255e86d4d0dc34aabccaed4"
+    },
+    {
+      "key": "white-core-idle-walk",
+      "file": "images/white-core-idle-walk.png",
+      "title": "ท่าหลัก 3 มุม · เชิ้ตขาว idle-walk",
+      "outfit": "white",
+      "category": "main",
+      "panels": [
+        {
+          "id": "idle",
+          "view": "front3q"
+        },
+        {
+          "id": "idle",
+          "view": "side"
+        },
+        {
+          "id": "idle",
+          "view": "back3q"
+        },
+        {
+          "id": "walk",
+          "view": "front3q"
+        },
+        {
+          "id": "walk",
+          "view": "side"
+        },
+        {
+          "id": "walk",
+          "view": "back3q"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1665216,
+      "sha256": "08bb81acc03af81c2574682ce2966e170860c774e82b5d9359ad28504162097b"
+    },
+    {
+      "key": "white-core-run-jump",
+      "file": "images/white-core-run-jump.png",
+      "title": "ท่าหลัก 3 มุม · เชิ้ตขาว run-jump",
+      "outfit": "white",
+      "category": "main",
+      "panels": [
+        {
+          "id": "run",
+          "view": "front3q"
+        },
+        {
+          "id": "run",
+          "view": "side"
+        },
+        {
+          "id": "run",
+          "view": "back3q"
+        },
+        {
+          "id": "jump",
+          "view": "front3q"
+        },
+        {
+          "id": "jump",
+          "view": "side"
+        },
+        {
+          "id": "jump",
+          "view": "back3q"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1619517,
+      "sha256": "ab606ae2f841f1204cb01465ca47743df79b377b14eb7275d58b7f389a57435f"
+    },
+    {
+      "key": "white-core-sneak-sit",
+      "file": "images/white-core-sneak-sit.png",
+      "title": "ท่าหลัก 3 มุม · เชิ้ตขาว sneak-sit",
+      "outfit": "white",
+      "category": "main",
+      "panels": [
+        {
+          "id": "sneak",
+          "view": "front3q"
+        },
+        {
+          "id": "sneak",
+          "view": "side"
+        },
+        {
+          "id": "sneak",
+          "view": "back3q"
+        },
+        {
+          "id": "sit",
+          "view": "front3q"
+        },
+        {
+          "id": "sit",
+          "view": "side"
+        },
+        {
+          "id": "sit",
+          "view": "back3q"
+        }
+      ],
+      "generated": true,
+      "ready": true,
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1671064,
+      "sha256": "e9e7a66a2a7b3141ebc5247bf9985e1cd4355ed2a184591cfd73dcb7d0d4f207"
+    }
+  ]
+}

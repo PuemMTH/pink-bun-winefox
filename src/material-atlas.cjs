@@ -13,9 +13,23 @@ module.exports = function materials(source, colors) {
   };
   const luminance = (i) =>
     0.2126 * source[i] + 0.7152 * source[i + 1] + 0.0722 * source[i + 2];
+  const vest = [
+    "23332",
+    "23332",
+    "21412",
+    "20412",
+    "20412",
+    "21402",
+    "21402",
+    "22412",
+  ];
+  const vestShades = [1.06, 1, 0.88, 0.82, 0.94];
   function swatch(n) {
     const [x, y] = offset(n);
-    return { uv: [x + 184, y + 162], uv_size: [20, 76] };
+    return {
+      uv: [x + 184, y + 162],
+      uv_size: n === "vest" ? [vest[0].length, vest.length] : [20, 76],
+    };
   }
   function remap(q, n) {
     if (!q.uv) {
@@ -75,6 +89,21 @@ module.exports = function materials(source, colors) {
           }
           pixels[di + 3] = source[si + 3];
         }
+      if (n === "vest") {
+        // One texel per model unit across the vest, like the inherited jacket.
+        const [u, v] = swatch(n).uv;
+        for (const [y, row] of vest.entries())
+          for (let x = 0; x < row.length; x++) {
+            const di = ((v + y) * W + u + x) * 4;
+            const shade = vestShades[row[x]];
+            pixels.set(
+              [...target.map((channel) => Math.min(255, Math.round(channel * shade))), 255],
+              di,
+            );
+          }
+        continue;
+      }
+
       // New geometry uses a reserved ramp in the otherwise unused corner of each material tile.
       for (let y = 0; y < 80; y++)
         for (let x = 0; x < 24; x++) {
@@ -90,28 +119,6 @@ module.exports = function materials(source, colors) {
                 255,
                 Math.round((light[k] * (1 - tier) + dark[k] * tier) * pleat),
               );
-          }
-          if (n === "vest") {
-            // Broad, stepped light/shadow shapes match the JK fabric treatment, with
-            // a fitted waist, shadow below the bow and restrained diagonal folds.
-            const u = x / 23,
-              edge = Math.abs(u - 0.5) * 2;
-            let value = 1.06 - 0.19 * edge * edge - 0.06 * t;
-            if (t < 0.22 && Math.abs(u - 0.5) < (0.22 - t) * 1.2) value -= 0.13;
-            if (u < 0.18 && t > 0.3 && t < 0.65) value -= 0.09;
-            if (u > 0.82 && t > 0.2 && t < 0.55) value -= 0.08;
-            if (
-              t > 0.56 &&
-              t < 0.75 &&
-              Math.abs(u - (0.12 + (t - 0.56) * 1.5)) < 0.045
-            )
-              value -= 0.12;
-            if (t > 0.73 && Math.abs(u - (0.9 - (t - 0.73) * 1.1)) < 0.04)
-              value -= 0.1;
-            value = Math.round(value * 18) / 18;
-            if (x === 11 && t > 0.22) value -= 0.12;
-            for (let k = 0; k < 3; k++)
-              pixels[di + k] = Math.min(255, Math.round(target[k] * value));
           }
           pixels[di + 3] = 255;
         }

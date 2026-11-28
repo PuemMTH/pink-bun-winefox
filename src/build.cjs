@@ -8,9 +8,14 @@ const config = JSON.parse(
 );
 const base = path.join(root, "vendor/winefox-jk");
 const out = path.join(root, "dist/pink_bun_winefox");
+const whiteOut = path.join(root, "dist/pink_bun_winefox_white");
 fs.mkdirSync(path.dirname(out), { recursive: true });
 fs.mkdirSync(path.join(root, "docs"), { recursive: true });
-if (!fs.existsSync(out)) fs.cpSync(base, out, { recursive: true });
+if (!fs.existsSync(out))
+  fs.cpSync(base, out, {
+    recursive: true,
+    filter: (source) => path.relative(base, source) !== "avatar",
+  });
 const read = (p) => JSON.parse(fs.readFileSync(path.join(base, p), "utf8"));
 const geo = read("models/main.json"),
   bones = geo["minecraft:geometry"][0].bones,
@@ -118,16 +123,23 @@ for (const s of [-1, 1]) {
     }
 }
 // A checked red side ribbon with a lace edge replaces the fox accessories.
+const ribbon = {
+  name: "CustomRibbon",
+  parent: "Head",
+  pivot: [4.5, 38, -0.75],
+};
+bones.push(ribbon);
+by[ribbon.name] = ribbon;
 for (let j = 0; j < 7; j++)
   add(
-    "Head",
+    ribbon.name,
     [4.5, 37.3 + j * 0.38, -0.75],
     [0.38, 0.32, 1.65],
     "white",
     [0, 0, -12],
   );
-add("Head", [4.65, 33.1, -0.9], [1.05, 5.3, 0.35], "red", [0, 0, -10]);
-add("Head", [4.8, 32.9, -0.94], [0.12, 5.5, 0.1], "white", [0, 0, -10]);
+add(ribbon.name, [4.65, 33.1, -0.9], [1.05, 5.3, 0.35], "red", [0, 0, -10]);
+add(ribbon.name, [4.8, 32.9, -0.94], [0.12, 5.5, 0.1], "white", [0, 0, -10]);
 // Vest, collars, piping and gold buttons are fitted over the original school jacket.
 add("jk", [-2.3, 20.5, -2.45], [4.6, 8.2, 0.24], "vest");
 for (const s of [-1, 1]) {
@@ -167,7 +179,33 @@ for (const b of bones)
   }
 add("Hair", [-0.2, 41.3, 0], [0.35, 1.7, 0.4], "pink", [0, 0, 18]);
 add("Hair", [-0.2, 42.7, 0], [1, 0.3, 0.4], "pink", [0, 0, -15]);
+// Rest inside the head until the inherited mouth track moves forward. Give
+// neighboring mouth pixels distinct depths to avoid speckling where they meet.
+by.weixiao.cubes = [];
+add("weixiao", [-0.24, 32.12, -2.56], [0.48, 0.11, 0.025], "dark");
+add(
+  "weixiao",
+  [-0.44, 32.15, -2.565],
+  [0.22, 0.11, 0.025],
+  "dark",
+  [0, 0, -14],
+);
+add("weixiao", [0.22, 32.15, -2.57], [0.22, 0.11, 0.025], "dark", [0, 0, 14]);
 const animations = read("animations/main.animation.json");
+// At the jump apex speed is zero. The old sign division invalidated the
+// entire arm expression at that frame instead of retaining the base angle.
+for (const name of ["LeftArm", "RightArm", "LeftForeArm", "RightForeArm"]) {
+  const track = animations.animations.jump.bones[name];
+  track.rotation = track.rotation.map((angle) =>
+    typeof angle === "string"
+      ? angle.replace(
+          "query.vertical_speed/math.abs(query.vertical_speed)",
+          "(query.vertical_speed>0?1:-1)",
+        )
+      : angle,
+  );
+}
+animations.animations.parallel0.bones[ribbon.name] = { scale: "!v.roaming.a" };
 require("./skirt-fix.cjs")(
   geo,
   Object.fromEntries(
@@ -182,15 +220,13 @@ by.CustomSkirtLining = bones.find((b) => b.name === "CustomSkirtLining");
 const runFace = require("./run-face.cjs")(geo, animations, add, mat);
 by.CustomRunFace = runFace.face;
 for (const b of runFace.irises) by[b.name] = b;
-const write = (p, v) =>
-  fs.writeFileSync(path.join(out, p), JSON.stringify(v, null, 2));
+const write = (p, v, folder = out) =>
+  fs.writeFileSync(path.join(folder, p), JSON.stringify(v, null, 2));
 Object.assign(geo["minecraft:geometry"][0].description, {
   identifier: "geometry.pink_bun_winefox",
   texture_width: W,
   texture_height: H,
 });
-write("models/main.json", geo);
-write("animations/main.animation.json", runFace.animations);
 // Arm assets use the identical material mapping while retaining their original rig.
 const arm = read("models/arm.json");
 for (const g of arm["minecraft:geometry"]) {
@@ -201,23 +237,71 @@ for (const g of arm["minecraft:geometry"]) {
       if (q.origin && q.origin[1] > 17)
         recolor(q, q.origin[1] < 19 ? "white" : "sleeve");
 }
-write("models/arm.json", arm);
 const meta = read("ysm.json");
-meta.metadata.name = config.name;
-meta.metadata.tips = `${config.name}. Adaptation by ${config.author}, based on Wine Fox 07_jk. Pink twin buns, red ribbon, navy blazer, green skirt. Original Wine Fox face, rig and animations.`;
-meta.metadata.authors.push({
-  name: config.author,
-  role: "Geometry and UV material changes",
-  comment:
-    "Modified Wine Fox 07_jk for the supplied character references. Original authors and license retained.",
-  contact: { GitHub: "https://github.com/PuemMTH" },
-});
+meta.metadata = {
+  name: config.name,
+  tips: "School Uniform",
+  license: meta.metadata.license,
+};
+// Keep the adapted model information and ribbon action in the model manifest.
+const english = read("lang/en_us.json");
+for (const id of Object.keys(meta.properties.extra_animation)) {
+  const label = english[`properties.extra_animation.${id}`];
+  if (label) meta.properties.extra_animation[id] = label;
+}
+for (const locale of fs.readdirSync(path.join(base, "lang"))) {
+  if (!locale.endsWith(".json")) continue;
+  const file = `lang/${locale}`;
+  const translations = Object.entries(read(file)).filter(
+    ([key]) =>
+      !key.startsWith("metadata.") &&
+      key !== "properties.extra_animation.extra0",
+  );
+  write(file, Object.fromEntries(translations));
+}
+for (const file of ["ATTRIBUTION.md", "LICENSE"])
+  fs.copyFileSync(path.join(root, file), path.join(out, file));
 meta.properties.default_texture = "pink_bun";
 meta.files.player.texture = ["textures/pink_bun.png"];
-write("ysm.json", meta);
 const materialResult = nativeMaterials.finish();
 atlas = materialResult.pixels;
 runFace.paint(atlas, W);
+const { addExpressions, expressions } = require("./expressions.cjs");
+const {
+  makePhotoAnimations,
+  photoPoseLabels,
+} = require("../viewer/photo-poses.mjs");
+const extra = read(meta.files.player.animation.extra);
+const wheelFaces = addExpressions(geo, atlas, W);
+require("./head-fit.cjs")({ geo, animations, atlas, width: W });
+const fitUpper = require("./upper-fit.cjs");
+fitUpper({ geo, atlas, width: W, mat, model: "school" });
+const wheelPhotos = makePhotoAnimations(
+  animations.animations,
+  bones.map((b) => b.name),
+);
+for (const clip of Object.values(extra.animations)) {
+  // The extra wheel can stand in for the main clip. Always reset sprint visibility.
+  clip.bones ??= {};
+  for (const bone of [runFace.face, ...runFace.irises])
+    clip.bones[bone.name] = { scale: 0 };
+}
+Object.assign(extra.animations, wheelFaces, wheelPhotos);
+require("./arm-fit.cjs")(extra.animations);
+Object.assign(meta.properties.extra_animation, {
+  extra0: "Toggle Ribbon",
+  "#faces": "Expressions",
+  "#photos": "Photo Poses",
+});
+meta.properties.extra_animation_classify = [
+  { id: "faces", extra_animation: expressions },
+  { id: "photos", extra_animation: photoPoseLabels },
+];
+write("ysm.json", meta);
+write("models/main.json", geo);
+write("models/arm.json", arm);
+write(meta.files.player.animation.main, animations);
+write(meta.files.player.animation.extra, extra);
 for (let y = 0; y < 256; y++)
   assert(
     atlas
@@ -225,9 +309,10 @@ for (let y = 0; y < 256; y++)
       .equals(source.subarray(y * 256 * 4, (y + 1) * 256 * 4)),
     "Original face/skin texels changed",
   );
-const vestUv = mat("vest").uv,
-  vestLeft = ((vestUv[1] + 30) * W + vestUv[0]) * 4,
-  vestCenter = vestLeft + 9 * 4;
+const vestSwatch = mat("vest"),
+  vestLeft = ((vestSwatch.uv[1] + 3) * W + vestSwatch.uv[0]) * 4,
+  vestCenter = vestLeft + 4;
+assert.deepEqual(vestSwatch.uv_size, [5, 8]);
 assert(
   !atlas
     .subarray(vestLeft, vestLeft + 3)
@@ -240,8 +325,8 @@ fs.writeFileSync(
 );
 fs.writeFileSync(
   path.join(out, "ADAPTATION.txt"),
-  `Character: ${config.name}\nAdaptation credit: ${config.author}\n` +
-    "Base: YSM builtin Wine Fox / 07_jk.\nOriginal authors, author links and CC BY-NC-SA 4.0 license preserved in ysm.json.\nLicense: https://creativecommons.org/licenses/by-nc-sa/4.0/\nChanges: removed fox ears, tail, flower and hat geometry; added twin buns and side ribbon; remapped hair, eyes, school uniform, socks and shoes to new procedural material tiles; added waistcoat and lapel details.\nOriginal face and skin texture pixels are packed unchanged beside the new material tiles. Original skeleton, expressions and animations are retained.\nCharacter likeness follows user-supplied references; character rights remain with their respective owners.\n",
+  `Character: ${config.name}\n` +
+    "Attribution and licensing: see ATTRIBUTION.md and LICENSE.\nChanges: removed fox ears, tail, flower and hat geometry; added twin buns and side ribbon; remapped hair, eyes, school uniform, socks and shoes to new procedural material tiles; added waistcoat and lapel details.\nOriginal face and skin texture pixels are packed unchanged beside the new material tiles. Original skeleton, expressions and animations are retained.\nCharacter likeness follows user-supplied references; character rights remain with their respective owners.\n",
 );
 fs.appendFileSync(
   path.join(out, "ADAPTATION.txt"),
@@ -275,11 +360,112 @@ fs.appendFileSync(
   path.join(out, "ADAPTATION.txt"),
   "Revision: jump and crouch pleats stay assembled with their lining; removed the extreme upward crouch flap; added pixel pleat shadows to the lining and stronger original-pattern navy sleeve shading.\n",
 );
+fs.appendFileSync(
+  path.join(out, "ADAPTATION.txt"),
+  "Revision: the headwear action now toggles the side ribbon. Added eight pixel expressions and six photo poses to the YSM animation wheel.\n",
+);
+fs.appendFileSync(
+  path.join(out, "ADAPTATION.txt"),
+  "Revision: stabilized the jump apex arm angles and adjusted the dance and shy poses so the sleeves clear the chest.\n",
+);
+fs.appendFileSync(
+  path.join(out, "ADAPTATION.txt"),
+  "Revision: refined lash and mouth colors, back hair shading and trailing lock motion, fitted the school collar and posed the skirt joins for swimming and crouching.\nRevision: replaced the wide open mouth with a single small pixel cutout, preserving the inherited jump and expression timing.\n",
+);
 // Previews are independent of the game installation; they do not mutate model files.
 png.write(path.join(out, "textures/pink_bun.png"), W, H, atlas);
 const preview = require("../scripts/preview.cjs");
 preview(geo, atlas, W, H, path.join(root, "docs/preview.png"), false);
 preview(geo, atlas, W, H, path.join(root, "docs/preview-run-face.png"), true);
+
+const whiteGeo = structuredClone(geo);
+const whiteArm = structuredClone(arm);
+const whiteAnimations = structuredClone(animations);
+const whiteAtlas = Buffer.from(atlas);
+require("./white-outfit.cjs")({
+  geo: whiteGeo,
+  arm: whiteArm,
+  atlas: whiteAtlas,
+  width: W,
+  height: H,
+  animations: whiteAnimations,
+});
+fitUpper({ geo: whiteGeo, atlas: whiteAtlas, width: W, mat, model: "white" });
+whiteGeo["minecraft:geometry"][0].description.identifier += "_white";
+const whiteMeta = structuredClone(meta);
+whiteMeta.metadata.tips = "White Shirt";
+fs.cpSync(out, whiteOut, { recursive: true });
+fs.appendFileSync(
+  path.join(out, "ADAPTATION.txt"),
+  "School outfit: repainted the vest on a 5 × 8 texel grid and simplified the collar, trim and buttons into face-by-face shades.\n",
+);
+write("ysm.json", whiteMeta, whiteOut);
+write("models/main.json", whiteGeo, whiteOut);
+write("models/arm.json", whiteArm, whiteOut);
+write(whiteMeta.files.player.animation.main, whiteAnimations, whiteOut);
+png.write(path.join(whiteOut, "textures/pink_bun.png"), W, H, whiteAtlas);
+fs.appendFileSync(
+  path.join(whiteOut, "ADAPTATION.txt"),
+  "White Shirt: long collared shirt, lilac pixel shading, and bare feet. Refined the seated and crouched hems, darkened the placket and padded UV edges on the sleeves and legs.\n",
+);
+preview(
+  whiteGeo,
+  whiteAtlas,
+  W,
+  H,
+  path.join(root, "docs/preview-white.png"),
+  false,
+);
+
+const squareEyes = require("./square-eyes.cjs");
+const satouFlight = require("./satou-flight.cjs");
+const { pruneTexture } = require("./texture-coverage.cjs");
+const legacySkin = path.join("textures", "skin.png");
+for (const [
+  folder,
+  originalGeo,
+  playerArm,
+  originalAnimations,
+  originalAtlas,
+  originalMeta,
+] of [
+  [out, geo, arm, animations, atlas, meta],
+  [whiteOut, whiteGeo, whiteArm, whiteAnimations, whiteAtlas, whiteMeta],
+]) {
+  const variant = `${folder}_square_eyes`;
+  const variantGeo = structuredClone(originalGeo);
+  const variantAnimations = structuredClone(originalAnimations);
+  const variantAtlas = Buffer.from(originalAtlas);
+  const variantMeta = structuredClone(originalMeta);
+  squareEyes({
+    geo: variantGeo,
+    animations: variantAnimations,
+    atlas: variantAtlas,
+    width: W,
+  });
+  satouFlight({
+    geo: variantGeo,
+    animations: variantAnimations,
+    outfit: folder === out ? "school" : "white",
+  });
+  pruneTexture(variantAtlas, W, H, [variantGeo, playerArm]);
+  variantGeo["minecraft:geometry"][0].description.identifier += "_square_eyes";
+  variantMeta.metadata.tips += " · Square Eyes";
+  fs.cpSync(folder, variant, {
+    recursive: true,
+    filter: (file) => path.relative(folder, file) !== legacySkin,
+  });
+  fs.rmSync(path.join(variant, legacySkin), { force: true });
+  write("ysm.json", variantMeta, variant);
+  write(variantMeta.files.player.model.main, variantGeo, variant);
+  write(variantMeta.files.player.animation.main, variantAnimations, variant);
+  png.write(path.join(variant, "textures/pink_bun.png"), W, H, variantAtlas);
+  fs.appendFileSync(
+    path.join(variant, "ADAPTATION.txt"),
+    "Square Eyes: reshaped normal and wheel expressions with dark stepped lashes and rectangular red irises; sprint and spiral expressions use square spiral pupils. Eye highlights use YSM's native ysmGlow groups.\n",
+  );
+}
+
 // Validate real output, not the temporary preview representation.
 const written = JSON.parse(
   fs.readFileSync(path.join(out, "models/main.json"), "utf8"),

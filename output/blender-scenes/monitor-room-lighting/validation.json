@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "renderer": "Cycles / OptiX",
+  "rigs": 2,
+  "rig_dimensions": {
+    "At desk - Character root": [
+      0.7560000419616699,
+      0.7560000419616699,
+      0.7560000419616699
+    ],
+    "On floor - Character root": [
+      0.6229999661445618,
+      0.6229999661445618,
+      0.6229999661445618
+    ]
+  },
+  "pose_preserves_scale": true,
+  "actions": 96,
+  "floor_contacts": {
+    "left_thigh": 0.013999998569488525,
+    "right_thigh": 0.013999998569488525,
+    "left_foot": 0.014003515243530273,
+    "right_foot": 0.013998687267303467
+  },
+  "rug_height": 0.012000000104308128,
+  "screen_count": 10,
+  "floor_monitors": "matching 16:9 panels, individual stands",
+  "case_clearance_y": 0.039913952350616455,
+  "keyboard_count": 2,
+  "phone_count": 1,
+  "packed_file_images": 22,
+  "cameras": 4,
+  "devices": "NVIDIA GeForce RTX 5070",
+  "exposure": 0.11999999731779099,
+  "light_groups": [
+    "Window and ambient",
+    "Main game displays",
+    "Code displays",
+    "Floor displays",
+    "Library shelves",
+    "Desk and chair",
+    "Reader and phone",
+    "PC case and LEDs"
+  ],
+  "violet_fill_w": {
+    "before": 38.0,
+    "after": 27.0
+  },
+  "phone_light_w": 0.18000000715255737,
+  "phone_receivers": [
+    "Satou Matsuzaka - Mesh.001"
+  ],
+  "props": {
+    "shelf_strip_lights": [
+      "Warm linear library bounce.003",
+      "Warm linear library bounce.004",
+      "Warm linear library bounce.005"
+    ],
+    "shelf_strip_energy_w": 9.6,
+    "upper_shelf_fill_energy_w": 6.6,
+    "pc_fill_energy_w": 4.7,
+    "pc_fill_location": [
+      -1.5647,
+      0.9663,
+      0.775
+    ],
+    "pc_braided_cable_receivers": 7,
+    "pc_fill_receiver_count": 49
+  }
+}

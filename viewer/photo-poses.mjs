@@ -1,10 +1,10 @@
 import { poseFor } from "./animation.mjs";
 
-// Browser-only photo poses for the Wine Fox humanoid rig, in Bedrock degrees.
+// Photo poses shared by Model Studio and the YSM wheel, in Bedrock degrees.
 // Forearms bend at the existing elbow; the block hands have no finger joints.
 const poses = {
   studio_photo_wave: {
-    label: "ยกมือทักทาย",
+    label: "Wave",
     rotations: {
       UpperBody: [0, -10, 2],
       Head: [0, 10, -6],
@@ -18,7 +18,7 @@ const poses = {
     },
   },
   studio_photo_cheeks: {
-    label: "มือแนบแก้ม",
+    label: "Hand to Cheek",
     rotations: {
       UpperBody: [0, 0, 0],
       Head: [0, 0, 5],
@@ -31,7 +31,7 @@ const poses = {
     },
   },
   studio_photo_hip: {
-    label: "เท้าเอวเอียงตัว",
+    label: "Hand on Hip",
     rotations: {
       UpperBody: [0, 12, -4],
       Head: [0, -12, 7],
@@ -45,20 +45,20 @@ const poses = {
     },
   },
   studio_photo_shy: {
-    label: "ประสานมือเขิน",
+    label: "Shy Hand Clasp",
     rotations: {
       UpperBody: [3, 0, 2],
       Head: [7, -8, -7],
-      LeftArm: [-20, 60, -12],
+      LeftArm: [-23, 52, -12],
       LeftForeArm: [-45, 0, 0],
-      RightArm: [-20, -60, 12],
+      RightArm: [-23, -52, 12],
       RightForeArm: [-45, 0, 0],
       LeftLeg: [0, -3, 1],
       RightLeg: [0, 3, -1],
     },
   },
   studio_photo_chest: {
-    label: "มือแนบอก",
+    label: "Hands to Chest",
     rotations: {
       UpperBody: [-2, -5, 0],
       Head: [-3, 5, 7],
@@ -71,7 +71,7 @@ const poses = {
     },
   },
   studio_photo_open: {
-    label: "กางแขนสดใส",
+    label: "Open Arms",
     rotations: {
       UpperBody: [0, -8, -5],
       Head: [-3, 8, 8],

@@ -43,8 +43,68 @@ module.exports = function fixSkirt(geo, liningUv, animations) {
     cubes: [],
   };
   const green = liningUv || by.FrontClothe.cubes[0].uv;
+  if (liningUv) {
+    // The reverse faces of the original pleats read as one matte lining.
+    // Sample inside the opaque green tile, safely away from unused atlas texels.
+    const [x, y] = green.north.uv;
+    const inner = { uv: [x + 4.25, y + 73.25], uv_size: [0.5, 0.5] };
+    for (const [name, face] of [
+      ["FrontClothe", "south"],
+      ["BackClothe", "north"],
+      ["LeftClothe", "east"],
+      ["RightClothe", "west"],
+    ])
+      for (const cube of by[name].cubes) {
+        cube.uv[face] = structuredClone(inner);
+        cube.uv.down = structuredClone(inner);
+      }
+  }
+  // The waistband stays at the hip when the lower skirt tilts forward.
+  // Its hidden top overlaps the jacket so that bend cannot open a waist gap.
+  const waistbandUv = structuredClone(green);
+  for (const face of Object.values(waistbandUv)) {
+    face.uv[1] += face.uv_size[1] * 0.68;
+    face.uv_size[1] *= 0.26;
+  }
+  bones.push({
+    name: "CustomSkirtWaist",
+    parent: "DownBody",
+    pivot: by.DownBody.pivot.slice(),
+    cubes: [
+      {
+        origin: [-3.58, 18.95, -2.04],
+        size: [7.16, 2.87, 3.46],
+        uv: waistbandUv,
+      },
+    ],
+  });
+  // The visible skin stops short of the hip pivot to keep it inside the
+  // skirt during a stride. A narrow fabric join must still reach the hinge
+  // when the knee lifts, or the exposed thigh can look detached in profile.
+  for (const side of ["Left", "Right"]) {
+    const leg = by[side + "Leg"];
+    const [x, y, z] = leg.pivot;
+    const name = "Custom" + side + "ThighJoin";
+    const uv = structuredClone(green);
+    for (const face of Object.values(uv)) {
+      face.uv[1] += face.uv_size[1] * 0.72;
+      face.uv_size[1] *= 0.24;
+    }
+    bones.push({
+      name,
+      parent: leg.name,
+      pivot: leg.pivot.slice(),
+      cubes: [
+        {
+          origin: [x - 1.2, 15.55, z - 0.65],
+          size: [2.4, y - 14.73, 2.55],
+          uv,
+        },
+      ],
+    });
+  }
   // Three stepped rectangular frames match the block construction of the JK pleats.
-  // The walls overlap at corners, keeping a closed lining with only twelve cubes.
+  // The walls meet at the corners, keeping a closed lining with twelve cubes.
   const bands = 3,
     bottom = 14.8,
     top = 21,
@@ -59,8 +119,10 @@ module.exports = function fixSkirt(geo, liningUv, animations) {
     const walls = [
       { origin: [-rx, y, -rz], size: [2 * rx, height, thickness] },
       { origin: [-rx, y, rz - thickness], size: [2 * rx, height, thickness] },
-      { origin: [-rx, y, -rz], size: [thickness, height, 2 * rz] },
-      { origin: [rx - thickness, y, -rz], size: [thickness, height, 2 * rz] },
+      // Butt the side walls against the front and back panels. Their former
+      // overlap left duplicate top and bottom planes at the four corners.
+      { origin: [-rx, y, -rz + thickness], size: [thickness, height, 2 * (rz - thickness)] },
+      { origin: [rx - thickness, y, -rz + thickness], size: [thickness, height, 2 * (rz - thickness)] },
     ];
     for (const wall of walls) {
       wall.uv = structuredClone(green);
@@ -85,7 +147,14 @@ module.exports = function fixSkirt(geo, liningUv, animations) {
     while (parent && parent.name !== "cloth") parent = by[parent.parent];
     return Boolean(parent);
   });
-  for (const clip of ["run", "jump", "sneak", "sneaking"])
+  const seatedPitch = { sit: -40, boat: -40, ride: -38, ride_pig: -38 };
+  for (const clip of [
+    "run",
+    "jump",
+    "sneak",
+    "sneaking",
+    ...Object.keys(seatedPitch),
+  ])
     for (const b of skirtBones)
       animations.animations[clip].bones[b.name] = {
         rotation: [0, 0, 0],
@@ -108,8 +177,8 @@ module.exports = function fixSkirt(geo, liningUv, animations) {
       ];
     }),
   );
-  // The imported crouch rotates the front pleat by -112 degrees. Keep that
-  // panel down and move the whole skirt gently, with the lining following it.
+  // Move the assembled skirt with the raised thighs, rather than animating
+  // individual pleats as rigid slabs that can drift away from the hip.
   const sneak = animations.animations.sneak;
   sneak.bones.cloth.rotation = Object.fromEntries(
     Object.entries(run.cloth.rotation).map(([time, rotation]) => [
@@ -117,7 +186,21 @@ module.exports = function fixSkirt(geo, liningUv, animations) {
       rotation.map((n) => Math.round(n * 0.4 * 10000) / 10000),
     ]),
   );
-  animations.animations.sneaking.bones.cloth.rotation = [2, 0, 0];
-  animations.animations.jump.bones.cloth.rotation = [1.5, 0, 0];
+  animations.animations.sneaking.bones.cloth.rotation = [-47, 0, 0];
+  animations.animations.sneaking.bones.cloth.position = [0, -0.95, 0];
+  // The shared crouch tilt still closes the waist. Shorten the assembly
+  // slightly along its own length and depth to clear the raised heels.
+  animations.animations.sneaking.bones.cloth.scale = [1, 0.88, 0.92];
+  animations.animations.jump.bones.cloth.rotation = [-29, 0, 0];
+  animations.animations.jump.bones.cloth.position = [0, -0.55, -0.32];
+  for (const [clip, pitch] of Object.entries(seatedPitch)) {
+    const pose = animations.animations[clip].bones.cloth;
+    pose.rotation = [pitch, 0, 0];
+    pose.position = [0, -0.7, -0.45];
+    pose.scale = [1, 0.85, 1];
+  }
+  // During the prone swim, retract the lower blazer into the chest as it
+  // rolls independently from the waist. This leaves the green pleats visible.
+  animations.animations.swim.bones.jk2 = { position: [0, 1.5, 0.15] };
   return geo;
 };

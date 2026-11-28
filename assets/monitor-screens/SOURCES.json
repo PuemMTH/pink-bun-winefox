@@ -1,0 +1,89 @@
+[
+  {
+    "file": "local-daylight.png",
+    "source": "Local Minecraft screenshot 2026-11-27_11.36.40.png",
+    "owner": "User screenshot; Minecraft Mojang/Microsoft",
+    "sha256": "5ea4985b63c01aa58efd5bc0f7412c2a89461b65537a80a4de052569efe6b603"
+  },
+  {
+    "file": "nether.jpg",
+    "source": "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/screenshots/crimsonforest-header.jpg",
+    "page": "https://www.minecraft.net/en-us/article/around-block--crimson-forest",
+    "owner": "Mojang/Microsoft",
+    "sha256": "ff667256d51cf75c98b804e77b25db4ae5122267c9bc69b66178f0ef8663af15"
+  },
+  {
+    "file": "deep-dark.jpg",
+    "source": "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/screenshots/dark_header.jpg",
+    "page": "https://www.minecraft.net/en-us/article/around-block--deep-dark",
+    "owner": "Mojang/Microsoft",
+    "sha256": "1876ff8d3a08b89ce5f98126f77e484e95559a1bcdaff7319a47f140702f3050"
+  },
+  {
+    "file": "warped.jpg",
+    "source": "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/screenshots/warp-header.jpg",
+    "page": "https://www.minecraft.net/en-us/article/around-block--warped-forest",
+    "owner": "Mojang/Microsoft",
+    "sha256": "90a0b23893b702a6e0eed97573e1d024ac6709fdb1f6835aae297344acc3cfe9"
+  },
+  {
+    "file": "game-01.png",
+    "source": "2026-11-27_13.56.35.png",
+    "owner": "User in-game screenshot; Minecraft Mojang/Microsoft",
+    "sha256": "d4934086f5db7286f8931cb495f53eaf969001aa840e6f8537c4ab92ffda5968"
+  },
+  {
+    "file": "game-02.png",
+    "source": "2026-11-27_13.56.51.png",
+    "owner": "User in-game screenshot; Minecraft Mojang/Microsoft",
+    "sha256": "3335ed296bec439237252c4e8ea48afaacca7b75667d015daa655d2b1b58c49c"
+  },
+  {
+    "file": "game-03.png",
+    "source": "2026-11-27_13.59.02.png",
+    "owner": "User in-game screenshot; Minecraft Mojang/Microsoft",
+    "sha256": "1ca4958be5245f80aa55a451d4054c2dec8209effc013e516c3783bae33ce683"
+  },
+  {
+    "file": "game-04.png",
+    "source": "2026-11-27_13.59.22.png",
+    "owner": "User in-game screenshot; Minecraft Mojang/Microsoft",
+    "sha256": "f603bed52173447d02013408802f21fba864922d4af754c2e92d4d74d92ff60f"
+  },
+  {
+    "file": "game-05.png",
+    "source": "2026-11-27_13.59.30.png",
+    "owner": "User in-game screenshot; Minecraft Mojang/Microsoft",
+    "sha256": "fa7418451fdaccfcbc46e71201d4097a547bcda7c86ef3dcf5260c28894e05cc"
+  },
+  {
+    "file": "game-06.png",
+    "source": "2026-11-27_13.59.34.png",
+    "owner": "User in-game screenshot; Minecraft Mojang/Microsoft",
+    "sha256": "0a454513992b1cb56637316d9c70cab1cc961029b1c56894423344f34e132b8d"
+  },
+  {
+    "file": "game-07.png",
+    "source": "2026-11-27_13.59.37.png",
+    "owner": "User in-game screenshot; Minecraft Mojang/Microsoft",
+    "sha256": "3733e0ab10fc2808aca30628665a08134ee755ddc4288bf64a5e805f31b38c42"
+  },
+  {
+    "file": "game-08.png",
+    "source": "2026-11-27_13.59.03.png",
+    "owner": "User in-game screenshot; Minecraft Mojang/Microsoft",
+    "sha256": "92f6622e88c9d0e0c50f5deb21d3cd319e1ffb97d47914b084d788da31f313af"
+  },
+  {
+    "file": "code-01.png",
+    "source": "renderer/blender/monitor_room.py",
+    "owner": "Project source rendered as a code editor; no terminal or credentials",
+    "sha256": "1e99994c5e2eb59223735e6bd4f3f934d56f4b7cfd26c51fcdb2ebfaaa5d4ab2"
+  },
+  {
+    "file": "code-02.png",
+    "source": "renderer/blender/monitor_room.py",
+    "owner": "Project source rendered as a code editor; no terminal or credentials",
+    "sha256": "39ba1e52953077541089e8f08e14406f12b33e7e344b4760d1da15f6abfb0f50"
+  }
+]

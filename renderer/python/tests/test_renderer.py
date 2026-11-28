@@ -155,8 +155,8 @@ class RendererTests(unittest.TestCase):
     )
     def test_real_model_folder_zip_parameters_and_photo_recovery(self):
         model = load_model(MODEL)
-        self.assertEqual(model.cube_count, 292)
-        self.assertEqual(model.triangle_count, 3504)
+        self.assertEqual(model.cube_count, 299)
+        self.assertEqual(model.triangle_count, 3508)
         self.assertEqual(
             len([n for n in model.animations if n.startswith("studio_photo_")]), 6
         )

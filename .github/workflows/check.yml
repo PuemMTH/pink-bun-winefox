@@ -1,4 +1,4 @@
-name: Build and check model
+name: Build and check models
 on:
   push:
   pull_request:
@@ -29,6 +29,9 @@ jobs:
           name: pink-bun-winefox
           path: |
             downloads/pink-bun-winefox.zip
+            downloads/pink-bun-winefox-square-eyes.zip
+            downloads/pink-bun-winefox-white-square-eyes.zip
+            downloads/satou-aunt.zip
             docs/preview.png
             docs/preview-run-face.png
       - uses: actions/upload-artifact@v4

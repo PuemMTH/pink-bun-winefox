@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="th">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Satou Matsuzaka · Model Studio</title>
     <meta
       name="description"
-      content="หมุนดูตัวละคร YSM และทดลองแอนิเมชันจากไฟล์โมเดลจริงในเบราว์เซอร์"
+      content="Inspect YSM model files and play their animations in the browser."
     />
     <link
       rel="icon"
@@ -22,31 +22,31 @@
       <a class="brand" href="./"
         ><span class="brand-icon" aria-hidden="true">▦</span
         ><span>MODEL <b>STUDIO</b></span></a
-      ><span class="project-pill">Satou Matsuzaka · puemmth</span>
+      ><span class="project-pill">Satou Matsuzaka</span>
       <div class="header-actions">
         <a
           href="https://github.com/PuemMTH/pink-bun-winefox"
           target="_blank"
           rel="noopener"
           >GitHub</a
-        ><button id="open-model" class="button quiet">เพิ่มโมเดล</button
-        ><button id="capture" class="button primary">บันทึก PNG</button>
+        ><button id="open-model" class="button quiet">Import Model</button
+        ><button id="capture" class="button primary">Save PNG</button>
       </div>
     </header>
     <main class="workspace">
-      <section class="stage" aria-label="พรีวิวตัวละครสามมิติ">
+      <section class="stage" aria-label="3D character preview">
         <div class="stage-heading">
           <div>
             <p class="eyebrow">CHARACTER VIEWPORT</p>
             <h1 id="model-name">Satou Matsuzaka</h1>
-            <p class="subtitle">เทียบทุกรูปแบบการขยับ จากมุมเริ่มต้นเดียวกัน</p>
+            <p class="subtitle">Compare actions from the same starting angle.</p>
           </div>
           <div class="stage-actions">
             <label class="layout-label" for="layout"
-              >ช่องมอง
-              <select id="layout" aria-label="จำนวนช่องมอง">
-                <option value="poses" selected>ทุกท่าทาง</option>
-                <option value="photos">โพสถ่ายรูป</option>
+              >Layout
+              <select id="layout" aria-label="Viewport layout">
+                <option value="poses" selected>All Poses</option>
+                <option value="photos">Photo Poses</option>
                 <option value="1">1 View</option>
                 <option value="2">2 Views</option>
                 <option value="4">4 Views</option>
@@ -55,8 +55,8 @@
             <button
               id="reload"
               class="icon-button"
-              aria-label="โหลดตัวละครที่เลือกใหม่"
-              title="โหลดตัวละครที่เลือกใหม่"
+              aria-label="Reload selected model"
+              title="Reload selected model"
             >
               ↻
             </button>
@@ -64,107 +64,109 @@
         </div>
         <div id="viewport">
           <div id="loading" role="status">
-            <span class="loader"></span>กำลังเตรียมตัวละคร…
+            <span class="loader"></span>Loading models…
           </div>
           <div id="view-panes"></div>
           <p id="empty" hidden>
-            เพิ่มโมเดล หรือเลือก “เพิ่ม Satou Matsuzaka” เพื่อเริ่มดู
+            Import a model or add a bundled character.
           </p>
         </div>
-        <div class="view-toolbar" aria-label="มุมกล้อง">
-          <strong id="active-view-name">ช่อง 1</strong>
-          <button data-view="front" class="active">ด้านหน้า</button
-          ><button data-view="side">ด้านข้าง</button
-          ><button data-view="back">ด้านหลัง</button><span></span
-          ><button id="reset-camera">รีเซ็ตมุม</button>
+        <div class="view-toolbar" aria-label="Camera angle">
+          <strong id="active-view-name">View 1</strong>
+          <button data-view="front" class="active">Front</button
+          ><button data-view="side">Side</button
+          ><button data-view="back">Back</button><span></span
+          ><button id="reset-camera">Reset Camera</button>
         </div>
         <div class="stage-caption">
           <span id="navigation-hint"
-            >เลื่อนในตารางเพื่อดูทุกท่า · ลากตัวละครเพื่อหมุน</span
+            >Scroll to see every pose · Drag to orbit</span
           ><span id="fps">WebGL</span>
         </div>
       </section>
       <aside class="inspector">
         <section class="model-card">
           <div class="avatar" id="model-avatar">
-            <img src="assets/preview.png" alt="ตัวละคร Satou Matsuzaka" />
+            <img src="assets/preview.png" alt="Satou Matsuzaka" />
           </div>
           <div>
             <p class="eyebrow">CURRENT MODEL</p>
             <h2 id="model-title">Satou Matsuzaka</h2>
-            <p id="model-detail">ดัดแปลงโดย puemmth · ฐาน Wine Fox JK</p>
+            <p id="model-detail">School Uniform · Square Eyes</p>
           </div>
         </section>
         <section class="panel characters-panel">
           <div class="section-title">
-            <h2>ตัวละครในฉาก</h2>
+            <h2>Scene models</h2>
             <span class="tag" id="model-count">0</span>
           </div>
-          <div id="model-list" aria-label="รายการตัวละคร"></div>
+          <div id="model-list" aria-label="Model list"></div>
           <div class="model-actions">
             <button id="add-bundled" class="button">
-              เพิ่ม Satou Matsuzaka
+              Add School Uniform
             </button>
+            <button id="add-white" class="button">Add White Shirt</button>
+            <button id="add-aunt" class="button">Add Satou’s Aunt</button>
             <button id="duplicate-model" class="button">
-              ทำสำเนาตัวที่เลือก
+              Duplicate Selected
             </button>
           </div>
           <p class="hint">
-            เลือกชื่อเพื่อดูทุกท่าของตัวนั้น · ติ๊กเพื่อซ่อน/แสดง
+            Select a model to view its poses. Use its checkbox to show or hide it.
           </p>
         </section>
         <section class="panel photo-poses-panel">
           <div class="section-title">
-            <h2>โพสถ่ายรูป</h2>
+            <h2>Photo Poses</h2>
             <span class="tag">PHOTO</span>
           </div>
           <div
             class="animation-grid photo-pose-grid"
             id="photo-pose-buttons"
-            aria-label="เลือกโพสถ่ายรูป"
+            aria-label="Choose a photo pose"
           ></div>
           <button id="show-photo-poses" class="button sync-motion">
-            ดูโพสถ่ายรูปทั้งหมด
+            Show Photo Poses
           </button>
-          <p class="hint">เลือกเพื่อค้างท่า แล้วหมุนกล้องถ่ายภาพได้เลย</p>
+          <p class="hint">Select a pose, orbit the camera, and save a still.</p>
         </section>
         <section class="panel">
           <div class="section-title">
-            <h2>แอนิเมชัน</h2>
+            <h2>Animation</h2>
             <span class="tag" id="clip-tag">IDLE</span>
           </div>
           <div class="animation-grid" id="clip-buttons">
-            <button data-clip="idle" class="selected">ยืน</button
-            ><button data-clip="walk">เดิน</button
-            ><button data-clip="run">วิ่ง</button
-            ><button data-clip="jump">กระโดด</button
-            ><button data-clip="sneak">ย่อ</button
-            ><button data-clip="sit">นั่ง</button>
+            <button data-clip="idle" class="selected">Idle</button
+            ><button data-clip="walk">Walk</button
+            ><button data-clip="run">Run</button
+            ><button data-clip="jump">Jump</button
+            ><button data-clip="sneak">Crouch Walk</button
+            ><button data-clip="sit">Sit</button>
           </div>
-          <label class="field-label" for="more-clips">ท่าอื่น ๆ</label
+          <label class="field-label" for="more-clips">More actions</label
           ><select id="more-clips">
-            <option value="">เลือกแอนิเมชัน</option>
+            <option value="">Choose an animation</option>
           </select>
           <p id="expression-note" class="hint">
-            กะพริบตาและขยับผมตามแอนิเมชันเดิม
+            Blink and hair motion follow the model animation.
           </p>
           <button id="sync-motion" class="button sync-motion">
-            ใช้ท่านี้กับทุกตัว
+            Apply Pose to All Models
           </button>
         </section>
         <section class="panel playback">
           <div class="transport">
-            <button id="play" class="play-button" aria-label="หยุดแอนิเมชัน">
+            <button id="play" class="play-button" aria-label="Pause animation">
               Ⅱ
             </button>
             <div>
-              <strong id="clip-name">ยืน</strong>
+              <strong id="clip-name">Idle</strong>
               <p>
                 <span id="time">0.00</span> / <span id="duration">0.00</span> s
               </p>
             </div>
             <label class="switch-label"
-              ><input type="checkbox" id="loop" checked /> เล่นวน</label
+              ><input type="checkbox" id="loop" checked /> Loop</label
             >
           </div>
           <input
@@ -174,10 +176,10 @@
             max="1"
             step="0.001"
             value="0"
-            aria-label="ตำแหน่งแอนิเมชัน"
+            aria-label="Animation time"
           />
           <div class="range-title">
-            <label for="speed">ความเร็ว</label
+            <label for="speed">Speed</label
             ><output id="speed-value">1×</output>
           </div>
           <input
@@ -190,61 +192,51 @@
           />
         </section>
         <section class="panel">
-          <h2>การแสดงผล</h2>
+          <h2>Display</h2>
           <div class="field-row">
-            <label for="material">แสงและพื้นผิว</label
+            <label for="material">Shading</label
             ><select id="material">
-              <option value="lit">แสงแบบเกม</option>
-              <option value="flat">สีพื้นผิว</option>
-              <option value="wire">เส้นโครงโมเดล</option>
+              <option value="lit">Lit</option>
+              <option value="flat">Texture colors</option>
+              <option value="wire">Wireframe</option>
             </select>
           </div>
           <div class="field-row">
-            <label for="background">ฉากหลัง</label
+            <label for="background">Background</label
             ><select id="background">
               <option value="dark">Dark studio</option>
               <option value="light">Light studio</option>
-              <option value="transparent">โปร่งใส</option>
+              <option value="transparent">Transparent</option>
             </select>
           </div>
           <div class="toggles">
-            <label><input type="checkbox" id="grid" checked /> พื้นกริด</label
-            ><label><input type="checkbox" id="blink" checked /> กะพริบตา</label
+            <label><input type="checkbox" id="grid" checked /> Ground grid</label
+            ><label><input type="checkbox" id="blink" checked /> Blink</label
             ><label
-              ><input type="checkbox" id="auto-rotate" />หมุนอัตโนมัติ</label
+              ><input type="checkbox" id="auto-rotate" />Auto-orbit</label
             >
           </div>
         </section>
-        <section class="stats" aria-label="ข้อมูลโมเดล">
+        <section class="stats" aria-label="Model statistics">
           <div><strong id="bones">—</strong><span>BONES</span></div>
           <div><strong id="cubes">—</strong><span>CUBES</span></div>
           <div><strong id="triangles">—</strong><span>TRIANGLES</span></div>
         </section>
         <details class="about">
-          <summary>เกี่ยวกับพรีวิวนี้</summary>
+          <summary>About this preview</summary>
           <p>
-            ใช้ geometry, UV, พื้นผิว และคีย์เฟรมจริงของโมเดล รองรับท่าหลัก
-            กะพริบตา และการขยับผมบางส่วน แสง ฟิสิกส์ผม และการผสมท่าของ YSM
-            อาจต่างจากในเกม
+            The preview uses model geometry, UVs, textures, and keyframes.
+            Minecraft lighting and native animation layers can behave differently.
           </p>
           <p>
-            โหมดทุกท่าทางแสดงท่าของตัวละครที่เลือกในตาราง เลื่อนเพื่อดูท่าอื่น
-            ทุกช่องเริ่มจากมุมด้านหน้า เลือกท่าด้านขวาเพื่อดูท่าเดียวเต็มช่อง
-            เพิ่มโฟลเดอร์โมเดลที่มี <code>ysm.json</code>
-            หรือเลือกโฟลเดอร์รวมเพื่อเปิดหลายตัวละครพร้อมกัน เลือก 1/2/4 Views
-            แล้วตั้งตัวละครและมุมในหัวแต่ละช่องได้ ไฟล์จะถูกอ่านในเบราว์เซอร์
-            ไม่ถูกอัปโหลด และยังไม่รองรับไฟล์
-            <code>.ysm</code> ที่เข้ารหัส
+            All Poses shows the selected model in a scrollable grid.
+            Use 1, 2, or 4 Views to set a model and camera for each pane.
+            Import a folder with <code>ysm.json</code>, or a parent folder with multiple models.
+            Import runs locally in the browser and supports unpacked models.
           </p>
           <p>
-            ดัดแปลงโดย puemmth · ฐานโมเดล Wine Fox JK · CC BY-NC-SA 4.0 ·
-            Three.js MIT
-            <a
-              href="https://github.com/PuemMTH/pink-bun-winefox/blob/master/ATTRIBUTION.md"
-              target="_blank"
-              rel="noopener"
-              >เครดิตผู้สร้าง</a
-            >
+            <a id="model-credits" href="assets/ATTRIBUTION.md">Model credits and license</a>
+            · Three.js MIT
           </p>
         </details>
       </aside>

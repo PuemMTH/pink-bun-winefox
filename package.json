@@ -9,14 +9,17 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "node src/build.cjs",
+    "build": "node src/build.cjs && npm run build:aunt",
+    "build:aunt": "node src/build-aunt.cjs",
     "check": "node scripts/check.cjs",
     "test": "npm run build && npm run check",
     "dev": "node scripts/dev.cjs",
     "install:model": "npm run build && node scripts/install.cjs",
     "pack": "npm test && node scripts/pack.cjs",
+    "pack:aunt": "node src/build-aunt.cjs --pack",
     "build:viewer": "npm run build && node scripts/build-viewer.cjs",
     "viewer": "npm run build:viewer && node scripts/serve-viewer.cjs",
-    "check:viewer": "node scripts/check-viewer.mjs"
+    "check:viewer": "node scripts/check-viewer.mjs",
+    "export:viewer": "npm run build:viewer && node scripts/export-viewer.cjs"
   }
 }

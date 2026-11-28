@@ -10,3 +10,6 @@ __pycache__/
 .venv/
 renderer/python/build/
 /renders/
+
+/assets/monitor-screens/*.html
+/assets/monitor-screens/candidate-sources.json

@@ -1,0 +1,90 @@
+{
+  "tool": "built-in image_gen",
+  "newSheets": [
+    {
+      "key": "school-travel",
+      "file": "images/school-travel.png",
+      "originalArtifact": "exec-99e2255b-7a9f-4a67-8f06-3204a279e037.png"
+    },
+    {
+      "key": "school-rest-react",
+      "file": "images/school-rest-react.png",
+      "originalArtifact": "exec-82247428-0227-4bf7-a55f-0d271eae1be1.png"
+    },
+    {
+      "key": "school-details",
+      "file": "images/school-details.png",
+      "originalArtifact": "exec-73423bde-6b71-4dcf-8771-62cfb3d881e1.png"
+    },
+    {
+      "key": "school-faces",
+      "file": "images/school-faces.png",
+      "originalArtifact": "exec-4bf10bcc-f2cc-4961-93bf-aa53d363714e.png"
+    },
+    {
+      "key": "school-extras",
+      "file": "images/school-extras.png",
+      "originalArtifact": "exec-56355fb1-8ccc-4fcd-87f6-62f7f6fa3c1b.png"
+    },
+    {
+      "key": "school-hands-hover",
+      "file": "images/school-hands-hover.png",
+      "originalArtifact": "exec-753b6219-df21-415e-afd3-fd7464073bb0.png"
+    },
+    {
+      "key": "white-faces",
+      "file": "images/white-faces.png",
+      "originalArtifact": "exec-20ebfcd1-80ef-45df-a2f6-a3addca43ac5.png"
+    },
+    {
+      "key": "school-photo",
+      "file": "images/school-photo.png",
+      "originalArtifact": "exec-ddebd252-8fdf-4d35-a5dc-8628039446de.png"
+    },
+    {
+      "key": "white-travel",
+      "file": "images/white-travel.png",
+      "originalArtifact": "exec-dfa80f92-32ae-45c7-88ce-639ab536b712.png"
+    },
+    {
+      "key": "white-details",
+      "file": "images/white-details.png",
+      "originalArtifact": "exec-b4f143b3-3f03-4b32-a705-f86b94ad82d2.png"
+    },
+    {
+      "key": "white-hands-hover",
+      "file": "images/white-hands-hover.png",
+      "originalArtifact": "exec-c4f9dce5-36ac-467f-9152-96c1fb54f7ff.png"
+    },
+    {
+      "key": "white-extras",
+      "file": "images/white-extras.png",
+      "originalArtifact": "exec-e56745b1-2d28-46c0-b2c6-948d04e8cf98.png"
+    },
+    {
+      "key": "white-photo",
+      "file": "images/white-photo.png",
+      "originalArtifact": "exec-8062e036-a39b-4751-89d9-ebb300dbab65.png"
+    },
+    {
+      "key": "white-rest-react",
+      "file": "images/white-rest-react.png",
+      "originalArtifact": "exec-c7564ce2-b782-4100-94e7-4221fe362cd1.png"
+    },
+    {
+      "key": "white-core-idle-walk",
+      "file": "images/white-core-idle-walk.png",
+      "originalArtifact": "exec-02a93f75-c49d-4ad3-97f0-1cfbf15fe3a4.png"
+    },
+    {
+      "key": "white-core-sneak-sit",
+      "file": "images/white-core-sneak-sit.png",
+      "originalArtifact": "exec-6c63715d-172b-4140-a095-74aa797db886.png"
+    },
+    {
+      "key": "white-core-run-jump",
+      "file": "images/white-core-run-jump.png",
+      "originalArtifact": "exec-72e1cfda-cd5c-4dd1-9413-450b637e6b0d.png"
+    }
+  ]
+}

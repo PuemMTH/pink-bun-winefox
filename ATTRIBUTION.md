@@ -2,7 +2,7 @@
 
 Base asset: **Wine Fox, school-uniform variant `07_jk`**, bundled with **Yes Steve Model 2.6.5**.
 
-Original model metadata declares **CC BY-NC-SA 4.0**. The unchanged metadata is included at [`vendor/winefox-jk/ysm.json`](vendor/winefox-jk/ysm.json).
+Original model metadata declares **CC BY-NC-SA 4.0**. The original metadata is kept in the source repository at `vendor/winefox-jk/ysm.json`.
 
 | Original author | Contribution | Published contact |
 | --- | --- | --- |
@@ -15,7 +15,7 @@ Mod and documentation: [Yes Steve Model](https://modrinth.com/mod/yes-steve-mode
 
 ## Adaptation
 
-**Character:** Satou Matsuzaka. **Adaptation credit:** [puemmth](https://github.com/PuemMTH).
+**Character:** Satou Matsuzaka.
 
 This project changes the hair and outfit palette; removes fox ears, tail, flower and hat geometry; adds pink stepped twin buns and a side ribbon; adds a shaded waistcoat, lapels and buttons; moves the bow forward; adjusts skirt parenting and concealed thighs; adds a skirt lining; and adds a sprint-only spiral-eye expression. Original skin/face texels, core rig, base assets and animation author credits are preserved.
 

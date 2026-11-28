@@ -1,0 +1,1225 @@
+{
+  "version": 1,
+  "conceptRoot": "../concepts/2026-11-27",
+  "core": [
+    [
+      "idle-walk",
+      [
+        "idle",
+        "walk"
+      ],
+      "Top row neutral arms-down standing. Bottom row moderate walking stride with opposite arms/legs, knees softly bent, no exaggerated runway stride."
+    ],
+    [
+      "run-jump",
+      [
+        "run",
+        "jump"
+      ],
+      "Top row controlled running stride, elbows bent about 85/48 degrees, opposite knee up. Bottom row compact airborne knee tuck: thighs forward 37, knees folded about 90, elbows bent 80 at chest, not a star jump."
+    ],
+    [
+      "sneak-sit",
+      [
+        "sneak",
+        "sit"
+      ],
+      "Top row cautious half-crouch with asymmetric bent knees, torso slightly inclined, bent arms close in front. Bottom row grounded kneeling/folded-leg sit, lower legs tucked underneath/behind, hands together in front, not sitting on a chair."
+    ]
+  ],
+  "faces": [
+    [
+      "face_neutral",
+      "NEUTRAL",
+      "regular burgundy eyes, tiny neutral closed mouth"
+    ],
+    [
+      "face_soft_smile",
+      "SOFT SMILE",
+      "regular burgundy eyes, tiny gentle closed smile"
+    ],
+    [
+      "face_surprised",
+      "SURPRISED",
+      "regular widened eyes and tiny open square mouth"
+    ],
+    [
+      "face_concerned",
+      "CONCERNED",
+      "regular eyes, slightly worried brows, downturned tiny mouth"
+    ],
+    [
+      "face_closed",
+      "EYES CLOSED",
+      "both eyelids closed naturally, relaxed mouth"
+    ],
+    [
+      "face_wink",
+      "WINK",
+      "one eyelid closed, other ordinary burgundy eye open, tiny smile"
+    ],
+    [
+      "face_spiral_blank",
+      "SPIRAL STARE",
+      "both red irises with clear square pixel spiral pupils, neutral tiny mouth"
+    ],
+    [
+      "face_spiral_smile",
+      "SPIRAL SMILE",
+      "red square spiral pupils and tiny sweet closed smile"
+    ]
+  ],
+  "groups": [
+    [
+      "travel",
+      "MOVEMENT",
+      [
+        [
+          "fly",
+          "FLY",
+          "upright floating flight, arms slightly out, knees softly bent, feet off ground, front 3/4"
+        ],
+        [
+          "elytra_fly",
+          "ELYTRA GLIDE",
+          "horizontal forward gliding body, arms alongside, head lifted, side view, no invented wings"
+        ],
+        [
+          "swim",
+          "SWIM",
+          "horizontal swimming stroke, alternating arms and small kick, side/front 3/4"
+        ],
+        [
+          "swim_stand",
+          "TREAD WATER",
+          "upright treading-water pose, elbows out, knees soft, front"
+        ],
+        [
+          "climb",
+          "CLIMB",
+          "active climb, one arm up and opposite knee lifted, rear 3/4, faint plain ladder outline"
+        ],
+        [
+          "climbing",
+          "HOLD LADDER",
+          "paused ladder hold, hands above shoulders and one bent knee, rear/side"
+        ]
+      ]
+    ],
+    [
+      "rest-react",
+      "REST / REACTION",
+      [
+        [
+          "sleep",
+          "SLEEP",
+          "ordinary fully clothed side-lying sleeping posture, legs together, side view"
+        ],
+        [
+          "boat",
+          "BOAT",
+          "upright seated rowing pose, bent elbows, knees forward, 3/4, minimal gray bench"
+        ],
+        [
+          "ride",
+          "RIDE",
+          "upright mount-riding pose with bent knees and hands forward, front 3/4, plain gray saddle placeholder"
+        ],
+        [
+          "ride_pig",
+          "RIDE PIG",
+          "upright seated mount pose with bent legs, side view, neutral saddle placeholder, no animal"
+        ],
+        [
+          "attacked",
+          "HIT REACTION",
+          "startled recoil, raised bent forearms, head slightly back, front 3/4, no attacker or injury"
+        ],
+        [
+          "death",
+          "DOWN / DEATH",
+          "non-graphic game down-state lying on side with relaxed folded limbs, rear/side, no wounds"
+        ]
+      ]
+    ],
+    [
+      "hands-hover",
+      "HANDS / HOVER",
+      [
+        [
+          "use_mainhand",
+          "USE MAIN HAND",
+          "right hand presenting a plain gray cube near chest, other arm relaxed, front 3/4"
+        ],
+        [
+          "use_offhand",
+          "USE OFF HAND",
+          "left hand presenting a plain gray cube near chest, opposite front 3/4"
+        ],
+        [
+          "swing_hand",
+          "SWING HAND",
+          "right arm mid-swing forward, slight shoulder turn, no weapon or target"
+        ],
+        [
+          "hover_fadeout",
+          "HOVER TRANSITION",
+          "gentle upright float transition, soft bent elbows, feet just lifting, side"
+        ],
+        [
+          "hover",
+          "HOVER",
+          "relaxed upright float idle, hands near torso, feet off ground, rear 3/4"
+        ],
+        [
+          "focus",
+          "FOCUS",
+          "steady attentive upright pose, head toward viewer, arms relaxed forward"
+        ],
+        [
+          "sneaking",
+          "SNEAK WALK",
+          "cautious crouched walking stride, bent knees and opposite arm swing, side/front 3/4"
+        ]
+      ]
+    ]
+  ],
+  "extra": [
+    [
+      "extra0",
+      "ACCESSORY RESET",
+      "plain neutral avatar, accessory-toggle reset check; no invented headwear"
+    ],
+    [
+      "extra1",
+      "WAVE",
+      "one arm raised in greeting"
+    ],
+    [
+      "extra2",
+      "CLAP",
+      "both block hands together at chest"
+    ],
+    [
+      "extra3",
+      "YES / NOD",
+      "chin gently dipped in nod, bent forearms in front"
+    ],
+    [
+      "extra4",
+      "NO / SHAKE",
+      "head turned to one side, bent forearms in front"
+    ],
+    [
+      "extra5",
+      "CUTE TILT",
+      "head tilted, hands together close to upper body"
+    ],
+    [
+      "extra6",
+      "SWAY",
+      "rhythmic shoulder/arm sway, asymmetric bent elbows"
+    ],
+    [
+      "extra7",
+      "DANCE",
+      "playful dance freeze, one arm raised, subtle weight shift"
+    ]
+  ],
+  "photo": [
+    [
+      "studio_photo_wave",
+      "HELLO",
+      "raised greeting hand, other hand at hip"
+    ],
+    [
+      "studio_photo_cheeks",
+      "CHEEKS",
+      "both block hands framing cheeks"
+    ],
+    [
+      "studio_photo_hip",
+      "HAND ON HIP",
+      "one hand at hip, body/head counter-tilt"
+    ],
+    [
+      "studio_photo_shy",
+      "SHY",
+      "hands clasped at waist, shy head tilt"
+    ],
+    [
+      "studio_photo_chest",
+      "HANDS AT CHEST",
+      "hands together at chest, elbows out"
+    ],
+    [
+      "studio_photo_open",
+      "OPEN ARMS",
+      "both arms open, one knee bent back"
+    ]
+  ],
+  "sheets": [
+    {
+      "key": "school-turnaround",
+      "file": "images/school-turnaround.png",
+      "title": "ชุดนักเรียน · 6 มุม",
+      "outfit": "school",
+      "category": "turnaround",
+      "source": "turnaround-web-v2.png",
+      "panels": [
+        {
+          "id": "front",
+          "view": "front"
+        },
+        {
+          "id": "front3q",
+          "view": "front3q"
+        },
+        {
+          "id": "left",
+          "view": "left"
+        },
+        {
+          "id": "back3q",
+          "view": "back3q"
+        },
+        {
+          "id": "back",
+          "view": "back"
+        },
+        {
+          "id": "right",
+          "view": "right"
+        }
+      ],
+      "generated": false
+    },
+    {
+      "key": "white-turnaround",
+      "file": "images/white-turnaround.png",
+      "title": "เชิ้ตขาว · 6 มุม",
+      "outfit": "white",
+      "category": "turnaround",
+      "source": "white-shirt-turnaround-v1.png",
+      "panels": [
+        {
+          "id": "front",
+          "view": "front"
+        },
+        {
+          "id": "front3q",
+          "view": "front3q"
+        },
+        {
+          "id": "left",
+          "view": "left"
+        },
+        {
+          "id": "back3q",
+          "view": "back3q"
+        },
+        {
+          "id": "back",
+          "view": "back"
+        },
+        {
+          "id": "right",
+          "view": "right"
+        }
+      ],
+      "generated": false
+    },
+    {
+      "key": "school-core-idle-walk",
+      "file": "images/school-core-idle-walk.png",
+      "title": "ท่าหลัก 3 มุม · นักเรียน idle-walk",
+      "outfit": "school",
+      "category": "main",
+      "source": "ysm-idle-walk-v1.png",
+      "panels": [
+        {
+          "id": "idle",
+          "view": "front3q"
+        },
+        {
+          "id": "idle",
+          "view": "side"
+        },
+        {
+          "id": "idle",
+          "view": "back3q"
+        },
+        {
+          "id": "walk",
+          "view": "front3q"
+        },
+        {
+          "id": "walk",
+          "view": "side"
+        },
+        {
+          "id": "walk",
+          "view": "back3q"
+        }
+      ],
+      "generated": false
+    },
+    {
+      "key": "school-core-run-jump",
+      "file": "images/school-core-run-jump.png",
+      "title": "ท่าหลัก 3 มุม · นักเรียน run-jump",
+      "outfit": "school",
+      "category": "main",
+      "source": "ysm-run-jump-v1.png",
+      "panels": [
+        {
+          "id": "run",
+          "view": "front3q"
+        },
+        {
+          "id": "run",
+          "view": "side"
+        },
+        {
+          "id": "run",
+          "view": "back3q"
+        },
+        {
+          "id": "jump",
+          "view": "front3q"
+        },
+        {
+          "id": "jump",
+          "view": "side"
+        },
+        {
+          "id": "jump",
+          "view": "back3q"
+        }
+      ],
+      "generated": false
+    },
+    {
+      "key": "school-core-sneak-sit",
+      "file": "images/school-core-sneak-sit.png",
+      "title": "ท่าหลัก 3 มุม · นักเรียน sneak-sit",
+      "outfit": "school",
+      "category": "main",
+      "source": "ysm-sneak-sit-v1.png",
+      "panels": [
+        {
+          "id": "sneak",
+          "view": "front3q"
+        },
+        {
+          "id": "sneak",
+          "view": "side"
+        },
+        {
+          "id": "sneak",
+          "view": "back3q"
+        },
+        {
+          "id": "sit",
+          "view": "front3q"
+        },
+        {
+          "id": "sit",
+          "view": "side"
+        },
+        {
+          "id": "sit",
+          "view": "back3q"
+        }
+      ],
+      "generated": false
+    },
+    {
+      "key": "school-overview",
+      "file": "images/school-overview.png",
+      "title": "โพสหลายมุม · นักเรียน",
+      "outfit": "school",
+      "category": "overview",
+      "source": "poses-web-v2.png",
+      "panels": [
+        {
+          "id": "hello"
+        },
+        {
+          "id": "cheeks"
+        },
+        {
+          "id": "hip"
+        },
+        {
+          "id": "shy"
+        },
+        {
+          "id": "look_back"
+        },
+        {
+          "id": "open"
+        }
+      ],
+      "generated": false
+    },
+    {
+      "key": "school-personality",
+      "file": "images/school-personality.png",
+      "title": "บุคลิก · นักเรียน",
+      "outfit": "school",
+      "category": "overview",
+      "source": "personality-poses-v1.png",
+      "panels": [
+        {
+          "id": "quiet"
+        },
+        {
+          "id": "fixated"
+        },
+        {
+          "id": "composed"
+        },
+        {
+          "id": "unsettling"
+        }
+      ],
+      "generated": false
+    },
+    {
+      "key": "school-face-overview",
+      "file": "images/school-face-overview.png",
+      "title": "สีหน้าเดิม · นักเรียน",
+      "outfit": "school",
+      "category": "overview",
+      "source": "personality-expressions-v1.png",
+      "panels": [
+        {
+          "id": "blank"
+        },
+        {
+          "id": "cheeks"
+        },
+        {
+          "id": "smile"
+        },
+        {
+          "id": "look_back"
+        }
+      ],
+      "generated": false
+    },
+    {
+      "key": "white-overview",
+      "file": "images/white-overview.png",
+      "title": "ยืน / นั่ง · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "overview",
+      "source": "white-shirt-poses-v1.png",
+      "panels": [
+        {
+          "id": "standing"
+        },
+        {
+          "id": "back"
+        },
+        {
+          "id": "floor_sit"
+        },
+        {
+          "id": "stool_sit"
+        }
+      ],
+      "generated": false
+    },
+    {
+      "key": "school-faces",
+      "file": "images/school-faces.png",
+      "title": "สีหน้า 8 แบบ · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "faces",
+      "panels": [
+        {
+          "id": "face_neutral",
+          "view": "bust"
+        },
+        {
+          "id": "face_soft_smile",
+          "view": "bust"
+        },
+        {
+          "id": "face_surprised",
+          "view": "bust"
+        },
+        {
+          "id": "face_concerned",
+          "view": "bust"
+        },
+        {
+          "id": "face_closed",
+          "view": "bust"
+        },
+        {
+          "id": "face_wink",
+          "view": "bust"
+        },
+        {
+          "id": "face_spiral_blank",
+          "view": "bust"
+        },
+        {
+          "id": "face_spiral_smile",
+          "view": "bust"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/school-turnaround.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nSchool uniform: navy blazer, narrow pale/gold trim, striped cuffs, dusty brown-rose vest with gold buttons, white collar, red chest bow protruding in front, green pleated skirt, dark violet knee socks and brown block loafers.\nLandscape 4 columns x 2 rows, exactly EIGHT large straight-on bust portraits with complete buns/ahoge, same head framing. Title \"SATOU — SCHOOL FACIAL STATES\". Change face only. Reading order: \"NEUTRAL\": regular burgundy eyes, tiny neutral closed mouth; \"SOFT SMILE\": regular burgundy eyes, tiny gentle closed smile; \"SURPRISED\": regular widened eyes and tiny open square mouth; \"CONCERNED\": regular eyes, slightly worried brows, downturned tiny mouth; \"EYES CLOSED\": both eyelids closed naturally, relaxed mouth; \"WINK\": one eyelid closed, other ordinary burgundy eye open, tiny smile; \"SPIRAL STARE\": both red irises with clear square pixel spiral pupils, neutral tiny mouth; \"SPIRAL SMILE\": red square spiral pupils and tiny sweet closed smile. Regular-eye panels MUST NOT have spirals. Spiral panels MUST have clear red square pixel spiral pupils. No hands covering eyes."
+    },
+    {
+      "key": "school-details",
+      "file": "images/school-details.png",
+      "title": "ผ้าและผม · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "details",
+      "panels": [
+        {
+          "id": "detail_front"
+        },
+        {
+          "id": "detail_cuff"
+        },
+        {
+          "id": "detail_hem"
+        },
+        {
+          "id": "detail_back"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/school-turnaround.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nSchool uniform: navy blazer, narrow pale/gold trim, striped cuffs, dusty brown-rose vest with gold buttons, white collar, red chest bow protruding in front, green pleated skirt, dark violet knee socks and brown block loafers.\nLandscape 2x2 design-detail sheet, FOUR generous cropped construction studies. Title \"SATOU — SCHOOL OUTFIT DETAILS\". \"COLLAR / BOW / VEST\": front upper torso: white collar, red bow clearly forward of vest, narrow pale/gold trim, pixel vest shading and buttons; \"CUFF / HAND\": side sleeve close-up, striped cuff, rectangular hand, crisp shade steps; \"PLEATS / HEM\": eye-level torso-to-knees study of closed green pleats and hem, normal drape, no underside; \"HAIR / BACK\": rear 3/4 shoulders to hips, broad layered pink back hair and navy blazer back. Pixel textures readable, not realistic smooth fabric."
+    },
+    {
+      "key": "school-travel",
+      "file": "images/school-travel.png",
+      "title": "MOVEMENT · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "main",
+      "panels": [
+        {
+          "id": "fly",
+          "view": "varied"
+        },
+        {
+          "id": "elytra_fly",
+          "view": "varied"
+        },
+        {
+          "id": "swim",
+          "view": "varied"
+        },
+        {
+          "id": "swim_stand",
+          "view": "varied"
+        },
+        {
+          "id": "climb",
+          "view": "varied"
+        },
+        {
+          "id": "climbing",
+          "view": "varied"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/school-turnaround.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nSchool uniform: navy blazer, narrow pale/gold trim, striped cuffs, dusty brown-rose vest with gold buttons, white collar, red chest bow protruding in front, green pleated skirt, dark violet knee socks and brown block loafers.\nLandscape 3 columns x 2 rows, exactly 6 complete full-body action cells, same scale, varied useful camera angles. Title \"SATOU — SCHOOL MOVEMENT\". \"fly / FLY\": upright floating flight, arms slightly out, knees softly bent, feet off ground, front 3/4; \"elytra_fly / ELYTRA GLIDE\": horizontal forward gliding body, arms alongside, head lifted, side view, no invented wings; \"swim / SWIM\": horizontal swimming stroke, alternating arms and small kick, side/front 3/4; \"swim_stand / TREAD WATER\": upright treading-water pose, elbows out, knees soft, front; \"climb / CLIMB\": active climb, one arm up and opposite knee lifted, rear 3/4, faint plain ladder outline; \"climbing / HOLD LADDER\": paused ladder hold, hands above shoulders and one bent knee, rear/side. No water scenery or additional characters. Ordinary burgundy eyes, or closed eyes for sleeping/down state."
+    },
+    {
+      "key": "school-rest-react",
+      "file": "images/school-rest-react.png",
+      "title": "REST / REACTION · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "main",
+      "panels": [
+        {
+          "id": "sleep",
+          "view": "varied"
+        },
+        {
+          "id": "boat",
+          "view": "varied"
+        },
+        {
+          "id": "ride",
+          "view": "varied"
+        },
+        {
+          "id": "ride_pig",
+          "view": "varied"
+        },
+        {
+          "id": "attacked",
+          "view": "varied"
+        },
+        {
+          "id": "death",
+          "view": "varied"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/school-turnaround.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nSchool uniform: navy blazer, narrow pale/gold trim, striped cuffs, dusty brown-rose vest with gold buttons, white collar, red chest bow protruding in front, green pleated skirt, dark violet knee socks and brown block loafers.\nLandscape 3 columns x 2 rows, exactly 6 complete full-body action cells, same scale, varied useful camera angles. Title \"SATOU — SCHOOL REST / REACTION\". \"sleep / SLEEP\": ordinary fully clothed side-lying sleeping posture, legs together, side view; \"boat / BOAT\": upright seated rowing pose, bent elbows, knees forward, 3/4, minimal gray bench; \"ride / RIDE\": upright mount-riding pose with bent knees and hands forward, front 3/4, plain gray saddle placeholder; \"ride_pig / RIDE PIG\": upright seated mount pose with bent legs, side view, neutral saddle placeholder, no animal; \"attacked / HIT REACTION\": startled recoil, raised bent forearms, head slightly back, front 3/4, no attacker or injury; \"death / DOWN / DEATH\": non-graphic game down-state lying on side with relaxed folded limbs, rear/side, no wounds. No water scenery or additional characters. Ordinary burgundy eyes, or closed eyes for sleeping/down state."
+    },
+    {
+      "key": "school-hands-hover",
+      "file": "images/school-hands-hover.png",
+      "title": "HANDS / HOVER · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "main",
+      "panels": [
+        {
+          "id": "use_mainhand",
+          "view": "varied"
+        },
+        {
+          "id": "use_offhand",
+          "view": "varied"
+        },
+        {
+          "id": "swing_hand",
+          "view": "varied"
+        },
+        {
+          "id": "hover_fadeout",
+          "view": "varied"
+        },
+        {
+          "id": "hover",
+          "view": "varied"
+        },
+        {
+          "id": "focus",
+          "view": "varied"
+        },
+        {
+          "id": "sneaking",
+          "view": "varied"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/school-turnaround.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nSchool uniform: navy blazer, narrow pale/gold trim, striped cuffs, dusty brown-rose vest with gold buttons, white collar, red chest bow protruding in front, green pleated skirt, dark violet knee socks and brown block loafers.\nLandscape 3 columns x 3 rows, exactly 7 complete full-body action cells, same scale, varied useful camera angles. Title \"SATOU — SCHOOL HANDS / HOVER\". \"use_mainhand / USE MAIN HAND\": right hand presenting a plain gray cube near chest, other arm relaxed, front 3/4; \"use_offhand / USE OFF HAND\": left hand presenting a plain gray cube near chest, opposite front 3/4; \"swing_hand / SWING HAND\": right arm mid-swing forward, slight shoulder turn, no weapon or target; \"hover_fadeout / HOVER TRANSITION\": gentle upright float transition, soft bent elbows, feet just lifting, side; \"hover / HOVER\": relaxed upright float idle, hands near torso, feet off ground, rear 3/4; \"focus / FOCUS\": steady attentive upright pose, head toward viewer, arms relaxed forward; \"sneaking / SNEAK WALK\": cautious crouched walking stride, bent knees and opposite arm swing, side/front 3/4. No water scenery or additional characters. Ordinary burgundy eyes, or closed eyes for sleeping/down state."
+    },
+    {
+      "key": "school-extras",
+      "file": "images/school-extras.png",
+      "title": "extra0–7 · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "extra",
+      "panels": [
+        {
+          "id": "extra0",
+          "view": "front3q"
+        },
+        {
+          "id": "extra1",
+          "view": "front3q"
+        },
+        {
+          "id": "extra2",
+          "view": "front3q"
+        },
+        {
+          "id": "extra3",
+          "view": "front3q"
+        },
+        {
+          "id": "extra4",
+          "view": "front3q"
+        },
+        {
+          "id": "extra5",
+          "view": "front3q"
+        },
+        {
+          "id": "extra6",
+          "view": "front3q"
+        },
+        {
+          "id": "extra7",
+          "view": "front3q"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/school-turnaround.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nSchool uniform: navy blazer, narrow pale/gold trim, striped cuffs, dusty brown-rose vest with gold buttons, white collar, red chest bow protruding in front, green pleated skirt, dark violet knee socks and brown block loafers.\nLandscape 4x2, EIGHT full-body gesture snapshots. Title \"SATOU — SCHOOL EXTRA GESTURES\". \"extra0 / ACCESSORY RESET\": plain neutral avatar, accessory-toggle reset check; no invented headwear; \"extra1 / WAVE\": one arm raised in greeting; \"extra2 / CLAP\": both block hands together at chest; \"extra3 / YES / NOD\": chin gently dipped in nod, bent forearms in front; \"extra4 / NO / SHAKE\": head turned to one side, bent forearms in front; \"extra5 / CUTE TILT\": head tilted, hands together close to upper body; \"extra6 / SWAY\": rhythmic shoulder/arm sway, asymmetric bent elbows; \"extra7 / DANCE\": playful dance freeze, one arm raised, subtle weight shift. extra0 is a neutral reset check, do not add headwear. Nod/shake are single frozen characteristic phases, no arrows. Ordinary burgundy eyes."
+    },
+    {
+      "key": "school-photo",
+      "file": "images/school-photo.png",
+      "title": "โพสถ่ายรูป · ชุดนักเรียน",
+      "outfit": "school",
+      "category": "photo",
+      "panels": [
+        {
+          "id": "studio_photo_wave",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_cheeks",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_hip",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_shy",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_chest",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_open",
+          "view": "front3q"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/school-turnaround.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nSchool uniform: navy blazer, narrow pale/gold trim, striped cuffs, dusty brown-rose vest with gold buttons, white collar, red chest bow protruding in front, green pleated skirt, dark violet knee socks and brown block loafers.\nLandscape 3x2, SIX full-body custom pose snapshots. Title \"SATOU — SCHOOL PHOTO POSES\". \"HELLO\": raised greeting hand, other hand at hip; \"CHEEKS\": both block hands framing cheeks; \"HAND ON HIP\": one hand at hip, body/head counter-tilt; \"SHY\": hands clasped at waist, shy head tilt; \"HANDS AT CHEST\": hands together at chest, elbows out; \"OPEN ARMS\": both arms open, one knee bent back. Vary front 3/4 and slight side angles; normal burgundy pupils and tiny gentle mouth."
+    },
+    {
+      "key": "white-faces",
+      "file": "images/white-faces.png",
+      "title": "สีหน้า 8 แบบ · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "faces",
+      "panels": [
+        {
+          "id": "face_neutral",
+          "view": "bust"
+        },
+        {
+          "id": "face_soft_smile",
+          "view": "bust"
+        },
+        {
+          "id": "face_surprised",
+          "view": "bust"
+        },
+        {
+          "id": "face_concerned",
+          "view": "bust"
+        },
+        {
+          "id": "face_closed",
+          "view": "bust"
+        },
+        {
+          "id": "face_wink",
+          "view": "bust"
+        },
+        {
+          "id": "face_spiral_blank",
+          "view": "bust"
+        },
+        {
+          "id": "face_spiral_smile",
+          "view": "bust"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/white-turnaround.png",
+        "images/white-overview.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nHome outfit: roomy opaque long-sleeve WHITE collared button-up shirt, plain white cuffs/buttons, long hem around lower mid-thigh, cool gray/lilac square fabric shading, bare simple cuboid lower legs and block feet. No blazer, vest, chest bow, skirt, socks or shoes. Same modest shirt length/roomy fit in every action.\nLandscape 4 columns x 2 rows, exactly EIGHT large straight-on bust portraits with complete buns/ahoge, same head framing. Title \"SATOU — WHITE FACIAL STATES\". Change face only. Reading order: \"NEUTRAL\": regular burgundy eyes, tiny neutral closed mouth; \"SOFT SMILE\": regular burgundy eyes, tiny gentle closed smile; \"SURPRISED\": regular widened eyes and tiny open square mouth; \"CONCERNED\": regular eyes, slightly worried brows, downturned tiny mouth; \"EYES CLOSED\": both eyelids closed naturally, relaxed mouth; \"WINK\": one eyelid closed, other ordinary burgundy eye open, tiny smile; \"SPIRAL STARE\": both red irises with clear square pixel spiral pupils, neutral tiny mouth; \"SPIRAL SMILE\": red square spiral pupils and tiny sweet closed smile. Regular-eye panels MUST NOT have spirals. Spiral panels MUST have clear red square pixel spiral pupils. No hands covering eyes."
+    },
+    {
+      "key": "white-details",
+      "file": "images/white-details.png",
+      "title": "ผ้าและผม · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "details",
+      "panels": [
+        {
+          "id": "detail_front"
+        },
+        {
+          "id": "detail_cuff"
+        },
+        {
+          "id": "detail_hem"
+        },
+        {
+          "id": "detail_back"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/white-turnaround.png",
+        "images/white-overview.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nHome outfit: roomy opaque long-sleeve WHITE collared button-up shirt, plain white cuffs/buttons, long hem around lower mid-thigh, cool gray/lilac square fabric shading, bare simple cuboid lower legs and block feet. No blazer, vest, chest bow, skirt, socks or shoes. Same modest shirt length/roomy fit in every action.\nLandscape 2x2 design-detail sheet, FOUR generous cropped construction studies. Title \"SATOU — WHITE OUTFIT DETAILS\". \"COLLAR / BUTTONS\": front upper torso, modest folded white collar, button placket, roomy shirt, lilac/gray pixel shadows; \"SLEEVE / CUFF\": loose plain white sleeve, white cuff, simple block hand, no stripes; \"LONG SHIRT HEM\": eye-level shirt hem draping around hips/upper thighs, front and side construction, no underside; \"HAIR / BACK\": rear 3/4 shoulders to upper thighs, plain white shirt back and layered pink hair, consistent hem length. Pixel textures readable, not realistic smooth fabric."
+    },
+    {
+      "key": "white-travel",
+      "file": "images/white-travel.png",
+      "title": "MOVEMENT · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "main",
+      "panels": [
+        {
+          "id": "fly",
+          "view": "varied"
+        },
+        {
+          "id": "elytra_fly",
+          "view": "varied"
+        },
+        {
+          "id": "swim",
+          "view": "varied"
+        },
+        {
+          "id": "swim_stand",
+          "view": "varied"
+        },
+        {
+          "id": "climb",
+          "view": "varied"
+        },
+        {
+          "id": "climbing",
+          "view": "varied"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/white-turnaround.png",
+        "images/white-overview.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nHome outfit: roomy opaque long-sleeve WHITE collared button-up shirt, plain white cuffs/buttons, long hem around lower mid-thigh, cool gray/lilac square fabric shading, bare simple cuboid lower legs and block feet. No blazer, vest, chest bow, skirt, socks or shoes. Same modest shirt length/roomy fit in every action.\nLandscape 3 columns x 2 rows, exactly 6 complete full-body action cells, same scale, varied useful camera angles. Title \"SATOU — WHITE MOVEMENT\". \"fly / FLY\": upright floating flight, arms slightly out, knees softly bent, feet off ground, front 3/4; \"elytra_fly / ELYTRA GLIDE\": horizontal forward gliding body, arms alongside, head lifted, side view, no invented wings; \"swim / SWIM\": horizontal swimming stroke, alternating arms and small kick, side/front 3/4; \"swim_stand / TREAD WATER\": upright treading-water pose, elbows out, knees soft, front; \"climb / CLIMB\": active climb, one arm up and opposite knee lifted, rear 3/4, faint plain ladder outline; \"climbing / HOLD LADDER\": paused ladder hold, hands above shoulders and one bent knee, rear/side. No water scenery or additional characters. Ordinary burgundy eyes, or closed eyes for sleeping/down state."
+    },
+    {
+      "key": "white-rest-react",
+      "file": "images/white-rest-react.png",
+      "title": "REST / REACTION · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "main",
+      "panels": [
+        {
+          "id": "sleep",
+          "view": "varied"
+        },
+        {
+          "id": "boat",
+          "view": "varied"
+        },
+        {
+          "id": "ride",
+          "view": "varied"
+        },
+        {
+          "id": "ride_pig",
+          "view": "varied"
+        },
+        {
+          "id": "attacked",
+          "view": "varied"
+        },
+        {
+          "id": "death",
+          "view": "varied"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/white-turnaround.png",
+        "images/white-overview.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nHome outfit: roomy opaque long-sleeve WHITE collared button-up shirt, plain white cuffs/buttons, long hem around lower mid-thigh, cool gray/lilac square fabric shading, bare simple cuboid lower legs and block feet. No blazer, vest, chest bow, skirt, socks or shoes. Same modest shirt length/roomy fit in every action.\nLandscape 3 columns x 2 rows, exactly 6 complete full-body action cells, same scale, varied useful camera angles. Title \"SATOU — WHITE REST / REACTION\". \"sleep / SLEEP\": ordinary fully clothed side-lying sleeping posture, legs together, side view; \"boat / BOAT\": upright seated rowing pose, bent elbows, knees forward, 3/4, minimal gray bench; \"ride / RIDE\": upright mount-riding pose with bent knees and hands forward, front 3/4, plain gray saddle placeholder; \"ride_pig / RIDE PIG\": upright seated mount pose with bent legs, side view, neutral saddle placeholder, no animal; \"attacked / HIT REACTION\": startled recoil, raised bent forearms, head slightly back, front 3/4, no attacker or injury; \"death / DOWN / DEATH\": non-graphic game down-state lying on side with relaxed folded limbs, rear/side, no wounds. No water scenery or additional characters. Ordinary burgundy eyes, or closed eyes for sleeping/down state."
+    },
+    {
+      "key": "white-hands-hover",
+      "file": "images/white-hands-hover.png",
+      "title": "HANDS / HOVER · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "main",
+      "panels": [
+        {
+          "id": "use_mainhand",
+          "view": "varied"
+        },
+        {
+          "id": "use_offhand",
+          "view": "varied"
+        },
+        {
+          "id": "swing_hand",
+          "view": "varied"
+        },
+        {
+          "id": "hover_fadeout",
+          "view": "varied"
+        },
+        {
+          "id": "hover",
+          "view": "varied"
+        },
+        {
+          "id": "focus",
+          "view": "varied"
+        },
+        {
+          "id": "sneaking",
+          "view": "varied"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/white-turnaround.png",
+        "images/white-overview.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nHome outfit: roomy opaque long-sleeve WHITE collared button-up shirt, plain white cuffs/buttons, long hem around lower mid-thigh, cool gray/lilac square fabric shading, bare simple cuboid lower legs and block feet. No blazer, vest, chest bow, skirt, socks or shoes. Same modest shirt length/roomy fit in every action.\nLandscape 3 columns x 3 rows, exactly 7 complete full-body action cells, same scale, varied useful camera angles. Title \"SATOU — WHITE HANDS / HOVER\". \"use_mainhand / USE MAIN HAND\": right hand presenting a plain gray cube near chest, other arm relaxed, front 3/4; \"use_offhand / USE OFF HAND\": left hand presenting a plain gray cube near chest, opposite front 3/4; \"swing_hand / SWING HAND\": right arm mid-swing forward, slight shoulder turn, no weapon or target; \"hover_fadeout / HOVER TRANSITION\": gentle upright float transition, soft bent elbows, feet just lifting, side; \"hover / HOVER\": relaxed upright float idle, hands near torso, feet off ground, rear 3/4; \"focus / FOCUS\": steady attentive upright pose, head toward viewer, arms relaxed forward; \"sneaking / SNEAK WALK\": cautious crouched walking stride, bent knees and opposite arm swing, side/front 3/4. No water scenery or additional characters. Ordinary burgundy eyes, or closed eyes for sleeping/down state."
+    },
+    {
+      "key": "white-extras",
+      "file": "images/white-extras.png",
+      "title": "extra0–7 · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "extra",
+      "panels": [
+        {
+          "id": "extra0",
+          "view": "front3q"
+        },
+        {
+          "id": "extra1",
+          "view": "front3q"
+        },
+        {
+          "id": "extra2",
+          "view": "front3q"
+        },
+        {
+          "id": "extra3",
+          "view": "front3q"
+        },
+        {
+          "id": "extra4",
+          "view": "front3q"
+        },
+        {
+          "id": "extra5",
+          "view": "front3q"
+        },
+        {
+          "id": "extra6",
+          "view": "front3q"
+        },
+        {
+          "id": "extra7",
+          "view": "front3q"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/white-turnaround.png",
+        "images/white-overview.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nHome outfit: roomy opaque long-sleeve WHITE collared button-up shirt, plain white cuffs/buttons, long hem around lower mid-thigh, cool gray/lilac square fabric shading, bare simple cuboid lower legs and block feet. No blazer, vest, chest bow, skirt, socks or shoes. Same modest shirt length/roomy fit in every action.\nLandscape 4x2, EIGHT full-body gesture snapshots. Title \"SATOU — WHITE EXTRA GESTURES\". \"extra0 / ACCESSORY RESET\": plain neutral avatar, accessory-toggle reset check; no invented headwear; \"extra1 / WAVE\": one arm raised in greeting; \"extra2 / CLAP\": both block hands together at chest; \"extra3 / YES / NOD\": chin gently dipped in nod, bent forearms in front; \"extra4 / NO / SHAKE\": head turned to one side, bent forearms in front; \"extra5 / CUTE TILT\": head tilted, hands together close to upper body; \"extra6 / SWAY\": rhythmic shoulder/arm sway, asymmetric bent elbows; \"extra7 / DANCE\": playful dance freeze, one arm raised, subtle weight shift. extra0 is a neutral reset check, do not add headwear. Nod/shake are single frozen characteristic phases, no arrows. Ordinary burgundy eyes."
+    },
+    {
+      "key": "white-photo",
+      "file": "images/white-photo.png",
+      "title": "โพสถ่ายรูป · เชิ้ตขาว",
+      "outfit": "white",
+      "category": "photo",
+      "panels": [
+        {
+          "id": "studio_photo_wave",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_cheeks",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_hip",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_shy",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_chest",
+          "view": "front3q"
+        },
+        {
+          "id": "studio_photo_open",
+          "view": "front3q"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/white-turnaround.png",
+        "images/white-overview.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nHome outfit: roomy opaque long-sleeve WHITE collared button-up shirt, plain white cuffs/buttons, long hem around lower mid-thigh, cool gray/lilac square fabric shading, bare simple cuboid lower legs and block feet. No blazer, vest, chest bow, skirt, socks or shoes. Same modest shirt length/roomy fit in every action.\nLandscape 3x2, SIX full-body custom pose snapshots. Title \"SATOU — WHITE PHOTO POSES\". \"HELLO\": raised greeting hand, other hand at hip; \"CHEEKS\": both block hands framing cheeks; \"HAND ON HIP\": one hand at hip, body/head counter-tilt; \"SHY\": hands clasped at waist, shy head tilt; \"HANDS AT CHEST\": hands together at chest, elbows out; \"OPEN ARMS\": both arms open, one knee bent back. Vary front 3/4 and slight side angles; normal burgundy pupils and tiny gentle mouth."
+    },
+    {
+      "key": "white-core-idle-walk",
+      "file": "images/white-core-idle-walk.png",
+      "title": "ท่าหลัก 3 มุม · เชิ้ตขาว idle-walk",
+      "outfit": "white",
+      "category": "main",
+      "panels": [
+        {
+          "id": "idle",
+          "view": "front3q"
+        },
+        {
+          "id": "idle",
+          "view": "side"
+        },
+        {
+          "id": "idle",
+          "view": "back3q"
+        },
+        {
+          "id": "walk",
+          "view": "front3q"
+        },
+        {
+          "id": "walk",
+          "view": "side"
+        },
+        {
+          "id": "walk",
+          "view": "back3q"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/white-turnaround.png",
+        "images/white-overview.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nHome outfit: roomy opaque long-sleeve WHITE collared button-up shirt, plain white cuffs/buttons, long hem around lower mid-thigh, cool gray/lilac square fabric shading, bare simple cuboid lower legs and block feet. No blazer, vest, chest bow, skirt, socks or shoes. Same modest shirt length/roomy fit in every action.\nLandscape 3 columns x 2 rows, SIX complete full-body renders. Each row = ONE frozen YSM pose from front 3/4 (40 deg), side (90 deg), back 3/4 (140 deg). Keep identical limb configuration across the row. Title \"SATOU — WHITE SHIRT IDLE / WALK\". Top row neutral arms-down standing. Bottom row moderate walking stride with opposite arms/legs, knees softly bent, no exaggerated runway stride. Each caption contains the actual clip id plus its camera angle. All of the long opaque shirt is included; keep normal covered drape during bent-leg poses. Ordinary burgundy eyes for all except run, whose pupils are red square spirals."
+    },
+    {
+      "key": "white-core-run-jump",
+      "file": "images/white-core-run-jump.png",
+      "title": "ท่าหลัก 3 มุม · เชิ้ตขาว run-jump",
+      "outfit": "white",
+      "category": "main",
+      "panels": [
+        {
+          "id": "run",
+          "view": "front3q"
+        },
+        {
+          "id": "run",
+          "view": "side"
+        },
+        {
+          "id": "run",
+          "view": "back3q"
+        },
+        {
+          "id": "jump",
+          "view": "front3q"
+        },
+        {
+          "id": "jump",
+          "view": "side"
+        },
+        {
+          "id": "jump",
+          "view": "back3q"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/white-turnaround.png",
+        "images/white-overview.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nHome outfit: roomy opaque long-sleeve WHITE collared button-up shirt, plain white cuffs/buttons, long hem around lower mid-thigh, cool gray/lilac square fabric shading, bare simple cuboid lower legs and block feet. No blazer, vest, chest bow, skirt, socks or shoes. Same modest shirt length/roomy fit in every action.\nLandscape 3 columns x 2 rows, SIX complete full-body renders. Each row = ONE frozen YSM pose from front 3/4 (40 deg), side (90 deg), back 3/4 (140 deg). Keep identical limb configuration across the row. Title \"SATOU — WHITE SHIRT RUN / JUMP\". Top row controlled running stride, elbows bent about 85/48 degrees, opposite knee up. Bottom row compact airborne knee tuck: thighs forward 37, knees folded about 90, elbows bent 80 at chest, not a star jump. Each caption contains the actual clip id plus its camera angle. All of the long opaque shirt is included; keep normal covered drape during bent-leg poses. Ordinary burgundy eyes for all except run, whose pupils are red square spirals."
+    },
+    {
+      "key": "white-core-sneak-sit",
+      "file": "images/white-core-sneak-sit.png",
+      "title": "ท่าหลัก 3 มุม · เชิ้ตขาว sneak-sit",
+      "outfit": "white",
+      "category": "main",
+      "panels": [
+        {
+          "id": "sneak",
+          "view": "front3q"
+        },
+        {
+          "id": "sneak",
+          "view": "side"
+        },
+        {
+          "id": "sneak",
+          "view": "back3q"
+        },
+        {
+          "id": "sit",
+          "view": "front3q"
+        },
+        {
+          "id": "sit",
+          "view": "side"
+        },
+        {
+          "id": "sit",
+          "view": "back3q"
+        }
+      ],
+      "generated": true,
+      "refs": [
+        "images/white-turnaround.png",
+        "images/white-overview.png",
+        "images/school-face-overview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Visual reference artifact for checking a future YSM game avatar. Reference 1 is authoritative outfit/proportions/hair; other references support facial pixel style only. SAME slim long-legged Satou, moderately sized angular head, simple pink twin buns and ahoge, broad angular bangs, long layered pink side/back hair near waist. Crisp square pixel texture patches on broad low-poly Minecraft/YSM surfaces, cuboid elbows/knees, rectangular block hands without realistic fingers. No smooth anatomy, chibi proportions, tiny brick-sculpture hair, animal ears/tail or floating hair curl. Keep mesh language and outfit construction consistent between cells. Eye-level neutral studio cameras. Full-body cells include complete buns, hands and feet. Garments opaque and normally draped, covering torso/hips/upper thighs through movement, no underside views or underwear. Muted lavender/mauve background and soft clear studio light/shadows. Original palette readable. No weapon, knife, blood, wound, UI or watermark. Each requested panel ID/caption must appear clearly; no other text except small title. These are concept checks, not exact rig renders.\nHome outfit: roomy opaque long-sleeve WHITE collared button-up shirt, plain white cuffs/buttons, long hem around lower mid-thigh, cool gray/lilac square fabric shading, bare simple cuboid lower legs and block feet. No blazer, vest, chest bow, skirt, socks or shoes. Same modest shirt length/roomy fit in every action.\nLandscape 3 columns x 2 rows, SIX complete full-body renders. Each row = ONE frozen YSM pose from front 3/4 (40 deg), side (90 deg), back 3/4 (140 deg). Keep identical limb configuration across the row. Title \"SATOU — WHITE SHIRT SNEAK / SIT\". Top row cautious half-crouch with asymmetric bent knees, torso slightly inclined, bent arms close in front. Bottom row grounded kneeling/folded-leg sit, lower legs tucked underneath/behind, hands together in front, not sitting on a chair. Each caption contains the actual clip id plus its camera angle. All of the long opaque shirt is included; keep normal covered drape during bent-leg poses. Ordinary burgundy eyes for all except run, whose pupils are red square spirals."
+    }
+  ]
+}

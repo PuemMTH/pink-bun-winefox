@@ -7,6 +7,7 @@ let timer;
 function rebuild() {
   for (const script of [
     "src/build.cjs",
+    "src/build-aunt.cjs",
     "scripts/check.cjs",
     ...(install ? ["scripts/install.cjs"] : []),
   ]) {

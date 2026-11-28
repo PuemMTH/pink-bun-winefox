@@ -1,0 +1,82 @@
+[
+  {
+    "tile": 1,
+    "subject": "Left window and upper library",
+    "pixel_bounds": [
+      0,
+      0,
+      417,
+      470
+    ]
+  },
+  {
+    "tile": 2,
+    "subject": "Upper ledge and left monitors",
+    "pixel_bounds": [
+      417,
+      0,
+      835,
+      470
+    ]
+  },
+  {
+    "tile": 3,
+    "subject": "Upper ledge and main monitors",
+    "pixel_bounds": [
+      835,
+      0,
+      1253,
+      470
+    ]
+  },
+  {
+    "tile": 4,
+    "subject": "Right library and code display",
+    "pixel_bounds": [
+      1253,
+      0,
+      1671,
+      470
+    ]
+  },
+  {
+    "tile": 5,
+    "subject": "Computer case and left floor display",
+    "pixel_bounds": [
+      0,
+      470,
+      417,
+      941
+    ]
+  },
+  {
+    "tile": 6,
+    "subject": "Floor reader and keyboard",
+    "pixel_bounds": [
+      417,
+      470,
+      835,
+      941
+    ]
+  },
+  {
+    "tile": 7,
+    "subject": "Chair, seated player and rug",
+    "pixel_bounds": [
+      835,
+      470,
+      1253,
+      941
+    ]
+  },
+  {
+    "tile": 8,
+    "subject": "Desk drawers and right foreground",
+    "pixel_bounds": [
+      1253,
+      470,
+      1671,
+      941
+    ]
+  }
+]

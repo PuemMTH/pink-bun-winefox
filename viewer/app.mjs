@@ -1,6 +1,10 @@
 import * as THREE from "three";
 import { OrbitControls } from "./lib/OrbitControls.js";
-import { createCharacter, loadTexture } from "./model.mjs";
+import {
+  cameraDirections,
+  characterFromData,
+  createStage,
+} from "./rendering.mjs";
 import { photoPoseLabels, photoClips, isPhotoPose } from "./photo-poses.mjs";
 import {
   mainClips,
@@ -14,40 +18,40 @@ import {
 
 const $ = (id) => document.getElementById(id);
 const labels = {
-  idle: "ยืน",
-  walk: "เดิน",
-  run: "วิ่ง",
-  jump: "กระโดด",
-  sneak: "ย่อ",
-  sit: "นั่ง",
-  sneaking: "ย่อเดิน",
-  sleep: "นอน",
-  swim: "ว่ายน้ำ",
-  swim_stand: "ลอยตัวในน้ำ",
-  fly: "บิน",
-  elytra_fly: "ร่อน",
-  climb: "ปีน",
-  climbing: "เกาะบันได",
-  ride: "ขี่สัตว์",
-  ride_pig: "ขี่หมู",
-  boat: "นั่งเรือ",
-  death: "ล้ม",
-  attacked: "ถูกโจมตี",
-  hover_fadeout: "เริ่มลอยตัว",
-  hover: "ลอยตัว",
-  focus: "มองตามเป้า",
-  use_mainhand: "ใช้มือหลัก",
-  use_offhand: "ใช้มือรอง",
-  swing_hand: "แกว่งแขน",
+  idle: "Idle",
+  walk: "Walk",
+  run: "Run",
+  jump: "Jump",
+  sneak: "Crouch Walk",
+  sit: "Sit",
+  sneaking: "Crouch Idle",
+  sleep: "Sleep",
+  swim: "Swim",
+  swim_stand: "Tread Water",
+  fly: "Creative Flight",
+  elytra_fly: "Elytra Glide",
+  climb: "Crawl",
+  climbing: "Crawl Idle",
+  ride: "Ride",
+  ride_pig: "Ride Pig",
+  boat: "Boat",
+  death: "Fall",
+  attacked: "Hit Reaction",
+  hover_fadeout: "Hover Start",
+  hover: "Hover",
+  focus: "Focus",
+  use_mainhand: "Use Main Hand",
+  use_offhand: "Use Off Hand",
+  swing_hand: "Swing Arm",
   ...photoPoseLabels,
 };
 const angles = {
-  front: "ด้านหน้า",
-  side: "ด้านข้าง",
-  back: "ด้านหลัง",
-  three: "สามส่วน",
-  top: "ด้านบน",
-  free: "อิสระ",
+  front: "Front",
+  side: "Side",
+  back: "Back",
+  three: "Three-quarter",
+  top: "Top",
+  free: "Free orbit",
 };
 const models = [],
   views = [],
@@ -59,7 +63,7 @@ const galleryClips = (animations) =>
     ? photoClips(animations)
     : poseClips(animations);
 const galleryTitle = () =>
-  $("layout").value === "photos" ? "โพสถ่ายรูป" : "ทุกท่าทาง";
+  $("layout").value === "photos" ? "Photo Poses" : "All Poses";
 const currentViews = () => (gallery() ? poseViews : views);
 let activeId = null,
   activeView = null,
@@ -82,47 +86,22 @@ const transportDuration = () => {
         )
       : durationOf(model);
 };
-const modelLabel = (model) => `${model.name} #${model.id}`;
-const viewport = $("viewport"),
-  scene = new THREE.Scene();
-const renderer = new THREE.WebGLRenderer({
-  antialias: true,
-  alpha: true,
-  preserveDrawingBuffer: true,
-});
+const modelDescription = (model) => {
+  const tips = model?.data.info?.metadata?.tips;
+  return typeof tips === "string" ? tips.trim() : "";
+};
+const modelLabel = (model) => {
+  const description = modelDescription(model).split("\n", 1)[0];
+  const variant =
+    description && description.length <= 40 ? ` · ${description}` : "";
+  return `${model.name}${variant} #${model.id}`;
+};
+const viewport = $("viewport");
+const { scene, renderer, ground, grid } = createStage();
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.NoToneMapping;
 renderer.autoClear = false;
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.domElement.setAttribute("aria-label", "ตัวละครสามมิติหลายช่องมอง");
+renderer.domElement.setAttribute("aria-label", "Multi-view 3D model preview");
 viewport.prepend(renderer.domElement);
-scene.add(new THREE.AmbientLight(0xffffff, 1.25));
-const key = new THREE.DirectionalLight(0xfff4ed, 2.1);
-key.position.set(-3, 6, -5);
-key.castShadow = true;
-key.shadow.mapSize.set(1024, 1024);
-Object.assign(key.shadow.camera, { left: -6, right: 6, top: 5, bottom: -3 });
-key.shadow.normalBias = 0.015;
-key.shadow.bias = -0.0003;
-scene.add(key);
-const rim = new THREE.DirectionalLight(0xcfb6ff, 0.65);
-rim.position.set(3, 3, 4);
-scene.add(rim);
-const ground = new THREE.Mesh(
-  new THREE.PlaneGeometry(200, 200),
-  new THREE.ShadowMaterial({ opacity: 0.18 }),
-);
-ground.rotation.x = -Math.PI / 2;
-ground.position.y = -0.012;
-ground.receiveShadow = true;
-scene.add(ground);
-const grid = new THREE.GridHelper(30, 120, 0x61506d, 0x3c3446);
-grid.material.transparent = true;
-grid.material.opacity = 0.42;
-grid.position.y = -0.015;
-scene.add(grid);
 
 function toast(text) {
   $("toast").textContent = text;
@@ -134,7 +113,14 @@ async function operation(action) {
   if (busy) return;
   busy = true;
   $("loading").hidden = false;
-  for (const id of ["open-model", "add-bundled", "duplicate-model", "reload"])
+  for (const id of [
+    "open-model",
+    "add-bundled",
+    "add-white",
+    "add-aunt",
+    "duplicate-model",
+    "reload",
+  ])
     $(id).disabled = true;
   try {
     await action();
@@ -143,7 +129,7 @@ async function operation(action) {
   } finally {
     busy = false;
     $("loading").hidden = true;
-    for (const id of ["open-model", "add-bundled", "reload"])
+    for (const id of ["open-model", "add-bundled", "add-white", "add-aunt", "reload"])
       $(id).disabled = false;
     $("duplicate-model").disabled = !selected();
     $("empty").hidden = models.length > 0;
@@ -162,22 +148,15 @@ function activateView(view) {
     );
   $("active-view-name").textContent = view.clip
     ? labels[view.clip] || view.clip
-    : `ช่อง ${views.indexOf(view) + 1}`;
+    : `View ${views.indexOf(view) + 1}`;
 }
 function setAngle(view, angle) {
   view.angle = angle;
   view.angleSelect.value = angle;
   if (angle !== "free") {
-    const directions = {
-      front: [0, 0.05, -5],
-      side: [5, 0, 0],
-      back: [0, 0, 5],
-      three: [-4, 1.5, -5],
-      top: [0, 5, -0.001],
-    };
     view.camera.position
       .copy(view.controls.target)
-      .add(new THREE.Vector3(...directions[angle]));
+      .add(new THREE.Vector3(...cameraDirections[angle]));
     view.camera.zoom = 1;
     view.camera.updateProjectionMatrix();
     view.controls.update();
@@ -237,7 +216,7 @@ function updateViewChoices() {
       !models.some((m) => String(m.id) === view.selection)
     )
       view.selection = "all";
-    view.modelSelect.replaceChildren(new Option("ทุกตัวละคร", "all"));
+    view.modelSelect.replaceChildren(new Option("All models", "all"));
     for (const model of models)
       view.modelSelect.add(new Option(modelLabel(model), String(model.id)));
     view.modelSelect.value = view.selection;
@@ -258,7 +237,7 @@ function setLayout(count) {
     pane.className = "view-pane";
     pane.setAttribute(
       "aria-label",
-      poses ? `ท่า ${clips[index]}` : `ช่องมอง ${index + 1}`,
+      poses ? `Pose ${clips[index]}` : `View ${index + 1}`,
     );
     const header = document.createElement("div");
     header.className = "pane-header";
@@ -266,17 +245,17 @@ function setLayout(count) {
     number.className = "pane-number";
     number.textContent = `VIEW ${index + 1}`;
     const modelSelect = document.createElement("select");
-    modelSelect.setAttribute("aria-label", `ตัวละครในช่อง ${index + 1}`);
+    modelSelect.setAttribute("aria-label", `Model in view ${index + 1}`);
     const angleSelect = document.createElement("select");
-    angleSelect.setAttribute("aria-label", `มุมกล้องช่อง ${index + 1}`);
+    angleSelect.setAttribute("aria-label", `Camera for view ${index + 1}`);
     for (const [value, label] of Object.entries(angles))
       angleSelect.add(new Option(label, value));
     header.append(number, modelSelect, angleSelect);
     const surface = document.createElement("div");
     surface.className = "pane-surface";
     surface.tabIndex = 0;
-    surface.setAttribute("aria-label", `หมุนและซูมช่อง ${index + 1}`);
-    if (poses) surface.setAttribute("aria-label", `หมุนท่า ${clips[index]}`);
+    surface.setAttribute("aria-label", `Orbit and zoom in view ${index + 1}`);
+    if (poses) surface.setAttribute("aria-label", `Orbit pose ${clips[index]}`);
     pane.append(header, surface);
     $("view-panes").append(pane);
     const camera = new THREE.OrthographicCamera(-2, 2, 2, -2, 0.01, 200);
@@ -305,6 +284,7 @@ function setLayout(count) {
       angle: poses ? "front" : ["front", "side", "back", "three"][index],
       title: number,
       elapsed: 0,
+      layerTime: 0,
       height: 2,
       width: 1,
     };
@@ -328,16 +308,17 @@ function setLayout(count) {
   });
   if (poses)
     list.slice(0, count).forEach((view, index) => {
+      if (view.clip !== clips[index]) view.elapsed = view.layerTime = 0;
       view.clip = clips[index];
       view.selection = String(model.id);
       view.modelSelect.hidden = true;
       view.title.textContent = labels[view.clip] || view.clip;
-      view.pane.setAttribute("aria-label", `ท่า ${view.title.textContent}`);
+      view.pane.setAttribute("aria-label", `Pose ${view.title.textContent}`);
     });
   $("view-panes").dataset.layout = poses ? "poses" : count;
   $("navigation-hint").textContent = poses
-    ? "เลื่อนในตารางเพื่อดูทุกท่า · ลากตัวละครเพื่อหมุน"
-    : "ลากเพื่อหมุน · เลื่อนเพื่อซูม · คลิกขวาเพื่อเลื่อนมุม";
+    ? "Scroll to see every pose · Drag to orbit"
+    : "Drag to orbit · Scroll to zoom · Right-drag to pan";
   document.querySelector(".stage").dataset.layout = poses ? "poses" : count;
   document
     .querySelectorAll("[data-view], #reset-camera")
@@ -353,30 +334,12 @@ function setLayout(count) {
   (poses ? list.slice(0, count) : list.slice(previousCount)).forEach(fit);
 }
 async function characterFrom(data) {
-  const local = typeof data.texture !== "string",
-    url = local ? URL.createObjectURL(data.texture) : data.texture;
-  let texture;
-  try {
-    texture = await loadTexture(url);
-    const character = createCharacter(data.geometry, texture, data.animations);
-    const properties = data.info?.properties || {},
-      scale = Number(properties.height_scale) || 0.7;
-    character.root.scale.set(
-      Number(properties.width_scale) || scale,
-      scale,
-      Number(properties.width_scale) || scale,
-    );
-    character.setMaterial($("material").value);
-    character.setWireColor(
-      $("background").value === "light" ? 0x785076 : 0xffb6d7,
-    );
-    return character;
-  } catch (error) {
-    texture?.dispose();
-    throw error;
-  } finally {
-    if (local) URL.revokeObjectURL(url);
-  }
+  const character = await characterFromData(data);
+  character.setMaterial($("material").value);
+  character.setWireColor(
+    $("background").value === "light" ? 0x785076 : 0xffb6d7,
+  );
+  return character;
 }
 function dispose(model) {
   scene.remove(model.character.root);
@@ -416,7 +379,10 @@ function updatePose(model) {
   const time = model.loop
     ? model.elapsed
     : Math.min(model.elapsed, durationOf(model) - 1e-7);
-  model.character.update(model.clip, time, { blink: model.blink });
+  model.character.update(model.clip, time, {
+    blink: model.blink,
+    layerTime: model.layerTime,
+  });
 }
 function arrange() {
   let cursor = 0;
@@ -444,7 +410,7 @@ function refreshModels() {
   $("empty").hidden = models.length > 0;
   $("model-name").textContent =
     models.length > 1
-      ? `${models.length} ตัวละคร`
+      ? `${models.length} models`
       : models[0]?.name || "Model Studio";
   for (const model of models) {
     const row = document.createElement("div");
@@ -453,7 +419,7 @@ function refreshModels() {
     const show = document.createElement("input");
     show.type = "checkbox";
     show.checked = model.visible;
-    show.setAttribute("aria-label", `แสดง ${modelLabel(model)}`);
+    show.setAttribute("aria-label", `Show ${modelLabel(model)}`);
     show.onchange = () => {
       model.visible = show.checked;
       arrange();
@@ -469,7 +435,7 @@ function refreshModels() {
     const remove = document.createElement("button");
     remove.className = "remove-model";
     remove.textContent = "×";
-    remove.setAttribute("aria-label", `นำ ${modelLabel(model)} ออกจากฉาก`);
+    remove.setAttribute("aria-label", `Remove ${modelLabel(model)} from the scene`);
     remove.onclick = () => {
       if (busy) return;
       models.splice(models.indexOf(model), 1);
@@ -491,16 +457,20 @@ function refreshModels() {
 function refreshInspector() {
   const model = selected(),
     animations = model?.character.animations || {};
-  $("model-title").textContent = model ? modelLabel(model) : "ยังไม่มีตัวละคร";
-  $("model-detail").textContent = model?.data.source
-    ? "Local model · Browser only"
-    : model
-      ? `ดัดแปลงโดย ${model.data.info?.metadata?.authors?.at(-1)?.name || "puemmth"} · ฐาน Wine Fox JK`
-      : "เพิ่มโมเดลเพื่อเริ่มดู";
-  $("model-avatar").hidden = !!model?.data.source || !model;
+  $("model-title").textContent = model?.name || "No model selected";
+  $("model-detail").textContent =
+    modelDescription(model) ||
+    (model ? "Imported model" : "Add a model to start");
+  $("model-avatar").hidden = !model?.data.bundle || model.data.bundle === "assets/aunt";
+  $("model-credits").href = (model?.data.bundle || "assets") + "/ATTRIBUTION.md";
+  if (!$("model-avatar").hidden) {
+    const avatar = $("model-avatar").querySelector("img");
+    avatar.src = model.data.bundle + "/preview.png";
+    avatar.alt = model.name;
+  }
   for (const id of ["bones", "cubes", "triangles"])
     $(id).textContent = model?.character.stats[id].toLocaleString() || "—";
-  $("more-clips").replaceChildren(new Option("เลือกแอนิเมชัน", ""));
+  $("more-clips").replaceChildren(new Option("Choose an animation", ""));
   for (const name of mainClips(animations))
     $("more-clips").add(new Option(labels[name] || name, name));
   document.querySelectorAll("[data-clip]").forEach((button) => {
@@ -518,13 +488,13 @@ function refreshInspector() {
     !photoClips(animations).length;
   $("clip-tag").textContent =
     gallery() && model
-      ? `${galleryClips(animations).length} ท่า`
+      ? `${galleryClips(animations).length} poses`
       : isPhotoPose(model?.clip)
         ? "PHOTO"
         : model?.clip?.replaceAll("_", " ").toUpperCase() || "—";
   $("clip-name").textContent = gallery()
     ? galleryTitle()
-    : labels[model?.clip] || model?.clip || "ไม่มีแอนิเมชัน";
+    : labels[model?.clip] || model?.clip || "No animation";
   $("more-clips").value = gallery() ? "" : model?.clip || "";
   $("duration").textContent = model ? transportDuration().toFixed(2) : "0.00";
   $("timeline").max = transportDuration();
@@ -533,12 +503,12 @@ function refreshInspector() {
   $("loop").checked = model?.loop ?? true;
   $("blink").checked = model?.blink ?? true;
   $("expression-note").textContent = gallery()
-    ? "เลือกท่าเพื่อดูเต็มช่อง · โพสถ่ายรูปค้างท่าไว้ให้เก็บภาพ"
+    ? "Select a pose to fill the view. Photo poses hold still."
     : isPhotoPose(model?.clip)
-      ? "โพสค้างสำหรับถ่ายรูป · หมุนกล้องแล้วบันทึก PNG ได้เลย"
+      ? "Orbit the camera and save this pose as a PNG."
       : model?.clip === "run"
-        ? "สีหน้าตอนวิ่งตามแอนิเมชันของตัวละครที่เลือก"
-        : "แอนิเมชันและความเร็วปรับแยกแต่ละตัวละคร";
+        ? "The selected model supplies the running expression."
+        : "Each model has its own animation and playback speed.";
   updateTransport();
 }
 function updateTransport() {
@@ -546,7 +516,7 @@ function updateTransport() {
   $("play").textContent = model?.playing ? "Ⅱ" : "▶";
   $("play").setAttribute(
     "aria-label",
-    model?.playing ? "หยุดแอนิเมชัน" : "เล่นแอนิเมชัน",
+    model?.playing ? "Pause animation" : "Play animation",
   );
   $("timeline").value = model?.elapsed || 0;
   $("time").textContent = (model?.elapsed || 0).toFixed(2);
@@ -554,7 +524,7 @@ function updateTransport() {
 function selectClip(name) {
   const model = selected();
   if (!model?.character.animations[name]) return;
-  Object.assign(model, { clip: name, elapsed: 0, playing: !isPhotoPose(name) });
+  Object.assign(model, { clip: name, elapsed: 0, layerTime: 0, playing: !isPhotoPose(name) });
   updatePose(model);
   if (gallery()) setLayout(1);
   currentViews()
@@ -562,10 +532,10 @@ function selectClip(name) {
     .forEach(fit);
   refreshInspector();
 }
-async function bundledData() {
+async function bundledData(bundle = "assets") {
   const json = async (file) => {
-    const response = await fetch(`assets/${file}`, { cache: "no-store" });
-    if (!response.ok) throw Error("โหลด " + file + " ไม่สำเร็จ");
+    const response = await fetch(`${bundle}/${file}`, { cache: "no-store" });
+    if (!response.ok) throw Error(`Could not load ${bundle}/${file}`);
     return response.json();
   };
   const [geometry, animations, info] = await Promise.all([
@@ -577,7 +547,8 @@ async function bundledData() {
     geometry,
     animations,
     info,
-    texture: "assets/texture.png?v=" + Date.now(),
+    bundle,
+    texture: bundle + "/texture.png?v=" + Date.now(),
   };
 }
 $("layout").onchange = (event) => {
@@ -618,11 +589,11 @@ $("play").onclick = () => {
 $("timeline").oninput = (event) => {
   const model = selected();
   if (model) {
-    model.elapsed = Number(event.target.value);
+    model.elapsed = model.layerTime = Number(event.target.value);
     model.playing = false;
     if (gallery())
       for (const view of poseViews)
-        view.elapsed =
+        view.elapsed = view.layerTime =
           (model.elapsed / transportDuration()) * durationOf(model, view.clip);
     updateTransport();
   }
@@ -648,6 +619,7 @@ $("sync-motion").onclick = () => {
       for (const property of [
         "clip",
         "elapsed",
+        "layerTime",
         "playing",
         "rate",
         "loop",
@@ -656,7 +628,7 @@ $("sync-motion").onclick = () => {
         model[property] = source[property];
       count++;
     }
-  toast(`ใช้ท่ากับ ${count} ตัวละครแล้ว`);
+  toast(`Applied the pose to ${count} models`);
 };
 $("material").onchange = (event) =>
   models.forEach((m) => m.character.setMaterial(event.target.value));
@@ -687,10 +659,14 @@ $("capture").onclick = () => {
   link.href = renderer.domElement.toDataURL("image/png");
   link.click();
   render();
-  toast("บันทึกภาพช่องที่มองเห็นเป็น PNG แล้ว");
+  toast("Saved visible views as a PNG");
 };
 $("add-bundled").onclick = () =>
   operation(async () => addModels([await bundledData()]));
+$("add-white").onclick = () =>
+  operation(async () => addModels([await bundledData("assets/white")]));
+$("add-aunt").onclick = () =>
+  operation(async () => addModels([await bundledData("assets/aunt")]));
 $("duplicate-model").onclick = () =>
   operation(async () => {
     const model = selected();
@@ -710,7 +686,7 @@ $("reload").onclick = () =>
             model.data.source.manifest,
           )
         )[0]
-      : await bundledData();
+      : await bundledData(model.data.bundle);
     const replacement = await characterFrom(data);
     dispose(model);
     model.character = replacement;
@@ -721,7 +697,7 @@ $("reload").onclick = () =>
     scene.add(replacement.root);
     updatePose(model);
     arrange();
-    toast("โหลดตัวละครที่เลือกใหม่แล้ว");
+    toast("Reloaded the selected model");
   });
 $("open-model").onclick = () => $("model-files").click();
 $("model-files").onchange = (event) => {
@@ -731,7 +707,7 @@ $("model-files").onchange = (event) => {
     operation(async () => {
       const data = await readModelFolders(files);
       await addModels(data);
-      toast(`เพิ่ม ${data.length} ตัวละครแล้ว · ไฟล์อยู่ในเบราว์เซอร์`);
+      toast(`Imported ${data.length} models from local files`);
     });
 };
 function render(capture = false) {
@@ -771,6 +747,7 @@ function render(capture = false) {
       if (view.clip)
         selected()?.character.update(view.clip, view.elapsed, {
           blink: selected().blink,
+          layerTime: view.layerTime,
         });
       renderer.render(scene, view.camera);
     }
@@ -785,9 +762,15 @@ function frame(now) {
   last = now;
   if (gallery() && selected())
     for (const view of poseViews) {
-      const clock = { ...selected(), clip: view.clip, elapsed: view.elapsed };
+      const clock = {
+        ...selected(),
+        clip: view.clip,
+        elapsed: view.elapsed,
+        layerTime: view.layerTime,
+      };
       advance(clock, dt);
       view.elapsed = clock.elapsed;
+      view.layerTime = clock.layerTime;
     }
   for (const model of models) {
     advance(

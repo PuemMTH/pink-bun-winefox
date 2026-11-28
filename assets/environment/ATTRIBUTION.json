@@ -1,0 +1,36 @@
+[
+  {
+    "asset": "evening_road_01_puresky",
+    "name": "Evening Road 01 (Pure Sky)",
+    "source": "https://polyhaven.com/a/evening_road_01_puresky",
+    "api": "https://api.polyhaven.com/files/evening_road_01_puresky",
+    "authors": {
+      "Jarod Guest": "Sky Edits",
+      "Sergej Majboroda": "Original"
+    },
+    "license": "CC0",
+    "license_url": "https://polyhaven.com/license",
+    "file": "evening_road_01_puresky_4k.hdr",
+    "download_url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/evening_road_01_puresky_4k.hdr",
+    "bytes": 18692813,
+    "md5": "3461499a68e8fe03ec42592f4bc2d5ef",
+    "sha256": "13619d89635fc0bcce3ad41cc5b62350e328551a5370da34f570a36dd9e6e4a0"
+  },
+  {
+    "asset": "the_sky_is_on_fire",
+    "name": "The Sky Is On Fire",
+    "source": "https://polyhaven.com/a/the_sky_is_on_fire",
+    "api": "https://api.polyhaven.com/files/the_sky_is_on_fire",
+    "authors": {
+      "Greg Zaal": "All",
+      "Rico Cilliers": "Backplates"
+    },
+    "license": "CC0",
+    "license_url": "https://polyhaven.com/license",
+    "file": "the_sky_is_on_fire_4k.hdr",
+    "download_url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/the_sky_is_on_fire_4k.hdr",
+    "bytes": 23779584,
+    "md5": "4ddb5ea0a4fb336ee55acc78e13a0fb4",
+    "sha256": "b2f8feb373c894ff8f3c40a0edbf0356ef63bea9ee35d68a7684e34a6960f990"
+  }
+]

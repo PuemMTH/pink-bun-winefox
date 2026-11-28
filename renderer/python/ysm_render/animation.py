@@ -255,6 +255,7 @@ def pose_for(
         "pre_parallel1",
         *(["pre_parallel3"] if blink else []),
         clip,
+        "parallel0",
     ]:
         animation = animations.get(name)
         if not animation:

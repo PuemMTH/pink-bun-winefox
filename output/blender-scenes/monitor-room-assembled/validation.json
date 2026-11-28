@@ -1,0 +1,149 @@
+{
+  "status": "passed",
+  "renderer": "Cycles / OptiX",
+  "rigs": 2,
+  "rig_dimensions": {
+    "At desk - Character root": [
+      0.7560000419616699,
+      0.7560000419616699,
+      0.7560000419616699
+    ],
+    "On floor - Character root": [
+      0.6229999661445618,
+      0.6229999661445618,
+      0.6229999661445618
+    ]
+  },
+  "pose_preserves_scale": true,
+  "actions": 96,
+  "floor_contacts": {
+    "left_thigh": 0.013999998569488525,
+    "right_thigh": 0.013999998569488525,
+    "left_foot": 0.014003515243530273,
+    "right_foot": 0.013998687267303467
+  },
+  "rug_height": 0.012000000104308128,
+  "screen_count": 10,
+  "floor_monitors": "matching 16:9 panels, individual stands",
+  "case_clearance_y": 1.076070649549365,
+  "keyboard_count": 2,
+  "phone_count": 1,
+  "packed_file_images": 34,
+  "cameras": 4,
+  "rug": {
+    "width": 4.06,
+    "depth": 2.82,
+    "top_z": 0.012,
+    "supports_reader": true,
+    "supported_chair_wheels": 10
+  },
+  "reader_view": {
+    "panels_facing_reader": 2,
+    "gap_degrees_between_bezels": 3.01
+  },
+  "devices": "NVIDIA GeForce RTX 5070",
+  "assembly_item_count": 41,
+  "assembled": {
+    "room": {
+      "woven-rug": 1,
+      "wood-floor": 191,
+      "brick-wall": 254,
+      "acoustic-panels": 16,
+      "window": 10,
+      "blinds": 32,
+      "pine-trees": 1,
+      "distant-houses": 9,
+      "bench": 4,
+      "ysm-characters": 2
+    },
+    "decor": {
+      "bookshelf": {
+        "inserted": 124,
+        "superseded": 60
+      },
+      "books": {
+        "inserted": 1515,
+        "superseded": 1493,
+        "volumes": 101
+      },
+      "ivy": {
+        "inserted": 408,
+        "superseded": 405
+      },
+      "led-strip": {
+        "inserted": 42,
+        "superseded": 6,
+        "fixtures": 6
+      },
+      "bridge-shelf": {
+        "inserted": 6,
+        "superseded": 2
+      },
+      "archive-box": {
+        "inserted": 10,
+        "superseded": 4
+      },
+      "pixel-frame": {
+        "inserted": 41,
+        "superseded": 38
+      },
+      "amber-lantern": {
+        "inserted": 17,
+        "superseded": 9
+      },
+      "pixel-lantern": {
+        "inserted": 81,
+        "superseded": 17
+      },
+      "creeper-head": {
+        "inserted": 4,
+        "superseded": 4
+      },
+      "armillary": {
+        "inserted": 57,
+        "superseded": 7
+      },
+      "potted-plant": {
+        "inserted": 38,
+        "superseded": 5
+      }
+    },
+    "computer": {
+      "installed_from_items": {
+        "pc-case": 12,
+        "graphics-card": 57,
+        "motherboard": 80,
+        "rgb-ram": 72,
+        "cooling-pump": 52,
+        "braided-power-cables": 18,
+        "rgb-fans": 114,
+        "walnut-desk": 48,
+        "rolling-chair": 3
+      },
+      "retained_named_shells": [
+        "PC case shell, glass, visible RTX label, chassis, RGB emitters and harness routes",
+        "desk worktop and trim",
+        "chair seat and casters"
+      ],
+      "replaced_scene_parts": {
+        "fan_parts": 63,
+        "drawer_parts": 13
+      }
+    },
+    "peripherals": {
+      "replacement_parts": {
+        "minecraft-monitors": 200,
+        "code-monitors": 50,
+        "monitor-stands": 22,
+        "keyboard-mouse-mats": 356,
+        "keyboards": 544,
+        "usb-cable": 27,
+        "mouse": 45,
+        "headphones": 20,
+        "beverage-can": 8,
+        "phone": 30
+      },
+      "mounted_display_shaders": "original 10 panels retained"
+    }
+  }
+}

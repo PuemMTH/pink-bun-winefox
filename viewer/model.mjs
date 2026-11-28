@@ -97,7 +97,7 @@ export function cubeGeometry(cube, description, bonePivot) {
 export function createCharacter(geometryFile, texture, animationFile) {
   const geometry = geometryFile["minecraft:geometry"]?.[0];
   if (!geometry?.bones)
-    throw Error("ไฟล์โมเดลต้องเป็น Bedrock geometry ที่มี bones");
+    throw Error("Expected a Bedrock geometry file with bones");
   const root = new THREE.Group(),
     bones = new Map(),
     meshes = [];
@@ -115,6 +115,8 @@ export function createCharacter(geometryFile, texture, animationFile) {
     color: 0xffb6d7,
     wireframe: true,
   });
+  const defaultMaterial = (name) =>
+    name.startsWith("ysmGlow") ? flat : material;
   for (const source of geometry.bones) {
     const group = new THREE.Group();
     group.name = source.name;
@@ -138,7 +140,7 @@ export function createCharacter(geometryFile, texture, animationFile) {
     for (const cube of bone.source.cubes || []) {
       if (!cube.origin || !cube.size || !cube.uv) continue;
       const shape = cubeGeometry(cube, geometry.description, bone.pivot);
-      const mesh = new THREE.Mesh(shape, material);
+      const mesh = new THREE.Mesh(shape, defaultMaterial(bone.source.name));
       mesh.name = bone.source.name;
       mesh.castShadow = true;
       mesh.receiveShadow = false;
@@ -179,7 +181,11 @@ export function createCharacter(geometryFile, texture, animationFile) {
     setMaterial(mode) {
       for (const mesh of meshes)
         mesh.material =
-          mode === "wire" ? wire : mode === "flat" ? flat : material;
+          mode === "wire"
+            ? wire
+            : mode === "flat"
+              ? flat
+              : defaultMaterial(mesh.name);
     },
     setWireColor(color) {
       wire.color.set(color);

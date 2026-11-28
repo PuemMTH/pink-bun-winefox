@@ -1,35 +1,47 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const root = path.resolve(__dirname, "..");
-const model = path.join(root, "dist/pink_bun_winefox");
 const output = path.join(root, "dist/viewer");
-if (!fs.existsSync(path.join(model, "ysm.json")))
-  throw Error("Run npm run build first.");
 fs.mkdirSync(output, { recursive: true });
 fs.cpSync(path.join(root, "viewer"), output, { recursive: true });
 const assets = path.join(output, "assets");
-fs.mkdirSync(assets, { recursive: true });
-for (const [source, destination] of [
-  ["models/main.json", "model.json"],
-  ["animations/main.animation.json", "animations.json"],
-  ["ysm.json", "info.json"],
-])
-  fs.writeFileSync(
-    path.join(assets, destination),
-    JSON.stringify(
-      JSON.parse(fs.readFileSync(path.join(model, source), "utf8")),
-    ),
+for (const [folder, destination, preview] of [
+  ["pink_bun_winefox_square_eyes", assets, "preview.png"],
+  ["pink_bun_winefox_white_square_eyes", path.join(assets, "white"), "preview-white.png"],
+  ["satou_aunt", path.join(assets, "aunt")],
+]) {
+  const model = path.join(root, "dist", folder);
+  if (!fs.existsSync(path.join(model, "ysm.json")))
+    throw Error("Run npm run build first.");
+  fs.mkdirSync(destination, { recursive: true });
+  const read = (file) =>
+    JSON.parse(fs.readFileSync(path.join(model, file), "utf8"));
+  const write = (file, data) =>
+    fs.writeFileSync(path.join(destination, file), JSON.stringify(data));
+  const info = read("ysm.json");
+  const player = info.files.player;
+  write("info.json", info);
+  write("model.json", read(player.model.main));
+  write("animations.json", {
+    animations: {
+      ...read(player.animation.main).animations,
+      ...read(player.animation.extra).animations,
+    },
+  });
+  const choice = player.texture[0];
+  fs.copyFileSync(
+    path.join(model, typeof choice === "string" ? choice : choice.uv),
+    path.join(destination, "texture.png"),
   );
-fs.copyFileSync(
-  path.join(model, "textures/pink_bun.png"),
-  path.join(assets, "texture.png"),
-);
-fs.copyFileSync(
-  path.join(root, "docs/preview.png"),
-  path.join(assets, "preview.png"),
-);
-fs.copyFileSync(
-  path.join(root, "ATTRIBUTION.md"),
-  path.join(assets, "ATTRIBUTION.md"),
-);
+  if (preview) {
+    fs.copyFileSync(
+      path.join(root, "docs", preview),
+      path.join(destination, "preview.png"),
+    );
+  }
+  fs.copyFileSync(
+    path.join(model, "ATTRIBUTION.md"),
+    path.join(destination, "ATTRIBUTION.md"),
+  );
+}
 console.log(`Viewer built: ${output}`);

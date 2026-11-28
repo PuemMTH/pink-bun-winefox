@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "editable_objects": 3469,
+  "cameras": 3,
+  "actions": 96,
+  "screen_count": 10,
+  "unique_screen_images": 10,
+  "floor_displays": "two 16:9 monitors on separate stands",
+  "case_clearance_y": 0.0399,
+  "keyboard_count": 2,
+  "floor_contacts": {
+    "thighs": 0.014000117778778076,
+    "left_foot": 0.014002025127410889,
+    "right_foot": 0.014002025127410889
+  },
+  "packed_file_images": 22,
+  "engine": "Cycles / OptiX"
+}

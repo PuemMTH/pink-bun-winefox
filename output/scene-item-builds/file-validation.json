@@ -1,0 +1,207 @@
+[
+  {
+    "id": "acoustic-panels",
+    "objects": 26,
+    "cameras": 6
+  },
+  {
+    "id": "amber-lantern",
+    "objects": 27,
+    "cameras": 6
+  },
+  {
+    "id": "archive-box",
+    "objects": 20,
+    "cameras": 6
+  },
+  {
+    "id": "armillary",
+    "objects": 67,
+    "cameras": 6
+  },
+  {
+    "id": "bench",
+    "objects": 14,
+    "cameras": 6
+  },
+  {
+    "id": "beverage-can",
+    "objects": 18,
+    "cameras": 6
+  },
+  {
+    "id": "blinds",
+    "objects": 42,
+    "cameras": 6
+  },
+  {
+    "id": "books",
+    "objects": 1525,
+    "cameras": 6
+  },
+  {
+    "id": "bookshelf",
+    "objects": 388,
+    "cameras": 6
+  },
+  {
+    "id": "braided-power-cables",
+    "objects": 55,
+    "cameras": 6
+  },
+  {
+    "id": "brick-wall",
+    "objects": 264,
+    "cameras": 6
+  },
+  {
+    "id": "bridge-shelf",
+    "objects": 16,
+    "cameras": 6
+  },
+  {
+    "id": "code-monitors",
+    "objects": 64,
+    "cameras": 6
+  },
+  {
+    "id": "cooling-pump",
+    "objects": 77,
+    "cameras": 6
+  },
+  {
+    "id": "creeper-head",
+    "objects": 14,
+    "cameras": 6
+  },
+  {
+    "id": "distant-houses",
+    "objects": 19,
+    "cameras": 6
+  },
+  {
+    "id": "graphics-card",
+    "objects": 110,
+    "cameras": 6
+  },
+  {
+    "id": "headphones",
+    "objects": 30,
+    "cameras": 6
+  },
+  {
+    "id": "ivy",
+    "objects": 418,
+    "cameras": 6
+  },
+  {
+    "id": "keyboard-mouse-mats",
+    "objects": 366,
+    "cameras": 6
+  },
+  {
+    "id": "keyboards",
+    "objects": 554,
+    "cameras": 6
+  },
+  {
+    "id": "led-strip",
+    "objects": 52,
+    "cameras": 6
+  },
+  {
+    "id": "minecraft-monitors",
+    "objects": 218,
+    "cameras": 6
+  },
+  {
+    "id": "monitor-stands",
+    "objects": 88,
+    "cameras": 6
+  },
+  {
+    "id": "motherboard",
+    "objects": 103,
+    "cameras": 6
+  },
+  {
+    "id": "mouse",
+    "objects": 55,
+    "cameras": 6
+  },
+  {
+    "id": "pc-case",
+    "objects": 254,
+    "cameras": 6
+  },
+  {
+    "id": "phone",
+    "objects": 40,
+    "cameras": 6
+  },
+  {
+    "id": "pine-trees",
+    "objects": 11,
+    "cameras": 6
+  },
+  {
+    "id": "pixel-frame",
+    "objects": 51,
+    "cameras": 6
+  },
+  {
+    "id": "pixel-lantern",
+    "objects": 91,
+    "cameras": 6
+  },
+  {
+    "id": "potted-plant",
+    "objects": 48,
+    "cameras": 6
+  },
+  {
+    "id": "rgb-fans",
+    "objects": 124,
+    "cameras": 6
+  },
+  {
+    "id": "rgb-ram",
+    "objects": 118,
+    "cameras": 6
+  },
+  {
+    "id": "rolling-chair",
+    "objects": 65,
+    "cameras": 6
+  },
+  {
+    "id": "usb-cable",
+    "objects": 29,
+    "cameras": 6
+  },
+  {
+    "id": "walnut-desk",
+    "objects": 64,
+    "cameras": 6
+  },
+  {
+    "id": "window",
+    "objects": 20,
+    "cameras": 6
+  },
+  {
+    "id": "wood-floor",
+    "objects": 201,
+    "cameras": 6
+  },
+  {
+    "id": "woven-rug",
+    "objects": 11,
+    "cameras": 6
+  },
+  {
+    "id": "ysm-characters",
+    "objects": 18,
+    "cameras": 6
+  }
+]

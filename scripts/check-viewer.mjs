@@ -128,8 +128,8 @@ assert.deepEqual(poseClips({ run: {}, custom_pose: {}, parallel: {} }), [
   "run",
   "custom_pose",
 ]);
-assert.equal(character.stats.cubes, 292);
-assert.equal(character.stats.triangles, 3504);
+assert.equal(character.stats.cubes, 299);
+assert.equal(character.stats.triangles, 3508);
 character.update("run", 0.2);
 assert.equal(character.bones.get("CustomRunIrisLeft").group.scale.x, 1);
 assert.equal(character.bones.get("LeftEyelidBase").group.scale.x, 0);
@@ -143,6 +143,12 @@ const mid = poseFor(animations.animations, "walk", 0.5, { blink: false }).get(
   "LeftLeg",
 ).rotation;
 assert.notDeepEqual(start, mid, "Walking must change the actual leg pose");
+// Exactly zero vertical speed must keep the elbow bent at the jump apex.
+const apex = poseFor(animations.animations, "jump", 0.4, {
+  variables: { "query.vertical_speed": 0 },
+});
+for (const side of ["Left", "Right"])
+  close(apex.get(side + "ForeArm").rotation[0], -80);
 character.dispose();
 // Two folders may have identical relative file names: never mix their assets.
 const manifest = {
@@ -229,8 +235,104 @@ actors[0].visible = false;
 assert.equal(shownIn(actors[0], "0"), false);
 actors[0].character.dispose();
 actors[1].character.update("walk", 0.5); // Disposing one actor cannot invalidate another.
-assert.equal(actors[1].character.stats.cubes, 292);
+assert.equal(actors[1].character.stats.cubes, 299);
 actors[1].character.dispose();
+
+// Check the actual YSM wheel clips for both outfits, including face reset.
+for (const name of ["pink_bun_winefox", "pink_bun_winefox_white"]) {
+  const read = (file) =>
+    JSON.parse(fs.readFileSync(path.join(root, "dist", name, file)));
+  const info = read("ysm.json");
+  const player = info.files.player;
+  const extra = read(player.animation.extra).animations;
+  const actor = createCharacter(read(player.model.main), new THREE.Texture(), {
+    animations: { ...read(player.animation.main).animations, ...extra },
+  });
+  const faces = Object.keys(extra).filter((id) => id.startsWith("face_"));
+  assert.equal(faces.length, 8);
+  assert.equal(photoClips(extra).length, 6);
+  for (const [i, id] of faces.entries()) {
+    const names = faces.map((_, index) => `CustomExpression${index}`);
+    const rest = names.map((bone) => actor.bones.get(bone).bindPosition.z);
+    actor.update(id, 0.2);
+    assert.equal(actor.bones.get("Eyes").group.scale.x, 0);
+    for (const [index, bone] of names.entries())
+      close(
+        actor.bones.get(bone).group.position.z,
+        rest[index] - (i === index ? 0.42 / 16 : 0),
+      );
+    actor.update("idle", 0.2);
+    assert.equal(actor.bones.get("Eyes").group.scale.x, 1);
+    close(actor.bones.get(names[i]).group.position.z, rest[i]);
+  }
+  if (name.endsWith("_white")) {
+    const meshFor = (boneName) =>
+      actor.bones.get(boneName).group.children.find((child) => child.isMesh);
+    const chest = meshFor("jk");
+    chest.geometry.computeBoundingBox();
+    for (const [clip, time, arms] of [
+      ["extra7", 4.8917, ["LeftForeArm"]],
+      ["studio_photo_shy", 0, ["LeftForeArm", "RightForeArm"]],
+    ]) {
+      actor.update(clip, time, { blink: false });
+      for (const bone of arms) {
+        const sleeve = meshFor(bone);
+        sleeve.geometry.computeBoundingBox();
+        const center = sleeve.geometry.boundingBox.getCenter(
+          new THREE.Vector3(),
+        );
+        chest.worldToLocal(sleeve.localToWorld(center));
+        assert(
+          !chest.geometry.boundingBox.containsPoint(center),
+          `${clip} at ${time}s: ${bone} center penetrates the shirt`,
+        );
+      }
+    }
+  }
+  actor.dispose();
+}
+// Test the bundles that the Studio actually opens against the active game builds.
+for (const [folder, preset] of [
+  ["pink_bun_winefox_square_eyes", ""],
+  ["pink_bun_winefox_white_square_eyes", "white"],
+  ["satou_aunt", "aunt"],
+]) {
+  const dist = path.join(root, "dist");
+  const read = (directory, file) =>
+    JSON.parse(fs.readFileSync(path.join(directory, file), "utf8"));
+  const model = path.join(dist, folder);
+  const studio = path.join(dist, "viewer/assets", preset);
+  const info = read(model, "ysm.json");
+  const player = info.files.player;
+  const main = read(model, player.animation.main).animations;
+  assert.deepEqual(read(studio, "info.json"), info);
+  assert.deepEqual(read(studio, "model.json"), read(model, player.model.main));
+  assert.deepEqual(read(studio, "animations.json").animations, {
+    ...main,
+    ...read(model, player.animation.extra).animations,
+  });
+  const texture = typeof player.texture[0] === "string"
+    ? player.texture[0] : player.texture[0].uv;
+  assert.deepEqual(
+    fs.readFileSync(path.join(studio, "texture.png")),
+    fs.readFileSync(path.join(model, texture)),
+  );
+
+  const clip = "fly";
+  const duration = main[clip].animation_length;
+  const state = { clip, elapsed: duration - 0.0001, rate: 1, loop: true, playing: true };
+  const rotation = (clock) =>
+    poseFor(main, clip, clock.elapsed, { layerTime: clock.layerTime })
+      .get(preset === "aunt" ? "bone34" : "Bangs").rotation;
+  const before = rotation(state);
+  advance(state, 0.0002, duration);
+  assert(rotation(state).every((axis, index) => Math.abs(axis - before[index]) < 0.02),
+    `Auxiliary animation jumps at the Creative loop boundary in ${folder}`);
+  if (preset === "aunt") {
+    assert.equal(poseFor(main, "walk", 0.1).get("LeftEyelid").scale[1], 0);
+    assert.equal(poseFor(main, "walk", 0.1, { blink: false }).get("LeftEyelid").scale[1], 1);
+  }
+}
 console.log(
-  "Viewer checks passed: Molang, keyframes, geometry/UVs, multi-folder import, independent actors, six static photo poses, rig compatibility and sprint face reset.",
+  "Viewer checks passed: active model bundles, continuous auxiliary animation, blink toggle, Molang, keyframes, geometry/UVs, multi-folder import, independent actors, six static photo poses, rig compatibility and sprint face reset.",
 );

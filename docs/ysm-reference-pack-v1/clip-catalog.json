@@ -1,0 +1,385 @@
+{
+  "model": "Satou Matsuzaka",
+  "extraLabels": {
+    "extra0": "换头饰",
+    "extra1": "打招呼",
+    "extra2": "鼓掌",
+    "extra3": "是的",
+    "extra4": "不行",
+    "extra5": "卖萌",
+    "extra6": "御笔摇",
+    "extra7": "舞蹈"
+  },
+  "groups": {
+    "main": [
+      {
+        "id": "hover_fadeout",
+        "duration": 10,
+        "loop": false
+      },
+      {
+        "id": "hover",
+        "duration": 100,
+        "loop": true
+      },
+      {
+        "id": "focus",
+        "duration": 100,
+        "loop": true
+      },
+      {
+        "id": "idle",
+        "duration": 30,
+        "loop": true
+      },
+      {
+        "id": "walk",
+        "duration": 1,
+        "loop": true
+      },
+      {
+        "id": "run",
+        "duration": 0.6667,
+        "loop": true
+      },
+      {
+        "id": "death",
+        "duration": 1,
+        "loop": "hold_on_last_frame"
+      },
+      {
+        "id": "jump",
+        "duration": 0.75,
+        "loop": true
+      },
+      {
+        "id": "fly",
+        "duration": 0.7556,
+        "loop": true
+      },
+      {
+        "id": "elytra_fly",
+        "duration": 0.5,
+        "loop": true
+      },
+      {
+        "id": "attacked",
+        "duration": 0.5,
+        "loop": false
+      },
+      {
+        "id": "sneak",
+        "duration": 3,
+        "loop": true
+      },
+      {
+        "id": "sneaking",
+        "duration": null,
+        "loop": true
+      },
+      {
+        "id": "swim",
+        "duration": 1.3333,
+        "loop": true
+      },
+      {
+        "id": "swim_stand",
+        "duration": 1.3333,
+        "loop": true
+      },
+      {
+        "id": "sit",
+        "duration": null,
+        "loop": true
+      },
+      {
+        "id": "ride",
+        "duration": 0.375,
+        "loop": false
+      },
+      {
+        "id": "ride_pig",
+        "duration": 0.375,
+        "loop": false
+      },
+      {
+        "id": "sleep",
+        "duration": 0.375,
+        "loop": false
+      },
+      {
+        "id": "boat",
+        "duration": null,
+        "loop": true
+      },
+      {
+        "id": "climb",
+        "duration": 1,
+        "loop": true
+      },
+      {
+        "id": "climbing",
+        "duration": null,
+        "loop": true
+      },
+      {
+        "id": "use_mainhand",
+        "duration": 0.375,
+        "loop": false
+      },
+      {
+        "id": "use_offhand",
+        "duration": 0.375,
+        "loop": false
+      },
+      {
+        "id": "swing_hand",
+        "duration": 0.375,
+        "loop": false
+      }
+    ],
+    "extra": [
+      {
+        "id": "extra1",
+        "duration": 1.5,
+        "loop": "hold_on_last_frame"
+      },
+      {
+        "id": "extra2",
+        "duration": 1.5,
+        "loop": "hold_on_last_frame"
+      },
+      {
+        "id": "extra3",
+        "duration": 1.5,
+        "loop": "hold_on_last_frame"
+      },
+      {
+        "id": "extra4",
+        "duration": 1.5,
+        "loop": "hold_on_last_frame"
+      },
+      {
+        "id": "extra5",
+        "duration": 0.5,
+        "loop": true
+      },
+      {
+        "id": "extra6",
+        "duration": 0.66667,
+        "loop": true
+      },
+      {
+        "id": "extra7",
+        "duration": 7.5,
+        "loop": true
+      },
+      {
+        "id": "extra0",
+        "duration": 3,
+        "loop": false
+      }
+    ],
+    "tac": [
+      {
+        "id": "tac:idle",
+        "duration": 0.0417,
+        "loop": "hold_on_last_frame"
+      },
+      {
+        "id": "tac:walk",
+        "duration": 1,
+        "loop": true
+      },
+      {
+        "id": "tac:run",
+        "duration": 0.6667,
+        "loop": true
+      },
+      {
+        "id": "tac:sneaking",
+        "duration": 0.0417,
+        "loop": true
+      },
+      {
+        "id": "tac:fly",
+        "duration": 0.75,
+        "loop": true
+      },
+      {
+        "id": "tac:hold:rifle",
+        "duration": null,
+        "loop": true
+      },
+      {
+        "id": "tac:hold:fire:rifle",
+        "duration": 0.0833,
+        "loop": false
+      },
+      {
+        "id": "tac:aim:rifle",
+        "duration": null,
+        "loop": true
+      },
+      {
+        "id": "tac:aim:fire:rifle",
+        "duration": 0.1667,
+        "loop": "hold_on_last_frame"
+      },
+      {
+        "id": "tac:reload:rifle",
+        "duration": 1.75,
+        "loop": false
+      },
+      {
+        "id": "tac:run:rifle",
+        "duration": 0.6667,
+        "loop": true
+      },
+      {
+        "id": "tac:climb:rifle",
+        "duration": 1,
+        "loop": true
+      },
+      {
+        "id": "tac:climbing:rifle",
+        "duration": null,
+        "loop": true
+      },
+      {
+        "id": "tac:climbing:fire:rifle",
+        "duration": 0.1667,
+        "loop": true
+      },
+      {
+        "id": "tac:hold:pistol",
+        "duration": null,
+        "loop": true
+      },
+      {
+        "id": "tac:aim:pistol",
+        "duration": null,
+        "loop": true
+      },
+      {
+        "id": "tac:reload:pistol",
+        "duration": 1.7083,
+        "loop": "hold_on_last_frame"
+      },
+      {
+        "id": "tac:run:pistol",
+        "duration": 0.6667,
+        "loop": true
+      },
+      {
+        "id": "tac:climb:pistol",
+        "duration": 1,
+        "loop": true
+      },
+      {
+        "id": "tac:climbing:pistol",
+        "duration": 0.0417,
+        "loop": true
+      },
+      {
+        "id": "tac:hold:fire:pistol",
+        "duration": 0.1667,
+        "loop": false
+      },
+      {
+        "id": "tac:aim:fire:pistol",
+        "duration": 0.1667,
+        "loop": "hold_on_last_frame"
+      },
+      {
+        "id": "tac:climbing:fire:pistol",
+        "duration": 0.1667,
+        "loop": true
+      },
+      {
+        "id": "tac:hold:rpg",
+        "duration": 0.375,
+        "loop": false
+      },
+      {
+        "id": "tac:aim:rpg",
+        "duration": 0.375,
+        "loop": false
+      },
+      {
+        "id": "tac:reload:rpg",
+        "duration": 3.0417,
+        "loop": "hold_on_last_frame"
+      },
+      {
+        "id": "tac:run:rpg",
+        "duration": 0.6667,
+        "loop": true
+      },
+      {
+        "id": "tac:climb:rpg",
+        "duration": 1,
+        "loop": true
+      },
+      {
+        "id": "tac:climbing:rpg",
+        "duration": 0.0417,
+        "loop": true
+      },
+      {
+        "id": "tac:hold:fire:rpg",
+        "duration": 0.2083,
+        "loop": false
+      },
+      {
+        "id": "tac:aim:fire:rpg",
+        "duration": 0.2083,
+        "loop": false
+      },
+      {
+        "id": "tac:climbing:fire:rpg",
+        "duration": 0.2083,
+        "loop": true
+      },
+      {
+        "id": "tac:mainhand:grenade",
+        "duration": 60,
+        "loop": "hold_on_last_frame"
+      },
+      {
+        "id": "tac:offhand:grenade",
+        "duration": 60,
+        "loop": "hold_on_last_frame"
+      }
+    ],
+    "carryon": [
+      {
+        "id": "carryon:block",
+        "duration": null,
+        "loop": true
+      },
+      {
+        "id": "carryon:entity",
+        "duration": null,
+        "loop": true
+      },
+      {
+        "id": "carryon:player",
+        "duration": null,
+        "loop": true
+      },
+      {
+        "id": "carryon:princess",
+        "duration": null,
+        "loop": true
+      }
+    ],
+    "tlm": [
+      {
+        "id": "keyboard",
+        "duration": 65.8333,
+        "loop": true
+      }
+    ]
+  }
+}
